@@ -269,8 +269,8 @@ export default function Hero() {
     const ctx = currentIndex - index
 
     const toDeg = (ctx < 0) ? (fromDegree + ctx * 45 + 360) : (fromDegree + ctx * 45)
-
-    setFromDegree(toDeg);
+    setToDegree(toDeg)
+    setFromDegree(toDeg)
     
     console.log("currentIndex", currentIndex)
     console.log("index", index)

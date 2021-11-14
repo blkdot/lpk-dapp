@@ -1,0 +1,16 @@
+{
+  "name": "LPK Token",
+  "tags": {},
+  "logoURI": "https://bscscan.com/token/images/lpkkriptonbsc_32.png",
+  "keywords": ["lpk", "default"],
+  "tokens": 
+    {
+      "name": "Kripton",
+      "symbol": "LPK",
+      "address": "0x9b71b5511998e0798625b8fa74e86d8192de78c1",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/lpkkriptonbsc_32.png"
+    }
+}
+

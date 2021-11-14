@@ -1,0 +1,51 @@
+[
+  {    
+    "id": 2,
+    "name": "dodo",
+    "symbol": "DoDo Swap",
+    "icon": "./assets/images/swap/dodo.png"
+  },
+  {    
+    "id": 3,
+    "name": "lpesa",
+    "symbol": "L-Pesa Swap",
+    "icon": "./assets/images/swap/lpesa.png"
+  },
+  {    
+    "id": 4,
+    "name": "biswap",
+    "symbol": "Biswap",
+    "icon": "./assets/images/swap/biswap.png"
+  },
+  
+  {    
+    "id": 5,
+    "name": "1inch",
+    "symbol": "1inch Swap",
+    "icon": "./assets/images/swap/1inch.png"
+  },
+  {    
+    "id": 6,
+    "name": "quickswap",
+    "symbol": "Quick Swap",
+    "icon": "./assets/images/swap/quickswap.png"
+  },
+  {    
+    "id": 7,
+    "name": "sushi",
+    "symbol": "Sushi Swap",
+    "icon": "./assets/images/swap/sushi.png"
+  },
+  {    
+    "id": 0,
+    "name": "pancake",
+    "symbol": "Pancake Swap",
+    "icon": "./assets/images/swap/pancake.png"
+  },
+  {
+    "id": 1,
+    "name": "uniswap",
+    "symbol": "Uniswap",
+    "icon": "./assets/images/swap/uniswap.png"
+  }
+]

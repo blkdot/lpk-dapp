@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ButtonMenu, ButtonMenuItem, LinkExternal, Flex, Svg, Image, Button } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import Logo from '../assets/images/lpk_logo.png'
 
@@ -13,12 +12,17 @@ const FooterFrame = styled.div`
   
   background-color: ${({ theme }) => (theme.isDark) ? 'rgb(21, 43, 57)' : 'rgb(21, 43, 57)' };
   color: ${({ theme }) => (theme.isDark) ? 'rgb(21, 43, 57)' : 'rgb(21, 43, 57)' };
-  padding: 3rem 8rem;
   padding-bottom: 0px;
 
-  // ${({ theme }) => theme.mediaQueries.xs} {
-  //   padding: 1rem 2rem;
-  // };
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 2rem 2rem;
+  };
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 2rem 2rem;
+  };
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding: 3rem 8rem;
+  };
 `
 
 const PreFooterWrapper = styled.div`
@@ -28,11 +32,16 @@ const PreFooterWrapper = styled.div`
   justify-content: space-between;
   color: #6C95AF;
   font-size: 15px;
-  flex-direction: row;
 
-  // ${({ theme }) => theme.mediaQueries.xs} {
-  //   flex-direction: column;
-  // }
+  ${({ theme }) => theme.mediaQueries.xs} {
+    flex-direction: column;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex-direction: column;
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    flex-direction: row;
+  }
 `
 const AboutUs = styled.div`
   display: flex;
@@ -42,6 +51,7 @@ const AboutUs = styled.div`
   flex-direction: column;
   h4 {
     color: #ffffff;
+    margin-bottom: 20px;
   }
   span {
     line-height: 24px;
@@ -50,19 +60,34 @@ const AboutUs = styled.div`
 const Platforms = styled.div`
   display: flex;
   width: 100%;
-  align-items: flex-start;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
+
+  ${({ theme }) => theme.mediaQueries.xs} {
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 2rem;
+  };
+  ${({ theme }) => theme.mediaQueries.sm} {
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 2rem;
+  };
+  ${({ theme }) => theme.mediaQueries.lg} {
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  };
 
   div {
     h4 {
       color: #ffffff;
+      margin-bottom: 20px;
+    }
+    a {
+      margin-bottom: 15px;
     }
   }
-  // ${({ theme }) => theme.mediaQueries.xs} {
-  //   align-items: flex-start;
-  // };
+  
 `
 const SiteLink = styled.div`
   display: flex;
@@ -77,16 +102,10 @@ const SiteLink = styled.div`
 `
 const FooterLogo = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: center;
   align-self: center;
-
-  // ${({ theme }) => theme.mediaQueries.xs} {
-  //   img {
-  //     width: 30%
-  //   }
-  // };
+  width: 100%;
 `
 const SocialFooterWrapper = styled.div`
   display: flex;
@@ -108,6 +127,7 @@ const SocialFooter = styled.div`
   justify-content: center;
   h4 {
     color: #ffffff;
+    font-size: 14px;
   }
 
   div {
@@ -121,16 +141,23 @@ const SocialLinkButton = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
   background: #fff;
   border-radius: 5px;
-  margin: 5px;
-  // ${({ theme }) => theme.mediaQueries.xs} {
-  //   width: 32px;
-  //   height: 32px;
-  //   margin: 2px;
-  // };
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+  };
+  ${({ theme }) => theme.mediaQueries.sm} {
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+  };
+  ${({ theme }) => theme.mediaQueries.lg} {
+    width: 48px;
+    height: 48px;
+    margin: 5px;
+  };
 `
 const CopyRight = styled.div`
   padding-top: 1rem;

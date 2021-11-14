@@ -398,7 +398,7 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const [indexActive, setIndexActive] = useState(undefined)
   // Get the token list
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery] = useState<string>('')
 
   const debouncedQuery = useDebounce(searchQuery, 200)
 

@@ -21,6 +21,7 @@ import { wrappedCurrency } from 'utils/wrappedCurrency'
 import { RowFixed } from '../Layout/Row'
 import { AutoColumn, ColumnCenter } from '../Layout/Column'
 import { getBscScanLink } from '../../utils'
+import useTheme from '../../hooks/useTheme'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -107,6 +108,11 @@ function TransactionSubmittedContent({
   )
 }
 
+
+export const StyledWrapper = styled(Wrapper)`
+  background: ${({ theme }) => (theme.isDark) ? '#12344c' : '#EDF4F9'};
+`
+
 export function ConfirmationModalContent({
   bottomContent,
   topContent,
@@ -115,10 +121,10 @@ export function ConfirmationModalContent({
   bottomContent: () => React.ReactNode
 }) {
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Box>{topContent()}</Box>
       <Box>{bottomContent()}</Box>
-    </Wrapper>
+    </StyledWrapper>
   )
 }
 
@@ -161,6 +167,7 @@ const TransactionConfirmationModal: React.FC<InjectedModalProps & ConfirmationMo
   currencyToAdd,
 }) => {
   const { chainId } = useActiveWeb3React()
+  const { theme } = useTheme()
 
   const handleDismiss = useCallback(() => {
     if (customOnDismiss) {
@@ -172,7 +179,7 @@ const TransactionConfirmationModal: React.FC<InjectedModalProps & ConfirmationMo
   if (!chainId) return null
 
   return (
-    <Modal title={title} headerBackground="gradients.cardHeader" onDismiss={handleDismiss}>
+    <Modal title={title} headerBackground={(theme.isDark) ? "#152b39" : "#FAF9FA"} onDismiss={handleDismiss}>
       {attemptingTxn ? (
         <ConfirmationPendingContent pendingText={pendingText} />
       ) : hash ? (

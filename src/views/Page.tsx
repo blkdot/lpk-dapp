@@ -35,7 +35,6 @@ const Wrapper = styled.div`
 `
 const StyledFlex = styled(Flex)`
   display: flex;
-  flex-direction: row;
   align-items: start;
   width: 100%;
   padding: 16px;
@@ -43,6 +42,19 @@ const StyledFlex = styled(Flex)`
   justify-content: space-between;
   max-width: 1440px;
   background: ${({ theme }) => (theme.isDark) ? '#12344c' : 'rgb(247, 248, 250)' }; 
+  ${({ theme }) => theme.mediaQueries.xs} {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    flex-direction: row;
+  }
 `
 
 const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...props }) => {

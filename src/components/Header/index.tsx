@@ -1,18 +1,14 @@
 import React from 'react'
-
 import styled from 'styled-components'
 
 import { useLocation } from 'react-router'
-import { Text, Flex, ThemeSwitcher } from '@pancakeswap/uikit'
-// import { Menu as UikitMenu } from '@pancakeswap/uikit'
-// import { languageList } from 'config/localization/languages'
+import { Flex, ThemeSwitcher } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import config from './config/config'
 import UserMenu from './UserMenu'
 import GlobalSettings from './GlobalSettings'
 import { getActiveMenuItem, getActiveSubMenuItem } from './utils'
-// import { footerLinks } from './config/footerConfig'
 
 
 import Logo from '../../assets/images/lpk_logo.png'
@@ -33,7 +29,6 @@ const RowBetween =styled.div`
   width: 100%;
   padding: 1rem;
 `
-
 const HeaderFrame = styled.div`
   display: flex;
   align-items: center;
@@ -221,14 +216,10 @@ const StyledCoinGeckoLogoButton = styled.img`
 
 
 
-const Header = (props) => {
+const Header = () => {
   const { isDark, toggleTheme } = useTheme()
-  const cakePriceUsd = null
-  const { currentLanguage, setLanguage, t } = useTranslation()
+  const { t } = useTranslation()
   const { pathname } = useLocation()
-
-  const activeMenuItem = getActiveMenuItem({ menuConfig: config(t), pathname })
-  const activeSubMenuItem = getActiveSubMenuItem({ menuItem: activeMenuItem, pathname })
 
   return (
     <>

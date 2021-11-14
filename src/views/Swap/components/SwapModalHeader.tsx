@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import styled from 'styled-components'
 import { Trade, TradeType } from '@pancakeswap/sdk'
 import { Button, Text, ErrorIcon, ArrowDownIcon } from '@pancakeswap/uikit'
 import { Field } from 'state/swap/actions'
@@ -9,6 +10,13 @@ import { CurrencyLogo } from 'components/Logo'
 import { RowBetween, RowFixed } from 'components/Layout/Row'
 import truncateHash from 'utils/truncateHash'
 import { TruncatedText, SwapShowAcceptChanges } from './styleds'
+
+
+
+
+export const StyledAutoColumn = styled(AutoColumn)`
+  background: ${({ theme }) => (theme.isDark) ? '#12344c' : '#EDF4F9'};
+`
 
 export default function SwapModalHeader({
   trade,
@@ -60,10 +68,9 @@ export default function SwapModalHeader({
   const [recipientSentToText, postSentToText] = recipientInfoText.split(truncatedRecipient)
 
   return (
-    <AutoColumn gap="md">
+    <StyledAutoColumn gap="sm">
       <RowBetween align="flex-end">
         <RowFixed gap="0px">
-          <CurrencyLogo currency={trade.inputAmount.currency} size="24px" style={{ marginRight: '12px' }} />
           <TruncatedText
             fontSize="24px"
             color={showAcceptChanges && trade.tradeType === TradeType.EXACT_OUTPUT ? 'primary' : 'text'}
@@ -82,7 +89,6 @@ export default function SwapModalHeader({
       </RowFixed>
       <RowBetween align="flex-end">
         <RowFixed gap="0px">
-          <CurrencyLogo currency={trade.outputAmount.currency} size="24px" style={{ marginRight: '12px' }} />
           <TruncatedText
             fontSize="24px"
             color={
@@ -131,6 +137,6 @@ export default function SwapModalHeader({
           </Text>
         </AutoColumn>
       ) : null}
-    </AutoColumn>
+    </StyledAutoColumn>
   )
 }

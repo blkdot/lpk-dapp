@@ -1,11 +1,11 @@
 import React from 'react'
 import { Currency, Pair } from '@pancakeswap/sdk'
-import { Button, ChevronDownIcon, Text, useModal, Flex } from '@pancakeswap/uikit'
+import { Button, Text, Flex } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
-import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
+// import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
 import { RowBetween } from '../Layout/Row'
 import { Input as NumericalInput } from './NumericalInput'
@@ -117,14 +117,6 @@ export default function CurrencyInputPanel({
   const { t } = useTranslation()
   const translatedLabel = label || t('Input')
 
-  const [onPresentCurrencyModal] = useModal(
-    <CurrencySearchModal
-      onCurrencySelect={onCurrencySelect}
-      selectedCurrency={currency}
-      otherSelectedCurrency={otherCurrency}
-      showCommonBases={showCommonBases}
-    />,
-  )
   return (
     <>
     <InputWrapper>

@@ -21,7 +21,7 @@ const UserMenu = () => {
   const { account } = useWeb3React()
   const { logout } = useAuth()
   const { balance, fetchStatus } = useGetBnbBalance()
-  const { isInitialized, profile } = useProfile()
+  const { profile } = useProfile()
   const [onPresentWalletModal] = useModal(<WalletModal initialView={WalletView.WALLET_INFO} />)
   const [onPresentTransactionModal] = useModal(<WalletModal initialView={WalletView.TRANSACTIONS} />)
   const avatarSrc = profile?.nft?.image?.thumbnail

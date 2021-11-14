@@ -7,10 +7,9 @@ import { useTranslation } from 'contexts/Localization'
 import { useUserSlippageTolerance } from 'state/user/hooks'
 import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown } from 'utils/prices'
 import { AutoColumn } from 'components/Layout/Column'
-import QuestionHelper from 'components/QuestionHelper'
+// import QuestionHelper from 'components/QuestionHelper'
 import { RowBetween, RowFixed } from 'components/Layout/Row'
 import FormattedPriceImpact from './FormattedPriceImpact'
-import SwapRoute from './SwapRoute'
 
 
 export const StyledText = styled(Text)`
@@ -92,10 +91,10 @@ export interface AdvancedSwapDetailsProps {
 }
 
 export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const [allowedSlippage] = useUserSlippageTolerance()
 
-  const showRoute = Boolean(trade && trade.route.path.length > 2)
+  // const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
     <AutoColumn gap="0px">

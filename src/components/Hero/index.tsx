@@ -42,10 +42,15 @@ const HeroImageWrapper = styled.div`
   display: flex;
 
   img {
-    padding: 2rem;
     padding-top: 4rem;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      padding: 1rem;
+    };
     ${({ theme }) => theme.mediaQueries.sm} {
       padding: 1rem;
+    };
+    ${({ theme }) => theme.mediaQueries.lg} {
+      padding: 2rem;
     };
   }
 `
@@ -79,15 +84,18 @@ const SelectPoolWrapper = styled.div`
   width: 100%;
   justify-content: center;
   height: 100%;
-  padding: 4rem;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 3rem;
+  };
   ${({ theme }) => theme.mediaQueries.sm} {
     padding: 3rem;
+  };
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding: 4rem;
   };
 `
 
 const PoolBuuton = styled.button`
-  width: 80px;
-  height: 80px;
   border-radius: 50%;
   background: #0C1F2C;
   padding: 0;
@@ -96,17 +104,31 @@ const PoolBuuton = styled.button`
   :hover {
     background: #1B435F;
   }
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 60px;
+    height: 60px;
+  };
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 60px;
     height: 60px;
   };
+  ${({ theme }) => theme.mediaQueries.lg} {
+    width: 80px;
+    height: 80px;
+  };
 
   img {
-    width: 44px;
-    height: 44px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      width: 36px;
+      height: 36px;
+    };
     ${({ theme }) => theme.mediaQueries.sm} {
       width: 36px;
       height: 36px;
+    };
+    ${({ theme }) => theme.mediaQueries.lg} {
+      width: 44px;
+      height: 44px;
     };
   }
 
@@ -114,11 +136,18 @@ const PoolBuuton = styled.button`
 
 const LogoImage = styled.img`
   position: absolute;
-  bottom: 15px;
   z-index: 10;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 80px;
+    bottom: 40px;
+  };
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 80px;
-    bottom: 132px;
+    bottom: 128px;
+  };
+  ${({ theme }) => theme.mediaQueries.lg} {
+    width: 110px;
+    bottom: 164px;
   };
 `
 const rotateAnimation = (fromDegree, toDegree) => keyframes`
@@ -133,8 +162,7 @@ const rotateAnimation = (fromDegree, toDegree) => keyframes`
 
 const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree: number}>`
   position: relative;
-  width: 20em;
-  height: 20em;
+  
   border-radius: 50%;
   padding: 0;
   list-style: none;
@@ -142,50 +170,63 @@ const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree:
   background: url(${CircleBg}) no-repeat center/75%;
   background-position: 47% 48%;
 
-  animation-name: ${({fromDegree, toDegree}) => rotateAnimation(fromDegree, toDegree)};
   animation-fill-mode: forwards;
   animation-duration: 5000ms;
+  animation-name: ${({fromDegree, toDegree}) => rotateAnimation(fromDegree, toDegree)};
   
   > * {
     display: block;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -42px;
-    width: 5em;
-    height: 5em;
+    
+
+    ${({ theme }) => theme.mediaQueries.xs} {
+      margin: -2em;
+      width: 4em;
+      height: 4em;
+    };
 
     ${({ theme }) => theme.mediaQueries.sm} {
       margin: -2em;
       width: 4em;
       height: 4em;
     };
+
+    ${({ theme }) => theme.mediaQueries.lg} {
+      margin: -42px;
+      width: 5em;
+      height: 5em;
+    };
   }
   
-
-  > *:nth-of-type(1) {
-    transform: rotate(0deg) translate(10em) rotate(0deg);
-  }
-  > *:nth-of-type(2) {
-    transform: rotate(45deg) translate(10em) rotate(-45deg);
-  }
-  > *:nth-of-type(3) {
-    transform: rotate(90deg) translate(10em) rotate(-90deg);
-  }
-  > *:nth-of-type(4) {
-    transform: rotate(135deg) translate(10em) rotate(-135deg);
-  }
-  > *:nth-of-type(5) {
-    transform: rotate(180deg) translate(10em) rotate(-180deg);
-  }
-  > *:nth-of-type(6) {
-    transform: rotate(225deg) translate(10em) rotate(-225deg);
-  }
-  > *:nth-of-type(7) {
-    transform: rotate(270deg) translate(10em) rotate(-270deg);
-  }
-  > *:nth-of-type(8) {
-    transform: rotate(315deg) translate(10em) rotate(-315deg);
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 16em;
+    height: 16em;
+    > *:nth-of-type(1) {
+      transform: rotate(0deg) translate(8em) rotate(0deg);
+    }
+    > *:nth-of-type(2) {
+      transform: rotate(45deg) translate(8em) rotate(-45deg);
+    }
+    > *:nth-of-type(3) {
+      transform: rotate(90deg) translate(8em) rotate(-90deg);
+    }
+    > *:nth-of-type(4) {
+      transform: rotate(135deg) translate(8em) rotate(-135deg);
+    }
+    > *:nth-of-type(5) {
+      transform: rotate(180deg) translate(8em) rotate(-180deg);
+    }
+    > *:nth-of-type(6) {
+      transform: rotate(225deg) translate(8em) rotate(-225deg);
+    }
+    > *:nth-of-type(7) {
+      transform: rotate(270deg) translate(8em) rotate(-270deg);
+    }
+    > *:nth-of-type(8) {
+      transform: rotate(315deg) translate(8em) rotate(-315deg);
+    }
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -215,7 +256,36 @@ const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree:
     > *:nth-of-type(8) {
       transform: rotate(315deg) translate(8em) rotate(-315deg);
     }
-  };
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    width: 20em;
+    height: 20em;
+    > *:nth-of-type(1) {
+      transform: rotate(0deg) translate(10em) rotate(0deg);
+    }
+    > *:nth-of-type(2) {
+      transform: rotate(45deg) translate(10em) rotate(-45deg);
+    }
+    > *:nth-of-type(3) {
+      transform: rotate(90deg) translate(10em) rotate(-90deg);
+    }
+    > *:nth-of-type(4) {
+      transform: rotate(135deg) translate(10em) rotate(-135deg);
+    }
+    > *:nth-of-type(5) {
+      transform: rotate(180deg) translate(10em) rotate(-180deg);
+    }
+    > *:nth-of-type(6) {
+      transform: rotate(225deg) translate(10em) rotate(-225deg);
+    }
+    > *:nth-of-type(7) {
+      transform: rotate(270deg) translate(10em) rotate(-270deg);
+    }
+    > *:nth-of-type(8) {
+      transform: rotate(315deg) translate(10em) rotate(-315deg);
+    }
+  }
 `
 
 export default function Hero() {
@@ -264,11 +334,11 @@ export default function Hero() {
     console.log("ctx", ctx)
     console.log("index", index)
   }
-
+  
   const handleSwitchNetwork = (index: number) => {
     const ctx = currentIndex - index
 
-    const toDeg = (ctx < 0) ? (fromDegree + ctx * 45 + 360) : (fromDegree + ctx * 45)
+    const toDeg = (ctx < 0) ?((fromDegree + ctx * 45 + 360) % 360) : ((fromDegree + ctx * 45)) % 360
     setToDegree(toDeg)
     setFromDegree(toDeg)
     

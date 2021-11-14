@@ -14,12 +14,10 @@ import { nftsBaseUrl } from 'views/Nft/market/constants'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import GlobalStyle from './style/Global'
-// import Menu from './components/Menu'
 
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import { ToastListener } from './contexts/ToastsContext'
 import PageLoader from './components/Loader/PageLoader'
-import EasterEgg from './components/EasterEgg'
 import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus'
 import history from './routerHistory'
 // Views included in the main bundle

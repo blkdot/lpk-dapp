@@ -10,8 +10,8 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "favicon.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/x-icon",
       "sizes": "256x256"
     },
     {

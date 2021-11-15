@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Flex } from '@pancakeswap/uikit'
 import { PageMeta } from 'components/Layout/Page'
 import Hero from 'components/Hero'
+import TradingView from 'components/TradingView'
 
 const StyledPage = styled.div`
   display: flex;
@@ -68,7 +69,7 @@ const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...pro
             {children}
             <Flex flexGrow={1} />
           </StyledPage>
-          <Hero />
+          <TradingView />
         </StyledFlex>
       </Wrapper>
     </>

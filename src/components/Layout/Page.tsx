@@ -38,7 +38,7 @@ export const PageMeta: React.FC<{ symbol?: string }> = ({ symbol }) => {
 
   return (
     <Helmet>
-      <title>Swap | LPK Kripton</title>
+      <title> LPK Kripton | Swap</title>
     </Helmet>
   )
 }

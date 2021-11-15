@@ -1,8 +1,8 @@
 {
-  "short_name": "PancakeSwap",
-  "name": "PancakeSwap",
-  "description": "Farm CAKE with Pancake LP Tokens",
-  "homepage_url": "https://pancakeswap.finance",
+  "short_name": "LPK Kription",
+  "name": "LPK Kription",
+  "description": "LPK Kription Tokens",
+  "homepage_url": "",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#1FC7D4",
@@ -10,8 +10,8 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "favicon.ico",
-      "type": "image/x-icon",
+      "src": "favicon.png",
+      "type": "image/png",
       "sizes": "256x256"
     },
     {

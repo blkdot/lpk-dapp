@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
+// import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
+import TradingViewWidget, {Themes} from 'react-tradingview-widget';
+// import {
+//   TechnicalAnalysis
+// } from "react-ts-tradingview-widgets";
 
-import SwapList from 'config/constants/tokenLists/swap.json'
-
-import HeroBg from '../../assets/images/hero-bg.jpg'
+// import SwapList from 'config/constants/tokenLists/swap.json'
+import useTheme from '../../hooks/useTheme'
 import LogoNoText from '../../assets/images/logo_no_text.png'
 
 const SideContentWrapper = styled.div`
@@ -26,13 +29,37 @@ const StyledTradingViewWrapper = styled.div`
   z-index: 1;
   border-radius: 8px;
   width: 100%;
+  height: 700px;
+  border: 1px solid ${({ theme }) => (theme.isDark) ? '#265B80' : '#CBD8E1'};
+  background: ${({ theme }) => (theme.isDark) ? '#265B80' : '#FFFFFF'};
+  border-radius: 8px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    padding: 12px 0 0 0;
+    // padding: 12px 0 0 0;
     width: calc(100%);
     position: relative;
   };
 `
+const StyledTradingViewTitle = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  border-bottom: 1px solid ${({ theme }) => (theme.isDark) ? '#ABDDFF' : '#CBD8E1'};
+  color: ${({ theme }) => (theme.isDark) ? '#FFFFFF' : '#000000'};
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 500;
+`
+const StyledTradingViewContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+`
+
 const LpkOtherLink = styled.div`
   display: flex;
   margin-left: 2rem;
@@ -60,17 +87,32 @@ const LpkOtherLink = styled.div`
 
 export default function TradingView() {
   
-  // const [toDegree, setToDegree] = useState(0)
-  // const [fromDegree, setFromDegree] = useState(0)
-  // const [currentIndex, setCurrentIndex] = useState(0)
+  const { theme } = useTheme()
+  
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.src = "https://s3.tradingview.com/tv.js";
+    script.async = true;
+  }, []);
 
   return (
     <>
       <SideContentWrapper>
         <StyledTradingViewWrapper className="trading-view">
-          <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400} />
-          
-          {/* <TechnicalAnalysis colorTheme="dark" /> */}
+          <StyledTradingViewTitle>
+            MARKET INFORMATION 
+          </StyledTradingViewTitle>
+
+          <StyledTradingViewContent>
+            <TradingViewWidget
+              symbol="NASDAQ:AAPL"
+              theme={Themes.DARK}
+              locale="en"
+              width={400}
+            />
+          </StyledTradingViewContent>
+
         </StyledTradingViewWrapper>
 
         <LpkOtherLink>

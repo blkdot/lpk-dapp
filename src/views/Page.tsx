@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
+
 import { Flex } from '@pancakeswap/uikit'
 import { PageMeta } from 'components/Layout/Page'
 import Hero from 'components/Hero'
@@ -45,12 +47,12 @@ const StyledFlex = styled(Flex)`
   background: ${({ theme }) => (theme.isDark) ? '#12344c' : 'rgb(247, 248, 250)' }; 
   ${({ theme }) => theme.mediaQueries.xs} {
     flex-direction: column;
-    align-items: center;
+    align-items: start;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: column;
-    align-items: center;
+    align-items: start;
   }
 
   ${({ theme }) => theme.mediaQueries.lg} {

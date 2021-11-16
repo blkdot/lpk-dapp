@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
+import { CoinGeckoClient } from 'coingecko-api-v3';
 
 import { Currency, CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
 import { Button, Text, ArrowDownIcon, Box, useModal } from '@pancakeswap/uikit'
@@ -116,6 +117,25 @@ export const PairSelectButton = styled.button`
     font-weight: 500;    
   }
 `
+
+export const PairViewMoreButton = styled.a`
+  position: relative;
+  width: 100%;
+  background: transparent;
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
+  cursor: pointer;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;   
+
+  :focus,
+  :hover {
+    color: ${({ theme }) => (theme.isDark) ? '#27618b' : '#27618b'};
+  }
+`
+
 export const Price = styled.span`
   color: ${({ theme }) => (theme.isDark) ? '#2DC60E': '#2DC60E' };
   font-size: 16px;
@@ -137,6 +157,55 @@ export const StyledSwapButton = styled(Button)`
   border-radius: 8px;
   
 `
+export const StyledTradingInformationWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  width: 100%;
+  background: ${({ theme }) => (theme.isDark) ? '#152b39' : '#FFFFFF'};
+  border: 1px solid ${({ theme }) => (theme.isDark) ? '#152b39' : '#EDF4F9'};
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
+  border-radius: 8px;
+  text-align: center;  
+  padding: 1rem;
+  margin-top: 5px;
+`
+export const TradingInfoTitle = styled.span`
+  font-size: 16px;
+  font-weight: 500; 
+  width: 100%;
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
+  border-bottom: 1px solid ${({ theme }) => (theme.isDark) ? '#152b39' : '#EDF4F9'};
+  padding-bottom: 1rem;
+`
+export const TradingInfoColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500; 
+  width: 100%;
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
+  margin-top: 15px;
+`
+export const TradingInfoRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+`
+export const TradingMoreInfoButton = styled.a`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 15px;
+  cursor: pointer;
+
+  :hover {
+    color: ${({ theme }) => (theme.isDark) ? '#27618b': '#13667C' };
+  }
+`
+
+
 
 
 
@@ -418,7 +487,14 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const filteredSortedTokens = useSortedTokensByQuery(sortedTokens, debouncedQuery)
 
+  // Load more 
+  const INIT_LIMIT = 3
+  const [limit, setLimit] = useState(INIT_LIMIT)
   
+  const showMorePairs = () => {
+    setLimit(limit + 3);
+  };
+
   const selectTokens = (token: Token, index: number) => {
     setIndexActive(index)
     
@@ -437,24 +513,64 @@ export default function Swap({ history }: RouteComponentProps) {
     setOutputToken(currencies[Field.INPUT])
   }
 
+  const [marcketCap, setMarcketCap] = useState(undefined)
+  const [dailyVolumn, setDailyVolumn] = useState(undefined)
+  const [circulationSupply, setCirculationSupply] = useState(undefined)
+  const [totalSupply, setTotalSupply] = useState(undefined)
+  // const [marcketCap, setMarcketCap] = useState(undefined)
+
+  useEffect(() => {
+    // fetch('https://api.coingecko.com/api/v3/coins/l-pesa?localization=en')
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     console.log('response', response);
+    //     // setDailyVolumn(response.)
+    //   })
+    //   .catch(error => console.log('error', error));
+
+    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=l-pesa&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h')
+      .then(response => response.json())
+      .then(response => {
+        console.log('markets', response);
+        setMarcketCap(response[0].market_cap)
+        setDailyVolumn(response[0].total_volume)
+        setCirculationSupply(response[0].circulating_supply)
+        setTotalSupply(response[0].total_supply)
+      })
+      .catch(error => console.log('error', error));
+
+      
+
+      
+  }, []);
+
+
   return (
     <Page>
       <BodyFlexRow>
         <BodyWrapper>
           <PairCardBox>
             <span>Pair</span>
-            {filteredSortedTokens.map((token, i) => {     
+            {filteredSortedTokens.slice(0, limit).map((token, i) => {     
               return (
                 <PairSelectButton
                   onClick={() => {
                     selectTokens(token, i)
                   }}
                   className={indexActive === i ? 'active' : ''}
-                  >
+                >
                   <span>{token.symbol}/{lpkToken.tokens.symbol}</span>
                 </PairSelectButton>
               ) 
             })}
+
+            <PairViewMoreButton
+              onClick={() => {
+                showMorePairs()
+              }}
+            >
+              View More
+            </PairViewMoreButton>
           </PairCardBox>
         </BodyWrapper>
       </BodyFlexRow>
@@ -652,6 +768,48 @@ export default function Swap({ history }: RouteComponentProps) {
       ) : (
         <UnsupportedCurrencyFooter currencies={[currencies.INPUT, currencies.OUTPUT]} />
       )}
+      
+      <StyledTradingInformationWrapper>
+        <TradingInfoTitle>
+          BNB/LPK Trading information
+        </TradingInfoTitle>
+
+        <TradingInfoColumn>
+          <TradingInfoRow>
+            <span>Total liquidity:</span> 
+            <span>-</span> 
+          </TradingInfoRow>
+          <TradingInfoRow>
+            <span>Daily volume:</span> 
+            {(dailyVolumn !== undefined) ? (
+              <span>${dailyVolumn}</span> ) 
+              : ( 
+              <span>-</span>
+            )}
+          </TradingInfoRow>
+          <TradingInfoRow>
+            <span>Pooled BNB:</span> 
+            <span>-</span> 
+          </TradingInfoRow>
+          <TradingInfoRow>
+            <span>Pooled LPK:</span> 
+            <span>-</span> 
+          </TradingInfoRow>
+          <TradingInfoRow>
+            <span>Market Cap:</span> 
+            {(marcketCap !== undefined) ? (
+              <span>${marcketCap}</span> ) 
+              : ( 
+              <span>-</span>
+            )}
+          </TradingInfoRow>
+          <TradingMoreInfoButton>
+            <span>More Information</span> 
+          </TradingMoreInfoButton>
+        </TradingInfoColumn>
+
+      </StyledTradingInformationWrapper>
+
     </Page>
   )
 }

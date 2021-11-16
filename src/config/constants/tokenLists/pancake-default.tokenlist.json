@@ -29,21 +29,71 @@
     },
 
     {
-      "name": "Ethereum Token",
-      "symbol": "ETH",
-      "address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+      "name": "KrIpton Black",
+      "symbol": "LPKB",
+      "address": "0x659becf35503e91baa27b8427c45a31e5b38fcd1",
       "chainId": 56,
       "decimals": 18,
       "logoURI": "https://pancakeswap.finance/images/tokens/0x2170ed0880ac9a755fd29b2688956bd959f933f8.png"
     },
 
     {
-      "name": "Fantom",
-      "symbol": "FTM",
-      "address": "0xad29abb318791d579433d831ed122afeaf29dcfe",
+      "name": "KrIpton X",
+      "symbol": "LPKX",
+      "address": "0x15b05286eb1756434df34439ae456885462407c6",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+    },
+    {
+      "name": "KrIpton Mobile",
+      "symbol": "LPKM",
+      "address": "0xc243cd73b1fb5028091db1881260d50699621d5c",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+    },
+    {
+      "name": "KrIpton Z",
+      "symbol": "LPKZ",
+      "address": "0xc842dadf99d61ba5cf4a98f0d380acc4f89dc0e6",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+    },
+    {
+      "name": "KrIpton Yellow",
+      "symbol": "LPKY",
+      "address": "0xe1455634ad0c067e8bd8ca7f6af79ae05d8a96fb",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+    },
+    {
+      "name": "Krypton T",
+      "symbol": "LPKT",
+      "address": "0x620dad0e66b20db8016c8730fbfff812263dba4a",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+    },
+    {
+      "name": "Krypton Q",
+      "symbol": "LPKQ",
+      "address": "0xa2471ffabceeee85a9226c24a95765335d26b4ee",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+    },
+    {
+      "name": "Krypton P",
+      "symbol": "LPKP",
+      "address": "0xd1a10ec19f1097c82429c47b3ca75d03ff71f708",
       "chainId": 56,
       "decimals": 18,
       "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
     }
+
+
   ]
 }

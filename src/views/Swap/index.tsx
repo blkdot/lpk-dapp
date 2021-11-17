@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { CoinGeckoClient } from 'coingecko-api-v3';
 
 import { Currency, CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
 import { Button, Text, ArrowDownIcon, Box, useModal } from '@pancakeswap/uikit'
@@ -50,6 +49,8 @@ import CircleLoader from '../../components/Loader/CircleLoader'
 import Page from '../Page'
 import SwapWarningModal from './components/SwapWarningModal'
 import lpkToken from '../../config/constants/tokenLists/lpk-token.json'
+import PancakePair from '../../config/constants/tokenLists/pancake_pair.json'
+
 
 const Label = styled(Text)`
   font-size: 14px;
@@ -495,13 +496,15 @@ export default function Swap({ history }: RouteComponentProps) {
     setLimit(limit + 3);
   };
 
-  const selectTokens = (token: Token, index: number) => {
+  const selectPairTokens = (token, index: number) => {
     setIndexActive(index)
     
-    const LPK = new Token(lpkToken.tokens.chainId, lpkToken.tokens.address, lpkToken.tokens.decimals, lpkToken.tokens.symbol, lpkToken.tokens.name)
-    currencies[Field.INPUT] = token;
+    const inputPairToken = new Token(token.input.chainId, token.input.address, token.input.decimals, token.input.symbol, token.input.name)
+    const outputPairToken = new Token(token.output.chainId, token.output.address, token.output.decimals, token.output.symbol, token.output.name)
+
+    currencies[Field.INPUT] = inputPairToken;
     setInputToken(currencies[Field.INPUT])
-    currencies[Field.OUTPUT] = LPK;
+    currencies[Field.OUTPUT] = outputPairToken;
     setOutputToken(currencies[Field.OUTPUT])
 
     handleInputSelect(currencies[Field.INPUT])
@@ -551,15 +554,17 @@ export default function Swap({ history }: RouteComponentProps) {
         <BodyWrapper>
           <PairCardBox>
             <span>Pair</span>
-            {filteredSortedTokens.slice(0, limit).map((token, i) => {     
+
+            
+            {PancakePair.pairs.slice(0, limit).map((token, i) => {     
               return (
                 <PairSelectButton
                   onClick={() => {
-                    selectTokens(token, i)
+                    selectPairTokens(token, i)
                   }}
                   className={indexActive === i ? 'active' : ''}
                 >
-                  <span>{token.symbol}/{lpkToken.tokens.symbol}</span>
+                  <span>{token.input.symbol}/{token.output.symbol}</span>
                 </PairSelectButton>
               ) 
             })}

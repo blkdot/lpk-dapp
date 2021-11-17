@@ -16,7 +16,7 @@
                 "address": "0x9b71b5511998e0798625b8fa74e86d8192de78c1",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/lpkkriptonbsc_32.png"
+                "logoURI": "./assets/images/tokens/LPK.png"
             }
         },
         {
@@ -34,7 +34,7 @@
                 "address": "0x9b71b5511998e0798625b8fa74e86d8192de78c1",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/lpkkriptonbsc_32.png"
+                "logoURI": "./assets/images/tokens/LPK.png"
             }
         },
         {
@@ -44,7 +44,7 @@
                 "address": "0x9b71b5511998e0798625b8fa74e86d8192de78c1",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/lpkkriptonbsc_32.png"
+                "logoURI": "./assets/images/tokens/LPK.png"
             },
             "output": {
                 "name": "KrIpton X",
@@ -52,7 +52,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             }
         },
         {
@@ -62,7 +62,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "KrIpton Mobile",
@@ -70,7 +70,7 @@
                 "address": "0xc243cd73b1fb5028091db1881260d50699621d5c",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKM.png"
             }
         },
         {
@@ -80,7 +80,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "KrIpton Z",
@@ -88,7 +88,7 @@
                 "address": "0xc842dadf99d61ba5cf4a98f0d380acc4f89dc0e6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKM.png"
             }
         },
         {
@@ -98,7 +98,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "KrIpton Yellow",
@@ -106,7 +106,7 @@
                 "address": "0xe1455634ad0c067e8bd8ca7f6af79ae05d8a96fb",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKM.png"
             }
         },
         {
@@ -116,7 +116,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "KrIpton Black",
@@ -124,7 +124,7 @@
                 "address": "0x659becf35503e91baa27b8427c45a31e5b38fcd1",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://pancakeswap.finance/images/tokens/0x2170ed0880ac9a755fd29b2688956bd959f933f8.png"
+                "logoURI": "./assets/images/tokens/LPKB.png"
             }
         },
         {
@@ -134,7 +134,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "Krypton T",
@@ -142,7 +142,7 @@
                 "address": "0x620dad0e66b20db8016c8730fbfff812263dba4a",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKT.png"
             }
         },
         {
@@ -152,7 +152,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "Krypton Q",
@@ -160,7 +160,7 @@
                 "address": "0xa2471ffabceeee85a9226c24a95765335d26b4ee",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKQ.png"
             }
         },
         {
@@ -170,7 +170,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "Krypton P",
@@ -178,7 +178,7 @@
                 "address": "0xd1a10ec19f1097c82429c47b3ca75d03ff71f708",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKP.png"
             }
         },
         {
@@ -188,7 +188,7 @@
                 "address": "0x15b05286eb1756434df34439ae456885462407c6",
                 "chainId": 56,
                 "decimals": 18,
-                "logoURI": "https://bscscan.com/token/images/ftm_32.png?=v2"
+                "logoURI": "./assets/images/tokens/LPKX.png"
             },
             "output": {
                 "name": "WBNB Token",

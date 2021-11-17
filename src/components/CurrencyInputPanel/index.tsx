@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
+import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo'
 // import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
 import { RowBetween } from '../Layout/Row'
@@ -129,6 +130,11 @@ export default function CurrencyInputPanel({
               selected={!!currency}
               className="open-currency-select-button"
             >
+              {pair ? (
+                <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
+              ) : currency ? (
+                <CurrencyLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+              ) : null}
               <Flex alignItems="flex-start" justifyContent="start" flexDirection="column">
                 <Flex alignItems="center" justifyContent="space-between">
                   {pair ? (

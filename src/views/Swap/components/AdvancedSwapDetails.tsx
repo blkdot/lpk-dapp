@@ -10,6 +10,7 @@ import { AutoColumn } from 'components/Layout/Column'
 // import QuestionHelper from 'components/QuestionHelper'
 import { RowBetween, RowFixed } from 'components/Layout/Row'
 import FormattedPriceImpact from './FormattedPriceImpact'
+import SwapRoute from './SwapRoute'
 
 
 export const StyledText = styled(Text)`
@@ -91,32 +92,30 @@ export interface AdvancedSwapDetailsProps {
 }
 
 export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
   const [allowedSlippage] = useUserSlippageTolerance()
 
-  // const showRoute = Boolean(trade && trade.route.path.length > 2)
+  const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
     <AutoColumn gap="0px">
       {trade && (
         <>
           <TradeSummary trade={trade} allowedSlippage={allowedSlippage} />
-          {/* {showRoute && (
             <>
               <RowBetween style={{ padding: '0 16px' }}>
                 <span style={{ display: 'flex', alignItems: 'center' }}>
                   <StyledText fontSize="14px" color="textSubtle">
                     {t('Route')}
                   </StyledText>
-                  <QuestionHelper
+                  {/* <QuestionHelper
                     text={t('Routing through these tokens resulted in the best price for your trade.')}
                     ml="4px"
-                  />
+                  /> */}
                 </span>
                 <SwapRoute trade={trade} />
               </RowBetween>
             </>
-          )} */}
         </>
       )}
     </AutoColumn>

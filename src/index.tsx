@@ -5,6 +5,7 @@ import { BLOCKED_ADDRESSES } from './config/constants'
 import ListsUpdater from './state/lists/updater'
 import MulticallUpdater from './state/multicall/updater'
 import TransactionUpdater from './state/transactions/updater'
+import { LangProvider } from "./i18n/index";
 import App from './App'
 import Providers from './Providers'
 
@@ -31,8 +32,10 @@ ReactDOM.render(
   <React.StrictMode>
     <Blocklist>
       <Providers>
-        <Updaters />
-        <App />
+        <LangProvider>
+          <Updaters />
+          <App />
+        </LangProvider>
       </Providers>
     </Blocklist>
   </React.StrictMode>,

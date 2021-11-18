@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
 
+import { NetworkContext } from 'contexts/NetworkContext'
 import { Flex } from '@pancakeswap/uikit'
 import { PageMeta } from 'components/Layout/Page'
 import Hero from 'components/Hero'
@@ -59,12 +59,15 @@ const StyledFlex = styled(Flex)`
     flex-direction: row;
   }
 `
-
 const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...props }) => {
+  
+  const [networkId, setNetworkId] = useState(1)
+
   return (
     <>
       <PageMeta />
       <Wrapper>
+      <NetworkContext.Provider value={{networkId, setNetworkId}}>
         <StyledFlex>
           <Hero />
           <StyledPage {...props}>
@@ -73,6 +76,7 @@ const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...pro
           </StyledPage>
           <TradingView />
         </StyledFlex>
+        </NetworkContext.Provider>
       </Wrapper>
     </>
   )

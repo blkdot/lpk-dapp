@@ -1,9 +1,38 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import { escapeRegExp } from 'utils'
 import { Text, Button, Input, Flex, Box } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
 import QuestionHelper from '../../QuestionHelper'
+
+const StyledText = styled(Text)`
+  font-weight: 500;
+  font-size: 14px;
+`
+const StyledButton = styled(Button)`
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: none;
+  :hover {
+    opacity: 1 !important;
+  }
+`
+const StyledInput = styled(Input)`
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid ${({ theme }) => theme.isDark ? '#353547' : '#e2e2e2'};
+  background-color: ${({ theme }) => theme.isDark ? '#353547' : '#FFFFFF'};
+  color: ${({ theme }) => theme.isDark ? '#FFFFFF' : '#000000'};
+  padding: 0 10px;
+  :hover {
+    opacity: 1 !important;
+  }
+  :focus:not(:disabled) {
+    box-shadow: none;
+  }
+`
 
 enum SlippageError {
   InvalidInput = 'InvalidInput',
@@ -77,19 +106,19 @@ const SlippageTabs = () => {
 
   return (
     <Flex flexDirection="column">
-      <Flex flexDirection="column" mb="24px">
-        <Flex mb="12px">
-          <Text>{t('Slippage Tolerance')}</Text>
-          <QuestionHelper
+      <Flex flexDirection="column" mb="10px">
+        <Flex mb="10px">
+          <StyledText>{t('Slippage Tolerance')}</StyledText>
+          {/* <QuestionHelper
             text={t(
               'Setting a high slippage tolerance can help transactions succeed, but you may not get such a good price. Use with caution.',
             )}
             placement="top-start"
             ml="4px"
-          />
+          /> */}
         </Flex>
         <Flex flexWrap="wrap">
-          <Button
+          <StyledButton 
             mt="4px"
             mr="4px"
             scale="sm"
@@ -100,8 +129,8 @@ const SlippageTabs = () => {
             variant={userSlippageTolerance === 10 ? 'primary' : 'tertiary'}
           >
             0.1%
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton 
             mt="4px"
             mr="4px"
             scale="sm"
@@ -112,8 +141,8 @@ const SlippageTabs = () => {
             variant={userSlippageTolerance === 50 ? 'primary' : 'tertiary'}
           >
             0.5%
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton 
             mr="4px"
             mt="4px"
             scale="sm"
@@ -124,10 +153,10 @@ const SlippageTabs = () => {
             variant={userSlippageTolerance === 100 ? 'primary' : 'tertiary'}
           >
             1.0%
-          </Button>
+          </StyledButton>
           <Flex alignItems="center">
             <Box width="76px" mt="4px">
-              <Input
+              <StyledInput
                 scale="sm"
                 inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]{0,2}$"
@@ -145,33 +174,33 @@ const SlippageTabs = () => {
                 isSuccess={![10, 50, 100].includes(userSlippageTolerance)}
               />
             </Box>
-            <Text color="primary" bold ml="2px">
+            <StyledText color="primary" bold ml="2px">
               %
-            </Text>
+            </StyledText>
           </Flex>
         </Flex>
         {!!slippageError && (
-          <Text fontSize="14px" color={slippageError === SlippageError.InvalidInput ? 'red' : '#F3841E'} mt="8px">
+          <StyledText fontSize="14px" color={slippageError === SlippageError.InvalidInput ? 'red' : '#F3841E'} mt="8px">
             {slippageError === SlippageError.InvalidInput
               ? t('Enter a valid slippage percentage')
               : slippageError === SlippageError.RiskyLow
               ? t('Your transaction may fail')
               : t('Your transaction may be frontrun')}
-          </Text>
+          </StyledText>
         )}
       </Flex>
-      <Flex justifyContent="space-between" alignItems="center" mb="24px">
+      <Flex justifyContent="space-between" alignItems="center" mb="10px">
         <Flex alignItems="center">
-          <Text>{t('Tx deadline (mins)')}</Text>
-          <QuestionHelper
+          <StyledText>{t('Tx deadline (mins)')}</StyledText>
+          {/* <QuestionHelper
             text={t('Your transaction will revert if it is left confirming for longer than this time.')}
             placement="top-start"
             ml="4px"
-          />
+          /> */}
         </Flex>
         <Flex>
           <Box width="52px" mt="4px">
-            <Input
+            <StyledInput
               scale="sm"
               inputMode="numeric"
               pattern="^[0-9]+$"

@@ -14,7 +14,7 @@ export const HU: Language = { locale: 'hu-HU', language: 'Magyar', code: 'hu' }
 export const ID: Language = { locale: 'id-ID', language: 'Bahasa Indonesia', code: 'id' }
 export const IT: Language = { locale: 'it-IT', language: 'Italiano', code: 'it' }
 export const JA: Language = { locale: 'ja-JP', language: '日本語', code: 'ja' }
-export const KO: Language = { locale: 'ko-KR', language: '한국어', code: 'ko' }
+// export const KO: Language = { locale: 'ko-KR', language: '한국어', code: 'ko' }
 export const NL: Language = { locale: 'nl-NL', language: 'Nederlands', code: 'nl' }
 export const PL: Language = { locale: 'pl-PL', language: 'Polski', code: 'pl' }
 export const PTBR: Language = { locale: 'pt-BR', language: 'Português (Brazil)', code: 'pt-br' }
@@ -44,7 +44,7 @@ export const languages = {
   'id-ID': ID,
   'it-IT': IT,
   'ja-JP': JA,
-  'ko-KR': KO,
+  // 'ko-KR': KO,
   'nl-NL': NL,
   'pl-PL': PL,
   'pt-BR': PTBR,

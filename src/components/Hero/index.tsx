@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled, {keyframes} from 'styled-components'
 
+import { useNetworkContext } from 'contexts/NetworkContext'
 import SwapList from 'config/constants/tokenLists/swap.json'
 
 import HeroBg from '../../assets/images/hero-bg.jpg'
@@ -37,7 +38,6 @@ const StyledHeroWrapper = styled.div`
     position: relative;
   };
 `
-
 const HeroImageWrapper = styled.div`
   display: flex;
 
@@ -78,7 +78,6 @@ const LpkOtherLink = styled.div`
     padding-left: 0.5rem;
   }
 `
-
 const SelectPoolWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -94,7 +93,6 @@ const SelectPoolWrapper = styled.div`
     padding: 4rem;
   };
 `
-
 const PoolBuuton = styled.button`
   border-radius: 50%;
   background: #0C1F2C;
@@ -133,7 +131,6 @@ const PoolBuuton = styled.button`
   }
 
 `
-
 const LogoImage = styled.img`
   position: absolute;
   z-index: 10;
@@ -158,8 +155,6 @@ const rotateAnimation = (fromDegree, toDegree) => keyframes`
     transform:  rotate(${toDegree}deg); 
   }
 `
-
-
 const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree: number}>`
   position: relative;
   
@@ -290,52 +285,15 @@ const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree:
 
 export default function Hero() {
   
+  const { networkId, setNetworkId } = useNetworkContext()
+
   const [toDegree, setToDegree] = useState(0)
   const [fromDegree, setFromDegree] = useState(0)
   const [currentIndex, setCurrentIndex] = useState(0)
 
-
-  const switchNetwork = (index: number) => {
-
-    setCurrentIndex(index)
-    setCurrentIndex((state) => {
-      console.log('currentIndex', state);
-      return state;
-    });
-
-    const ctx = currentIndex - index
-
-    if (ctx < 0){
-      setToDegree(fromDegree + ctx * 45 + 360)
-      setToDegree((state) => {
-        console.log('ToDegree', state);
-        return state;
-      });
-       
-      setFromDegree(toDegree)
-      setFromDegree((state) => {
-        console.log('FromDegree', state);
-        return state;
-      });
-
-    }else{
-      setToDegree(fromDegree + ctx * 45)
-      setToDegree((state) => {
-        console.log('ToDegree', state);
-        return state;
-      });
-      setFromDegree(toDegree)
-      setFromDegree((state) => {
-        console.log('FromDegree', state);
-        return state;
-      });
-    }
-
-    console.log("ctx", ctx)
-    console.log("index", index)
-  }
   
   const handleSwitchNetwork = (index: number) => {
+    setNetworkId(index)
     const ctx = currentIndex - index
 
     const toDeg = (ctx < 0) ?((fromDegree + ctx * 45 + 360) % 360) : ((fromDegree + ctx * 45)) % 360

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+// import { useNetworkContext } from 'contexts/NetworkContext'
 // import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
 import TradingViewWidget, {Themes} from 'react-tradingview-widget';
 // import {
@@ -59,7 +60,6 @@ const StyledTradingViewContent = styled.div`
   height: 100%;
   padding: 16px;
 `
-
 const LpkOtherLink = styled.div`
   display: flex;
   margin-left: 2rem;
@@ -88,6 +88,7 @@ const LpkOtherLink = styled.div`
 export default function TradingView() {
   
   const { theme } = useTheme()
+  // const { networkId } = useNetworkContext()
   
   useEffect(() => {
     const script = document.createElement("script");

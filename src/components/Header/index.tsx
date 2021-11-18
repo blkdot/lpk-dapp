@@ -5,10 +5,11 @@ import { useLocation } from 'react-router'
 import { Flex, ThemeSwitcher } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
-import config from './config/config'
+// import config from './config/config'
 import UserMenu from './UserMenu'
 import GlobalSettings from './GlobalSettings'
-import { getActiveMenuItem, getActiveSubMenuItem } from './utils'
+import LanguageSetting from './LanguageSetting'
+// import { getActiveMenuItem, getActiveSubMenuItem } from './utils'
 
 
 import Logo from '../../assets/images/lpk_logo.png'
@@ -232,6 +233,7 @@ const Header = () => {
         </HeaderElement>
         <HeaderElement>
           <HeaderElementBlock>
+            <LanguageSetting />
             <UserMenu />
             <GlobalSettings />
             <StyledFlex justifyContent="space-between">

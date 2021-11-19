@@ -1,19 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 import { languageList } from 'config/localization/languages'
+import { useTranslation } from 'contexts/Localization'
 
 const LangSettingWrapper = styled.ul`
   margin-right: 8px;
   padding:0;
   list-style: none;
   position: relative;
+
+  .lang-active {
+    background: #bce3ff;
+  }
 }
 `
 const LangSettingContent = styled.li`
   cursor: pointer;
   color: #fff;
   background: #1B435F;
-  padding: 14px 9px;
+  padding: 10px 9px;
   border-radius: 8px;
   align-items: center;
   vertical-align: middle;
@@ -21,7 +26,9 @@ const LangSettingContent = styled.li`
 
   span {
     font-weight: 600;
-    line-height: 13px;
+    line-height: 20px;
+    font-size: 20px;
+    color: rgb(74,254,253);
   }
 
   :hover {
@@ -92,14 +99,21 @@ const LangSettingItem = styled.li`
 `
 const LanguageSetting = () => {
 
+  const { currentLanguage, setLanguage, t } = useTranslation()
+
   return (
     <LangSettingWrapper>
       <LangSettingContent>
-        <span>EN</span>
+        <span><i className="bi bi-globe2" /></span>
         <LangSettingItemWapper>
           {languageList.map((item, index) => {     
             return (
-                <LangSettingItem>
+                <LangSettingItem 
+                  className={(currentLanguage.code === item.code) ? 'lang-active' : ''}
+                  onClick={() => {
+                    setLanguage(item)
+                  }}
+                >
                   {item.language}
                 </LangSettingItem>
               ) 

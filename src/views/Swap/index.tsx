@@ -623,7 +623,7 @@ export default function Swap({ history }: RouteComponentProps) {
             <BodyFlexRow>
               <BodyWrapper>
                 <PairCardBox>
-                  <span>Pair</span>
+                  <span>{t('Pair')}</span>
 
                   {tokenList.pairs.slice(0, limit).map((token, i) => {     
                     return (

@@ -9,7 +9,14 @@ import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
 import { useTranslation } from 'contexts/Localization'
+import { 
+  sendRequest,
+  makeQueryTokenPairs,
+  makeQueryTokenPools,
+ } from 'utils/bitquery'
+import Loader from "react-loader-spinner";
 
+import useTheme from 'hooks/useTheme'
 import useDebounce from 'hooks/useDebounce'
 import { filterTokens } from 'components/SearchModal/filtering'
 import useTokenComparator from 'components/SearchModal/sorting'
@@ -263,6 +270,7 @@ export default function Swap({ history }: RouteComponentProps) {
   const loadedUrlParams = useDefaultsFromURLSearch()
 
   const { t } = useTranslation()
+  const { theme } = useTheme()
 
   // token warning stuff
   const [loadedInputCurrency, loadedOutputCurrency] = [
@@ -545,10 +553,14 @@ export default function Swap({ history }: RouteComponentProps) {
     setLimit(limit + 3);
   };
 
+  const [ inputTokenPools, setInputTokenPools ] = useState(undefined)
+  const [ outputTokenPools, setOutputTokenPools ] = useState(undefined)
+  const [ totalLiquidity, setTotalLiquidity ] = useState(undefined)
+  const [ currentPrice, setCurrentPrice ] = useState(undefined)
+  
   const selectPairTokens = (token, index: number) => {
 
     setIndexActive(index)
-    
     const inputPairToken = new Token(token.input.chainId, token.input.address, token.input.decimals, token.input.symbol, token.input.name)
     const outputPairToken = new Token(token.output.chainId, token.output.address, token.output.decimals, token.output.symbol, token.output.name)
 
@@ -559,6 +571,50 @@ export default function Swap({ history }: RouteComponentProps) {
 
     handleInputSelect(currencies[Field.INPUT])
     handleOutputSelect(currencies[Field.OUTPUT])
+
+    fetchLiquidityPools(token)
+  }
+
+  const fetchLiquidityPools = async (token) => {
+    if (token.input.symbol === 'LPK' && token.output.symbol === "LPKX"){
+      // LPK/LPKX
+      // Fetch graphql.bitquery.io
+      const paireData = sendRequest(makeQueryTokenPairs(token.input.address))
+      const address = (await paireData).ethereum.dexTrades[5].poolToken.address.address
+      const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
+      const inputPools = (await poolsData).ethereum.address[0].balances[0].value
+      const outputPools = (await poolsData).ethereum.address[0].balances[1].value
+      
+      setInputTokenPools(inputPools)
+      setOutputTokenPools(outputPools)
+      setTotalLiquidity(inputPools * currentPrice * 2)
+
+    }else if (token.input.symbol === 'BNB' && token.output.symbol === "LPK"){
+      // BNB/LPK
+      // Fetch graphql.bitquery.io
+      const paireData = sendRequest(makeQueryTokenPairs(token.output.address))
+      const address = (await paireData).ethereum.dexTrades[1].poolToken.address.address
+      const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
+      const inputPools = (await poolsData).ethereum.address[0].balances[0].value
+      const outputPools = (await poolsData).ethereum.address[0].balances[1].value
+      
+      setInputTokenPools(inputPools)
+      setOutputTokenPools(outputPools)
+      setTotalLiquidity(outputPools * currentPrice * 2)
+
+      // setTotalLiquidity(inputPools * price * 2)
+    }else if (token.input.symbol === 'CAKE' && token.output.symbol === "LPK"){
+      // CAKE/LPK
+      const paireData = sendRequest(makeQueryTokenPairs(token.output.address))
+      const address = (await paireData).ethereum.dexTrades[0].poolToken.address.address
+      const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
+      const inputPools = (await poolsData).ethereum.address[0].balances[0].value
+      const outputPools = (await poolsData).ethereum.address[0].balances[1].value
+      
+      setInputTokenPools(inputPools)
+      setOutputTokenPools(outputPools)
+      setTotalLiquidity(outputPools * currentPrice * 2)
+    }
   }
 
   const setSwitchToken = () => {
@@ -573,25 +629,21 @@ export default function Swap({ history }: RouteComponentProps) {
   // const [marcketCap, setMarcketCap] = useState(undefined)
 
   useEffect(() => {
-    // fetch('https://api.coingecko.com/api/v3/coins/l-pesa?localization=en')
-    //   .then(response => response.json())
-    //   .then(response => {
-    //     console.log('response', response);
-    //     // setDailyVolumn(response.)
-    //   })
-    //   .catch(error => console.log('error', error));
 
-    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=l-pesa&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h')
-      .then(response => response.json())
-      .then(response => {
-        console.log('markets', response);
-        setMarcketCap(response[0].market_cap)
-        setDailyVolumn(response[0].total_volume)
-        setCirculationSupply(response[0].circulating_supply)
-        setTotalSupply(response[0].total_supply)
-      })
-      .catch(error => console.log('error', error));
-      
+    const getMarketsData = () => {
+      fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=l-pesa&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h')
+        .then(response => response.json())
+        .then(response => {
+          console.log('markets', response);
+          setMarcketCap(response[0].market_cap)
+          setDailyVolumn(response[0].total_volume)
+          setCirculationSupply(response[0].circulating_supply)
+          setTotalSupply(response[0].total_supply)
+          setCurrentPrice(response[0].current_price)
+        })
+        .catch(error => console.log('error', error));
+    }
+    getMarketsData()
   }, []);
 
   // Switch Network and set tokens
@@ -844,45 +896,104 @@ export default function Swap({ history }: RouteComponentProps) {
             )}
             
             <StyledTradingInformationWrapper>
-          <TradingInfoTitle>
-            BNB/LPK Trading information
-          </TradingInfoTitle>
+              <TradingInfoTitle>
+                Trading Information
+              </TradingInfoTitle>
 
-          <TradingInfoColumn>
-            <TradingInfoRow>
-              <span>Total liquidity:</span> 
-              <span>-</span> 
-            </TradingInfoRow>
-            <TradingInfoRow>
-              <span>Daily volume:</span> 
-              {(dailyVolumn !== undefined) ? (
-                <span>${dailyVolumn}</span> ) 
-                : ( 
-                <span>-</span>
-              )}
-            </TradingInfoRow>
-            <TradingInfoRow>
-              <span>Pooled BNB:</span> 
-              <span>-</span> 
-            </TradingInfoRow>
-            <TradingInfoRow>
-              <span>Pooled LPK:</span> 
-              <span>-</span> 
-            </TradingInfoRow>
-            <TradingInfoRow>
-              <span>Market Cap:</span> 
-              {(marcketCap !== undefined) ? (
-                <span>${marcketCap}</span> ) 
-                : ( 
-                <span>-</span>
-              )}
-            </TradingInfoRow>
-            <TradingMoreInfoButton>
-              <span>More Information</span> 
-            </TradingMoreInfoButton>
-          </TradingInfoColumn>
+              <TradingInfoColumn>
+                {(currencies?.INPUT && currencies?.OUTPUT) 
+                ? (
+                  <TradingInfoRow>
+                    <span>Total liquidity:</span> 
+                    {(totalLiquidity !== undefined) ? (
+                      <span>${totalLiquidity.toFixed(4)}</span> ) 
+                      : ( 
+                      <span>
+                        <Loader
+                          type="ThreeDots"
+                          color={theme.isDark ? '#00BFFF' : '#6e6e6e'}
+                          height={20}
+                          width={20}
+                        />
+                      </span>
+                    )}
+                  </TradingInfoRow>
+                  ) : null
+                }
+                {(currencies?.INPUT && currencies?.OUTPUT) 
+                ? (
+                  <TradingInfoRow>
+                    <span>Pooled {currencies?.INPUT.symbol}:</span> 
+                    {(inputTokenPools !== undefined) ? (
+                      <span>${inputTokenPools.toFixed(4)}</span> ) 
+                      : ( 
+                      <span>
+                        <Loader
+                          type="ThreeDots"
+                          color={theme.isDark ? '#00BFFF' : '#6e6e6e'}
+                          height={20}
+                          width={20}
+                        />
+                      </span>
+                    )}
+                  </TradingInfoRow>
+                  ) : null
+                }
+                {(currencies?.INPUT && currencies?.OUTPUT) 
+                ? (
+                  <TradingInfoRow>
+                    <span>Pooled {currencies?.OUTPUT.symbol}:</span> 
+                    {(outputTokenPools !== undefined) ? (
+                      <span>${outputTokenPools.toFixed(4)}</span> ) 
+                      : ( 
+                        <span>
+                          <Loader
+                            type="ThreeDots"
+                            color={theme.isDark ? '#00BFFF' : '#6e6e6e'}
+                            height={20}
+                            width={20}
+                          />
+                        </span>
+                    )}
+                  </TradingInfoRow>
+                  ) : null
+                }
+                <TradingInfoRow>
+                  <span>Daily volume:</span> 
+                  {(dailyVolumn !== undefined) ? (
+                    <span>${dailyVolumn}</span> ) 
+                    : ( 
+                    <span>
+                      <Loader
+                        type="ThreeDots"
+                        color={theme.isDark ? '#00BFFF' : '#6e6e6e'}
+                        height={20}
+                        width={20}
+                      />
+                    </span>
+                  )}
+                </TradingInfoRow>
+                <TradingInfoRow>
+                  <span>Market Cap:</span> 
+                  {(marcketCap !== undefined) ? (
+                    <span>${marcketCap}</span> ) 
+                    : ( 
+                    <span>
+                      <Loader
+                        type="ThreeDots"
+                        color={theme.isDark ? '#00BFFF' : '#6e6e6e'}
+                        height={20}
+                        width={20}
+                      />
+                    </span>
+                  )}
+                </TradingInfoRow>
+                <TradingMoreInfoButton>
+                  <span>More Information</span> 
+                </TradingMoreInfoButton>
+              </TradingInfoColumn>
 
-        </StyledTradingInformationWrapper>
+            </StyledTradingInformationWrapper>
             <Flex flexGrow={1} />
           </StyledPage>
           <TradingView />

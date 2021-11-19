@@ -7,6 +7,7 @@ import MulticallUpdater from './state/multicall/updater'
 import TransactionUpdater from './state/transactions/updater'
 import App from './App'
 import Providers from './Providers'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function Updaters() {
   return (

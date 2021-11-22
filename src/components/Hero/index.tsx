@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import styled, {keyframes} from 'styled-components'
+import { useModal } from '@pancakeswap/uikit'
+import { Currency } from '@pancakeswap/sdk'
 
 import { useNetworkContext } from 'contexts/NetworkContext'
 import SwapList from 'config/constants/tokenLists/swap.json'
-
+import { useTranslation } from 'contexts/Localization'
+import Loader from "react-loader-spinner";
+import useTheme from 'hooks/useTheme'
+import {
+  useDerivedSwapInfo,
+} from '../../state/swap/hooks'
+import TradingInfoModal from '../TradingInfoModal'
 import HeroBg from '../../assets/images/hero-bg.jpg'
-import Parachute1 from '../../assets/images/parachute_1.png'
-import Parachute2 from '../../assets/images/parachute_2.png'
 import LogoNoText from '../../assets/images/logo_no_text.png'
 import CircleBg from '../../assets/images/circle_bg.png'
 import KriptonCrystal from '../../assets/images/KriptonCrystal.png'
@@ -30,14 +36,22 @@ const StyledHeroWrapper = styled.div`
   z-index: 1;
   border-radius: 8px;
   background: url(${HeroBg}) no-repeat center;
-  width: 100%;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     padding: 12px 0 0 0;
     width: calc(100%);
     position: relative;
+    height: 700px;
   };
-`
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 100%;
+    height: 700px;
+  };
+  ${({ theme }) => theme.mediaQueries.xl} {
+    width: 100%;
+    height: 700px;
+  };
+  `
 const HeroImageWrapper = styled.div`
   display: flex;
 
@@ -83,16 +97,17 @@ const SelectPoolWrapper = styled.div`
   width: 100%;
   justify-content: center;
   height: 100%;
-  ${({ theme }) => theme.mediaQueries.xs} {
-    padding: 3rem;
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding: 4rem;
+    height: 450px;
   };
   ${({ theme }) => theme.mediaQueries.sm} {
     padding: 3rem;
   };
-  ${({ theme }) => theme.mediaQueries.lg} {
-    padding: 4rem;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 3rem;
   };
-`
+  `
 const PoolBuuton = styled.button`
   border-radius: 50%;
   background: #0C1F2C;
@@ -147,15 +162,7 @@ const LogoImage = styled.img`
     bottom: 164px;
   };
 `
-const rotateAnimation = (fromDegree, toDegree) => keyframes`
-  from {
-    transform:  rotate(${fromDegree}deg); 
-  }
-  to {
-    transform:  rotate(${toDegree}deg); 
-  }
-`
-const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree: number}>`
+const CircleContainer = styled.ul`
   position: relative;
 
   .swap-active {
@@ -170,10 +177,6 @@ const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree:
   background: url(${CircleBg}) no-repeat center/75%;
   background-position: 47% 48%;
 
-  animation-fill-mode: forwards;
-  animation-duration: 5000ms;
-  animation-name: ${({fromDegree, toDegree}) => rotateAnimation(fromDegree, toDegree)};
-  
   > * {
     display: block;
     position: absolute;
@@ -287,46 +290,199 @@ const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree:
     }
   }
 `
+export const StyledTradingInformationWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
+  text-align: center;  
+`
+export const TradingInfoTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 16px;
+`
+export const TradingInfoColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500; 
+  color: #4afefd;
+  margin: 15px;
+  background: transparent;
+  border: 1px solid #4afefd;
+  border-radius: 4px;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+}
+`
+export const TradingInfoRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+`
+export const TradingMoreInfoButton = styled.a`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 15px;
+  cursor: pointer;
 
-export default function Hero() {
-  
+  :hover {
+    color: ${({ theme }) => (theme.isDark) ? '#27618b': '#2aa1a0' };
+  }
+`
+
+
+
+export default function Hero({
+  totalLiquidity,
+  inputTokenPools,
+  outputTokenPools,
+  marcketCap,
+  dailyVolumn,
+  circulationSupply,
+  totalSupply,
+}: {
+  totalLiquidity: number
+  inputTokenPools: number
+  outputTokenPools: number
+  marcketCap: number
+  dailyVolumn: number
+  circulationSupply: number
+  totalSupply: number
+}) {
+
+  const { t } = useTranslation()
+  const { theme } = useTheme()
+  const { currencies } = useDerivedSwapInfo()
+
   const { networkId, setNetworkId } = useNetworkContext()
-
-  const [toDegree, setToDegree] = useState(0)
-  const [fromDegree, setFromDegree] = useState(0)
-  const [currentIndex, setCurrentIndex] = useState(0)
-
   
   const handleSwitchNetwork = (index: number) => {
     setNetworkId(index)
-    const ctx = currentIndex - index
-
-    const toDeg = (ctx < 0) ?((fromDegree + ctx * 45 + 360) % 360) : ((fromDegree + ctx * 45)) % 360
-    setToDegree(toDeg)
-    setFromDegree(toDeg)
-    
-    console.log("currentIndex", currentIndex)
     console.log("index", index)
-    console.log("ctx", ctx)
-    console.log("fromDegree", fromDegree)
-    console.log("toDeg", toDeg)
   }
+
+  const [onPresentSettingsModal] = useModal(
+    <TradingInfoModal 
+      marcketCap={marcketCap}
+      dailyVolumn={dailyVolumn}
+      circulationSupply={circulationSupply}
+      totalSupply={totalSupply}
+    />
+  )
 
   return (
     <>
       <SideContentWrapper>
         <StyledHeroWrapper className="hero">
-          <HeroImageWrapper>
-            <img src={Parachute1} alt="Parachute1" />
-            <img src={Parachute2} alt="Parachute2"/>
-          </HeroImageWrapper>
+          <StyledTradingInformationWrapper>
+            <TradingInfoColumn>
+              <TradingInfoTitle>
+                <span>{t('Pair Information')}</span> 
+              </TradingInfoTitle>
+              <TradingInfoRow>
+                <span>Daily volume:</span> 
+                {(dailyVolumn !== undefined) ? (
+                  <span>${dailyVolumn}</span> ) 
+                  : ( 
+                  <span>
+                    <Loader
+                      type="ThreeDots"
+                      color={theme.isDark ? '#4afefd' : '#4afefd'}
+                      height={20}
+                      width={20}
+                    />
+                  </span>
+                )}
+              </TradingInfoRow>
+              <TradingInfoRow>
+                <span>Market Cap:</span> 
+                {(marcketCap !== undefined) ? (
+                  <span>${marcketCap}</span> ) 
+                  : ( 
+                  <span>
+                    <Loader
+                      type="ThreeDots"
+                      color={theme.isDark ? '#4afefd' : '#4afefd'}
+                      height={20}
+                      width={20}
+                    />
+                  </span>
+                )}
+              </TradingInfoRow>
+
+              {(currencies?.INPUT && currencies?.OUTPUT) 
+              ? (
+                <TradingInfoRow>
+                  <span>Total liquidity:</span> 
+                  {(totalLiquidity !== undefined) ? (
+                    <span>${totalLiquidity.toFixed(4)}</span> ) 
+                    : ( 
+                    <span>
+                      <Loader
+                        type="ThreeDots"
+                        color={theme.isDark ? '#4afefd' : '#4afefd'}
+                        height={20}
+                        width={20}
+                      />
+                    </span>
+                  )}
+                </TradingInfoRow>
+                ) : null
+              }
+              {(currencies?.INPUT && currencies?.OUTPUT) 
+              ? (
+                <TradingInfoRow>
+                  <span>Pooled {currencies?.INPUT.symbol}:</span> 
+                  {(inputTokenPools !== undefined) ? (
+                    <span>${inputTokenPools.toFixed(4)}</span> ) 
+                    : ( 
+                    <span>
+                      <Loader
+                        type="ThreeDots"
+                        color={theme.isDark ? '#4afefd' : '#4afefd'}
+                        height={20}
+                        width={20}
+                      />
+                    </span>
+                  )}
+                </TradingInfoRow>
+                ) : null
+              }
+              {(currencies?.INPUT && currencies?.OUTPUT) 
+              ? (
+                <TradingInfoRow>
+                  <span>Pooled {currencies?.OUTPUT.symbol}:</span> 
+                  {(outputTokenPools !== undefined) ? (
+                    <span>${outputTokenPools.toFixed(4)}</span> ) 
+                    : ( 
+                      <span>
+                        <Loader
+                          type="ThreeDots"
+                          color={theme.isDark ? '#4afefd' : '#4afefd'}
+                          height={20}
+                          width={20}
+                        />
+                      </span>
+                  )}
+                </TradingInfoRow>
+                ) : null
+              }
+              
+              <TradingMoreInfoButton onClick={onPresentSettingsModal}>
+                <span>More Information</span> 
+              </TradingMoreInfoButton>
+            </TradingInfoColumn>
+
+          </StyledTradingInformationWrapper>
 
           <SelectPoolWrapper>
             <LogoImage src={KriptonCrystal} />
             <CircleContainer
-              index={currentIndex}
-              fromDegree={fromDegree}
-              toDegree={toDegree}
             >
               {SwapList.map((swap) => {     
                 return (
@@ -335,7 +491,6 @@ export default function Hero() {
                       className={(networkId === swap.id) ? 'swap-active' : ''}
                       onClick={() => {
                         handleSwitchNetwork(swap.id)
-                        setCurrentIndex(swap.id)
                       }}>
                       <img src={swap.icon} alt="11"/>
                     </PoolBuuton>

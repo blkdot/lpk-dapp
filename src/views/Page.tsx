@@ -69,12 +69,10 @@ const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...pro
       <Wrapper>
       <NetworkContext.Provider value={{networkId, setNetworkId}}>
         <StyledFlex>
-          <Hero />
           <StyledPage {...props}>
             {children}
             <Flex flexGrow={1} />
           </StyledPage>
-          <TradingView />
         </StyledFlex>
         </NetworkContext.Provider>
       </Wrapper>

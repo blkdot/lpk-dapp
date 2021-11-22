@@ -15,8 +15,8 @@ import SwapRoute from './SwapRoute'
 
 export const StyledText = styled(Text)`
   font-size: 14px;
-  font-weight: 400;
-  font-family: Ubuntu, sans-serif;
+  font-weight: 500;
+  font-family: 'Montserrat',sans-serif;
   color: ${({ theme }) => (theme.isDark) ? '#EDF4F9' : '#000000'};
 `
 
@@ -95,7 +95,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   const { t } = useTranslation()
   const [allowedSlippage] = useUserSlippageTolerance()
 
-  const showRoute = Boolean(trade && trade.route.path.length > 2)
+  // const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
     <AutoColumn gap="0px">

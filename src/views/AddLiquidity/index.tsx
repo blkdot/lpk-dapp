@@ -341,7 +341,7 @@ export default function AddLiquidity({
                 </Message>
               </ColumnCenter>
             )}
-            <CurrencyInputPanel
+            {/* <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_A]}
               onUserInput={onFieldAInput}
               onMax={() => {
@@ -367,7 +367,7 @@ export default function AddLiquidity({
               currency={currencies[Field.CURRENCY_B]}
               id="add-liquidity-input-tokenb"
               showCommonBases
-            />
+            /> */}
             {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (
               <>
                 <LightCard padding="0px" borderRadius="20px">

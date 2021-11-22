@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Flex, Heading, IconButton, ArrowBackIcon } from '@pancakeswap/uikit'
 import { Link } from 'react-router-dom'
-import { useExpertModeManager } from 'state/user/hooks'
+// import { useExpertModeManager } from 'state/user/hooks'
 import QuestionHelper from '../QuestionHelper'
 
 interface Props {

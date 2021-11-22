@@ -157,6 +157,11 @@ const rotateAnimation = (fromDegree, toDegree) => keyframes`
 `
 const CircleContainer = styled.ul<{ index: number, fromDegree: number, toDegree: number}>`
   position: relative;
+
+  .swap-active {
+    box-shadow: 0px 0px 20px #16ffff;
+    background: #1b435f;
+  }
   
   border-radius: 50%;
   padding: 0;
@@ -323,10 +328,11 @@ export default function Hero() {
               fromDegree={fromDegree}
               toDegree={toDegree}
             >
-              {SwapList.map((swap, index) => {     
+              {SwapList.map((swap) => {     
                 return (
                   <li>
-                    <PoolBuuton 
+                    <PoolBuuton
+                      className={(networkId === swap.id) ? 'swap-active' : ''}
                       onClick={() => {
                         handleSwitchNetwork(swap.id)
                         setCurrentIndex(swap.id)

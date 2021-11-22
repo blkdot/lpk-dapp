@@ -3,14 +3,14 @@ import styled from 'styled-components'
 import { splitSignature } from '@ethersproject/bytes'
 import { Contract } from '@ethersproject/contracts'
 import { TransactionResponse } from '@ethersproject/providers'
-import { Currency, currencyEquals, ETHER, Percent, WETH } from '@pancakeswap/sdk'
+import { currencyEquals, ETHER, Percent, WETH } from '@pancakeswap/sdk'
 import { Button, Text, AddIcon, ArrowDownIcon, CardBody, Slider, Box, Flex, useModal } from '@pancakeswap/uikit'
 import { RouteComponentProps } from 'react-router'
 import { BigNumber } from '@ethersproject/bignumber'
 import { useTranslation } from 'contexts/Localization'
 import { AutoColumn, ColumnCenter } from '../../components/Layout/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
+// import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import { MinimalPositionCard } from '../../components/PositionCard'
 import { AppHeader, AppBody } from '../../components/App'
 import { RowBetween, RowFixed } from '../../components/Layout/Row'
@@ -27,7 +27,7 @@ import useTransactionDeadline from '../../hooks/useTransactionDeadline'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import StyledInternalLink from '../../components/Links'
 import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from '../../utils'
-import { currencyId } from '../../utils/currencyId'
+// import { currencyId } from '../../utils/currencyId'
 import useDebouncedChangeHandler from '../../hooks/useDebouncedChangeHandler'
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
@@ -45,7 +45,7 @@ const BorderCard = styled.div`
 `
 
 export default function RemoveLiquidity({
-  history,
+  // history,
   match: {
     params: { currencyIdA, currencyIdB },
   },
@@ -89,7 +89,7 @@ export default function RemoveLiquidity({
       independentField === Field.CURRENCY_B ? typedValue : parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? '',
   }
 
-  const atMaxAmount = parsedAmounts[Field.LIQUIDITY_PERCENT]?.equalTo(new Percent('1'))
+  // const atMaxAmount = parsedAmounts[Field.LIQUIDITY_PERCENT]?.equalTo(new Percent('1'))
 
   // pair contract
   const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address)
@@ -170,9 +170,9 @@ export default function RemoveLiquidity({
     [_onUserInput],
   )
 
-  const onLiquidityInput = useCallback((value: string): void => onUserInput(Field.LIQUIDITY, value), [onUserInput])
-  const onCurrencyAInput = useCallback((value: string): void => onUserInput(Field.CURRENCY_A, value), [onUserInput])
-  const onCurrencyBInput = useCallback((value: string): void => onUserInput(Field.CURRENCY_B, value), [onUserInput])
+  // const onLiquidityInput = useCallback((value: string): void => onUserInput(Field.LIQUIDITY, value), [onUserInput])
+  // const onCurrencyAInput = useCallback((value: string): void => onUserInput(Field.CURRENCY_A, value), [onUserInput])
+  // const onCurrencyBInput = useCallback((value: string): void => onUserInput(Field.CURRENCY_B, value), [onUserInput])
 
   // tx sending
   const addTransaction = useTransactionAdder()
@@ -403,26 +403,26 @@ export default function RemoveLiquidity({
         (currencyB && currencyEquals(WETH[chainId], currencyB))),
   )
 
-  const handleSelectCurrencyA = useCallback(
-    (currency: Currency) => {
-      if (currencyIdB && currencyId(currency) === currencyIdB) {
-        history.push(`/remove/${currencyId(currency)}/${currencyIdA}`)
-      } else {
-        history.push(`/remove/${currencyId(currency)}/${currencyIdB}`)
-      }
-    },
-    [currencyIdA, currencyIdB, history],
-  )
-  const handleSelectCurrencyB = useCallback(
-    (currency: Currency) => {
-      if (currencyIdA && currencyId(currency) === currencyIdA) {
-        history.push(`/remove/${currencyIdB}/${currencyId(currency)}`)
-      } else {
-        history.push(`/remove/${currencyIdA}/${currencyId(currency)}`)
-      }
-    },
-    [currencyIdA, currencyIdB, history],
-  )
+  // const handleSelectCurrencyA = useCallback(
+  //   (currency: Currency) => {
+  //     if (currencyIdB && currencyId(currency) === currencyIdB) {
+  //       history.push(`/remove/${currencyId(currency)}/${currencyIdA}`)
+  //     } else {
+  //       history.push(`/remove/${currencyId(currency)}/${currencyIdB}`)
+  //     }
+  //   },
+  //   [currencyIdA, currencyIdB, history],
+  // )
+  // const handleSelectCurrencyB = useCallback(
+  //   (currency: Currency) => {
+  //     if (currencyIdA && currencyId(currency) === currencyIdA) {
+  //       history.push(`/remove/${currencyIdB}/${currencyId(currency)}`)
+  //     } else {
+  //       history.push(`/remove/${currencyIdA}/${currencyId(currency)}`)
+  //     }
+  //   },
+  //   [currencyIdA, currencyIdB, history],
+  // )
 
   const handleDismissConfirmation = useCallback(() => {
     setSignatureData(null) // important that we clear signature data to avoid bad sigs
@@ -560,7 +560,7 @@ export default function RemoveLiquidity({
             </>
           )}
 
-          {showDetailed && (
+          {/* {showDetailed && (
             <Box my="16px">
               <CurrencyInputPanel
                 value={formattedAmounts[Field.LIQUIDITY]}
@@ -604,7 +604,7 @@ export default function RemoveLiquidity({
                 id="remove-liquidity-tokenb"
               />
             </Box>
-          )}
+          )} */}
           {pair && (
             <AutoColumn gap="10px" style={{ marginTop: '16px' }}>
               <Text bold color="secondary" fontSize="12px" textTransform="uppercase">

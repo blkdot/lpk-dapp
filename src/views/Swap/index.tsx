@@ -14,12 +14,16 @@ import {
   makeQueryTokenPairs,
   makeQueryTokenPools,
  } from 'utils/bitquery'
+ import { 
+  sendMarketsDataRequest,
+ } from 'utils/coingecko'
+
 import Loader from "react-loader-spinner";
 
 import useTheme from 'hooks/useTheme'
-import useDebounce from 'hooks/useDebounce'
-import { filterTokens } from 'components/SearchModal/filtering'
-import useTokenComparator from 'components/SearchModal/sorting'
+// import useDebounce from 'hooks/useDebounce'
+// import { filterTokens } from 'components/SearchModal/filtering'
+// import useTokenComparator from 'components/SearchModal/sorting'
 
 import Hero from 'components/Hero'
 import TradingView from 'components/TradingView'
@@ -28,6 +32,8 @@ import AddressInputPanel from './components/AddressInputPanel'
 import { GreyCard } from '../../components/Card'
 import Column, { AutoColumn } from '../../components/Layout/Column'
 import ConfirmSwapModal from './components/ConfirmSwapModal'
+import TradingInfoModal from './components/TradingInfoModal'
+
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import { AutoRow, RowBetween } from '../../components/Layout/Row'
 import AdvancedSwapDetailsDropdown from './components/AdvancedSwapDetailsDropdown'
@@ -116,7 +122,8 @@ const StyledFlex = styled(Flex)`
 `
 const Label = styled(Text)`
   font-size: 14px;
-  font-family: Ubuntu, sans-serif;
+  font-weight: 500;
+  font-family: 'Montserrat',sans-serif;
   color: ${({ theme }) => (theme.isDark) ? '#2DC60E': '#000000'};
 `
 export const BodyWrapper = styled.div`
@@ -180,6 +187,23 @@ export const PairSelectButton = styled.button`
     font-weight: 500;    
   }
 `
+export const PairEmpty = styled.div`
+  position: relative;
+  width: 100%;
+  background: ${({ theme }) => (theme.isDark) ? '#12344c' : '#FFFFFF'};
+  border: 1px solid ${({ theme }) => (theme.isDark) ? '#12344c' : '#FFFFFF'};
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
+
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+
+  font-size: 16px;
+  font-weight: 500;    
+`
+
 export const PairViewMoreButton = styled.a`
   position: relative;
   width: 100%;
@@ -303,7 +327,9 @@ export default function Swap({ history }: RouteComponentProps) {
   const { v2Trade, currencyBalances, parsedAmount, currencies, inputError: swapInputError } = useDerivedSwapInfo()
   const [inputToken, setInputToken] = useState<Currency>(currencies[Field.INPUT])
   const [outputToken, setOutputToken] = useState<Currency>(currencies[Field.OUTPUT])
-
+  const [inputTokenLogo, setInputTokenLogo] = useState(undefined)
+  const [outputTokenLogo, setOutputTokenLogo] = useState(undefined)
+  
   const {
     wrapType,
     execute: onWrap,
@@ -524,23 +550,23 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const [indexActive, setIndexActive] = useState(undefined)
   // Get the token list
-  const [searchQuery] = useState<string>('')
+  // const [searchQuery] = useState<string>('')
 
-  const debouncedQuery = useDebounce(searchQuery, 200)
+  // const debouncedQuery = useDebounce(searchQuery, 200)
 
-  const [invertSearchOrder] = useState<boolean>(false)
+  // const [invertSearchOrder] = useState<boolean>(false)
 
-  const allTokens = useAllTokens()
+  // const allTokens = useAllTokens()
 
-  const tokenComparator = useTokenComparator(invertSearchOrder)
+  // const tokenComparator = useTokenComparator(invertSearchOrder)
 
-  const filteredTokens: Token[] = useMemo(() => {
-    return filterTokens(Object.values(allTokens), debouncedQuery)
-  }, [allTokens, debouncedQuery])
+  // const filteredTokens: Token[] = useMemo(() => {
+  //   return filterTokens(Object.values(allTokens), debouncedQuery)
+  // }, [allTokens, debouncedQuery])
 
-  const sortedTokens: Token[] = useMemo(() => {
-    return filteredTokens.sort(tokenComparator)
-  }, [filteredTokens, tokenComparator])
+  // const sortedTokens: Token[] = useMemo(() => {
+  //   return filteredTokens.sort(tokenComparator)
+  // }, [filteredTokens, tokenComparator])
 
   // const filteredSortedTokens = useSortedTokensByQuery(sortedTokens, debouncedQuery)
   const [networkId, setNetworkId] = useState(0)
@@ -568,6 +594,9 @@ export default function Swap({ history }: RouteComponentProps) {
     setInputToken(currencies[Field.INPUT])
     currencies[Field.OUTPUT] = outputPairToken;
     setOutputToken(currencies[Field.OUTPUT])
+
+    setInputTokenLogo(token.input.logoURI)
+    setOutputTokenLogo(token.output.logoURI)
 
     handleInputSelect(currencies[Field.INPUT])
     handleOutputSelect(currencies[Field.OUTPUT])
@@ -597,6 +626,7 @@ export default function Swap({ history }: RouteComponentProps) {
       const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
       const inputPools = (await poolsData).ethereum.address[0].balances[0].value
       const outputPools = (await poolsData).ethereum.address[0].balances[1].value
+      console.log('paireData', paireData)
       
       setInputTokenPools(inputPools)
       setOutputTokenPools(outputPools)
@@ -630,18 +660,16 @@ export default function Swap({ history }: RouteComponentProps) {
 
   useEffect(() => {
 
-    const getMarketsData = () => {
-      fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=l-pesa&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h')
-        .then(response => response.json())
-        .then(response => {
-          console.log('markets', response);
-          setMarcketCap(response[0].market_cap)
-          setDailyVolumn(response[0].total_volume)
-          setCirculationSupply(response[0].circulating_supply)
-          setTotalSupply(response[0].total_supply)
-          setCurrentPrice(response[0].current_price)
-        })
-        .catch(error => console.log('error', error));
+    const getMarketsData = async () => {
+      const res = sendMarketsDataRequest()
+      const marketData = (await res)[0]
+      console.log('marketData', marketData)
+
+      setMarcketCap(marketData.market_cap)
+      setDailyVolumn(marketData.total_volume)
+      setCirculationSupply(marketData.circulating_supply)
+      setTotalSupply(marketData.total_supply)
+      setCurrentPrice(marketData.current_price)
     }
     getMarketsData()
   }, []);
@@ -649,10 +677,31 @@ export default function Swap({ history }: RouteComponentProps) {
   // Switch Network and set tokens
   useEffect(() => {
     switch (networkId) {
+      case 0:
+        handleTokenList(PancakePair)
+        break;
+      case 1:
+        handleTokenList(null)
+        break;
+      case 2:
+        handleTokenList(null)
+        break;
+      case 3:
+        handleTokenList(null)
+        break;
       case 4:
         handleTokenList(BiswapPair)
         break;
-    
+      case 5:
+        handleTokenList(null)
+        break;
+      case 6:
+        handleTokenList(null)
+        break;
+      case 7:
+        handleTokenList(null)
+        break;
+          
       default:
         handleTokenList(PancakePair)
         break;
@@ -664,9 +713,19 @@ export default function Swap({ history }: RouteComponentProps) {
     setTokenList(tokens)
   }
   
+  const [onPresentSettingsModal] = useModal(
+    <TradingInfoModal 
+      // inputTokenPools={inputTokenPools}
+      // outputTokenPools={outputTokenPools}
+      // totalLiquidity={totalLiquidity}
+      marcketCap={marcketCap}
+      dailyVolumn={dailyVolumn}
+      circulationSupply={circulationSupply}
+      totalSupply={totalSupply}
+    />
+  )
 
   return (
-    // <Page>
     <StyledWrapper>
       <NetworkContext.Provider value={{networkId, setNetworkId}}>
         <StyledFlex>
@@ -677,18 +736,22 @@ export default function Swap({ history }: RouteComponentProps) {
                 <PairCardBox>
                   <span>{t('Pair')}</span>
 
-                  {tokenList.pairs.slice(0, limit).map((token, i) => {     
-                    return (
-                      <PairSelectButton
-                        onClick={() => {
-                          selectPairTokens(token, i)
-                        }}
-                        className={indexActive === i ? 'active' : ''}
-                      >
-                        <span>{token.input.symbol}/{token.output.symbol}</span>
-                      </PairSelectButton>
-                    ) 
-                  })}
+                  {tokenList ? (
+                    tokenList.pairs.slice(0, limit).map((token, i) => {     
+                      return (
+                        <PairSelectButton
+                          onClick={() => {
+                            selectPairTokens(token, i)
+                          }}
+                          className={indexActive === i ? 'active' : ''}
+                        >
+                          <span>{token.input.symbol}/{token.output.symbol}</span>
+                        </PairSelectButton>
+                      ) 
+                  })) : (
+                    <PairEmpty>No Tokens. Coming Soon.</PairEmpty>
+                  )
+                }
 
                   <PairViewMoreButton
                     onClick={() => {
@@ -709,6 +772,7 @@ export default function Swap({ history }: RouteComponentProps) {
                     value={formattedAmounts[Field.INPUT]}
                     showMaxButton={!atMaxAmountInput}
                     currency={inputToken}
+                    currencyLogo={inputTokenLogo}
                     onUserInput={handleTypeInput}
                     onMax={handleMaxInput}
                     onCurrencySelect={handleInputSelect}
@@ -741,6 +805,7 @@ export default function Swap({ history }: RouteComponentProps) {
                     label={independentField === Field.INPUT && !showWrap && trade ? t('To (estimated)') : t('To')}
                     showMaxButton={false}
                     currency={outputToken}
+                    currencyLogo={outputTokenLogo}
                     onCurrencySelect={handleOutputSelect}
                     otherCurrency={inputToken}
                     id="swap-currency-output"
@@ -988,7 +1053,7 @@ export default function Swap({ history }: RouteComponentProps) {
                     </span>
                   )}
                 </TradingInfoRow>
-                <TradingMoreInfoButton>
+                <TradingMoreInfoButton onClick={onPresentSettingsModal}>
                   <span>More Information</span> 
                 </TradingMoreInfoButton>
               </TradingInfoColumn>
@@ -1000,6 +1065,5 @@ export default function Swap({ history }: RouteComponentProps) {
         </StyledFlex>
       </NetworkContext.Provider>
     </StyledWrapper>
-    // </Page>
   )
 }

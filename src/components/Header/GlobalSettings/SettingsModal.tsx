@@ -24,13 +24,10 @@ const StyledModal = styled(Modal)`
   // background: ${({ theme }) => theme.isDark ? '#152b39' : '#FFFFFF'};
   // border: 1px solid ${({ theme }) => theme.isDark ? '#152b39' : '#EDF4F9'};
   border-radius: 8px;
+  h2 {
+    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
+  }
 `
-
-const StyledText = styled(Text)`
-  font-weight: 500;
-  font-size: 14px;
-`
-
 
 const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)

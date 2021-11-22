@@ -9,7 +9,8 @@ import { StyledBalanceMaxMini } from './styleds'
 export const StyledPriceText = styled.div`
   color: ${({ theme }) => (theme.isDark) ? '#FFFFFF' : '#000000'};
   font-size: 14px;
-  font-family: Ubuntu, sans-serif;
+  font-weight: 500;
+  font-family: 'Montserrat',sans-serif;
 `
 
 interface TradePriceProps {

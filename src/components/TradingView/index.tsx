@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 // import { useNetworkContext } from 'contexts/NetworkContext'
 // import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
@@ -31,8 +31,8 @@ const StyledTradingViewWrapper = styled.div`
   border-radius: 8px;
   width: 100%;
   height: 700px;
-  border: 1px solid ${({ theme }) => (theme.isDark) ? '#265B80' : '#CBD8E1'};
-  background: ${({ theme }) => (theme.isDark) ? '#265B80' : '#FFFFFF'};
+  border: 1px solid ${({ theme }) => (theme.isDark) ? '#265B80' : '#265B80'};
+  background: ${({ theme }) => (theme.isDark) ? '#265B80' : '#265B80'};
   border-radius: 8px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -47,7 +47,7 @@ const StyledTradingViewTitle = styled.span`
   justify-content: start;
   width: 100%;
   border-bottom: 1px solid ${({ theme }) => (theme.isDark) ? '#ABDDFF' : '#CBD8E1'};
-  color: ${({ theme }) => (theme.isDark) ? '#FFFFFF' : '#000000'};
+  color: ${({ theme }) => (theme.isDark) ? '#50F7F7' : '#50F7F7'};
   padding: 16px;
   font-size: 20px;
   font-weight: 500;
@@ -87,7 +87,7 @@ const LpkOtherLink = styled.div`
 
 export default function TradingView() {
   
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
   // const { networkId } = useNetworkContext()
   
   useEffect(() => {

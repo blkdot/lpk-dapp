@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
-import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo'
+import { DoubleCurrencyLogo } from '../Logo'
 // import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
 import { RowBetween } from '../Layout/Row'
@@ -81,6 +81,12 @@ const Container = styled.div<{ hideInput: boolean }>`
   border-radius: 8px;
   background-color: ${({ theme }) => (theme.isDark) ? '#27618b' : '#EDF4F9'};
 `
+const TokenLogo = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+`
+
 interface CurrencyInputPanelProps {
   value: string
   onUserInput: (value: string) => void
@@ -96,6 +102,7 @@ interface CurrencyInputPanelProps {
   otherCurrency?: Currency | null
   id: string
   showCommonBases?: boolean
+  currencyLogo: string
 }
 export default function CurrencyInputPanel({
   value,
@@ -112,6 +119,7 @@ export default function CurrencyInputPanel({
   otherCurrency,
   id,
   showCommonBases,
+  currencyLogo,
 }: CurrencyInputPanelProps) {
   const { account } = useActiveWeb3React()
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
@@ -133,7 +141,9 @@ export default function CurrencyInputPanel({
               {pair ? (
                 <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
               ) : currency ? (
-                <CurrencyLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+                // <CurrencyLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+
+                <TokenLogo src={currencyLogo}/>
               ) : null}
               <Flex alignItems="flex-start" justifyContent="start" flexDirection="column">
                 <Flex alignItems="center" justifyContent="space-between">

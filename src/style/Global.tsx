@@ -34,6 +34,11 @@ const GlobalStyle = createGlobalStyle`
     border-color: ${({ theme }) => (theme.isDark) ? '#12344c6b' : '#E9EAEB'} !important;
     color: ${({ theme }) => (theme.isDark) ? '#27618b' : '#BDC2C4'} !important;
   }
+  [role="presentation"] {
+    background: #000000;
+    transition: opacity 0.4s;
+    opacity: 0.5;
+  }
 `
 
 export default GlobalStyle

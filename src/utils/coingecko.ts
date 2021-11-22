@@ -1,31 +1,23 @@
-export interface ApiCollection {
-  data: any
-}
+export const BASE_ENDPOINT = 'https://api.coingecko.com/api/v3';    
+export const MARCKET_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=l-pesa&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h';    
 
-export const ENDPOINT = 'https://api.coingecko.com/api/v3';    
-
-export const sendCoinGeckoRequest = async (): Promise<ApiCollection> => {
-  const res = await fetch(`https://api.coingecko.com/api/v3/coins/markets`, {
-    method: "POST",
-    mode: 'cors',
+export const sendMarketsDataRequest = async () => {
+  const response = await fetch(MARCKET_ENDPOINT, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({
-      vs_currency: 'usd',
-      ids: 'l-pesa',
-      order: 'market_cap_desc',
-      per_page: 10,
-      sparkline: false,
-      price_change_percentage: '24h'
-    }),
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
   })
-
-  if (res.ok) {
-    const json = await res.json()
-    return json.data
+  if (response.ok) {
+    const json = await response.json()
+    return json
   }
-  console.error('Failed to fetch collections', res.statusText)
+  console.error('Failed to fetch collections', response.statusText)
   return null
 }

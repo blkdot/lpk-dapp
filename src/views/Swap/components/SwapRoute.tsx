@@ -1,7 +1,15 @@
 import React, { Fragment, memo } from 'react'
+import styled from 'styled-components'
 import { Trade } from '@pancakeswap/sdk'
 import { Text, Flex, ChevronRightIcon } from '@pancakeswap/uikit'
 import { unwrappedToken } from 'utils/wrappedCurrency'
+
+export const StyledText = styled(Text)`
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat',sans-serif;
+  color: ${({ theme }) => (theme.isDark) ? '#EDF4F9' : '#000000'};
+`
 
 export default memo(function SwapRoute({ trade }: { trade: Trade }) {
   return (
@@ -13,9 +21,9 @@ export default memo(function SwapRoute({ trade }: { trade: Trade }) {
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={i}>
             <Flex alignItems="end">
-              <Text fontSize="14px" ml="0.125rem" mr="0.125rem">
+              <StyledText fontSize="14px" ml="0.125rem" mr="0.125rem">
                 {currency.symbol}
-              </Text>
+              </StyledText>
             </Flex>
             {!isLastItem && <ChevronRightIcon width="12px" />}
           </Fragment>

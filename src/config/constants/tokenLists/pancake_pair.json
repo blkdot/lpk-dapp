@@ -4,7 +4,7 @@
         {
             "input": {
                 "name": "WBNB Token",
-                "symbol": "BNB",
+                "symbol": "WBNB",
                 "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
                 "chainId": 56,
                 "decimals": 18,
@@ -17,12 +17,13 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPK.png"
-            }
+            },
+            "type": "LPK"
         },
         {
             "input": {
                 "name": "PancakeSwap Token",
-                "symbol": "CAKE",
+                "symbol": "Cake",
                 "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
                 "chainId": 56,
                 "decimals": 18,
@@ -35,7 +36,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPK.png"
-            }
+            },
+            "type": "LPK"
         },
         {
             "input": {
@@ -53,7 +55,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKX.png"
-            }
+            },
+            "type": "LPK"
         },
         {
             "input": {
@@ -71,7 +74,9 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKM.png"
-            }
+            },
+            "type": "LPKX"
+            
         },
         {
             "input": {
@@ -89,7 +94,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKM.png"
-            }
+            },
+            "type": "LPKX"
         },
         {
             "input": {
@@ -107,7 +113,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKM.png"
-            }
+            },
+            "type": "LPKX"
         },
         {
             "input": {
@@ -125,7 +132,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKB.png"
-            }
+            },
+            "type": "LPKX"
         },
         {
             "input": {
@@ -143,7 +151,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKT.png"
-            }
+            },
+            "type": "LPKX"
         },
         {
             "input": {
@@ -161,7 +170,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKQ.png"
-            }
+            },
+            "type": "LPKX"
         },
         {
             "input": {
@@ -179,7 +189,8 @@
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "./assets/images/tokens/LPKP.png"
-            }
+            },
+            "type": "LPKX"
         },
         {
             "input": {
@@ -192,12 +203,13 @@
             },
             "output": {
                 "name": "WBNB Token",
-                "symbol": "BNB",
+                "symbol": "WBNB",
                 "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "https://pancakeswap.finance/images/tokens/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c.png"
-            }
+            },
+            "type": "LPKX"
         }
     ]
   }

@@ -1,32 +1,30 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
 
 import { NetworkContext } from 'contexts/NetworkContext'
+import axios from "axios";
 
 import { Currency, CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
-import { Button, Text, ArrowDownIcon, Box, useModal, Flex } from '@pancakeswap/uikit'
+import { Text, ArrowDownIcon, Box, useModal, Flex } from '@pancakeswap/uikit'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
 import { useTranslation } from 'contexts/Localization'
 import { 
-  sendRequest,
-  makeQueryTokenPairs,
-  makeQueryTokenPools,
- } from 'utils/bitquery'
- import { 
-  sendMarketsDataRequest,
- } from 'utils/coingecko'
+  MARKETS_ENDPOINT,
+  LIQUIDITY_ENDPOINT
+} from 'utils/apis'
 
-import Loader from "react-loader-spinner";
-
+// import Loader from "react-loader-spinner";
+import ProgressBar from "@ramonak/react-progress-bar";
 import useTheme from 'hooks/useTheme'
 // import useDebounce from 'hooks/useDebounce'
 // import { filterTokens } from 'components/SearchModal/filtering'
 // import useTokenComparator from 'components/SearchModal/sorting'
 
-import Tabs from 'components/Tabs'
-import Tab from 'components/Tabs/Tab'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
 import Hero from 'components/Hero'
 import TradingView from 'components/TradingView'
 import SwapWarningTokens from 'config/constants/swapWarningTokens'
@@ -34,18 +32,41 @@ import AddressInputPanel from './components/AddressInputPanel'
 import { GreyCard } from '../../components/Card'
 import Column, { AutoColumn } from '../../components/Layout/Column'
 import ConfirmSwapModal from './components/ConfirmSwapModal'
-
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import { AutoRow, RowBetween } from '../../components/Layout/Row'
 import AdvancedSwapDetailsDropdown from './components/AdvancedSwapDetailsDropdown'
 import confirmPriceImpactWithoutFee from './components/confirmPriceImpactWithoutFee'
-import { ArrowWrapper, SwapCallbackError, Wrapper } from './components/styleds'
+import {
+  StyledPage,
+  StyledWrapper,
+  StyledFlex,
+  Label,
+  BodyWrapper,
+  PairCardBox,
+  PairSelectBody,
+  PairEmpty,
+  PairProgressLabel,
+  ArrowDownButton,
+  StyledSwapButton,
+  ResponsiveGrid,
+  StyledText,
+  LinkWrapper,
+  ArrowWrapper, 
+  SwapCallbackError, 
+  Wrapper, 
+  ClickableColumnHeader, 
+  TableWrapper, 
+  Break, 
+  DoubleLogoWrapper,
+  DoubleLogo,
+  DoubleLogoImg,
+  DoubleLogoFlex
+} from './components/styleds'
 import TradePrice from './components/TradePrice'
 import ImportTokenWarningModal from './components/ImportTokenWarningModal'
 import ProgressSteps from './components/ProgressSteps'
-import { AppHeader, AppBody } from '../../components/App'
+import { AppBody } from '../../components/App'
 import ConnectWalletButton from '../../components/ConnectWalletButton'
-
 import { INITIAL_ALLOWED_SLIPPAGE } from '../../config/constants'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 import { useCurrency, useAllTokens } from '../../hooks/Tokens'
@@ -59,236 +80,26 @@ import {
   useSwapActionHandlers,
   useSwapState,
 } from '../../state/swap/hooks'
-
 import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from '../../state/user/hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
 import CircleLoader from '../../components/Loader/CircleLoader'
 import SwapWarningModal from './components/SwapWarningModal'
-// import lpkToken from '../../config/constants/tokenLists/lpk-token.json'
+import MarketList from '../../config/constants/tokenLists/market_list.json'
 import PancakePair from '../../config/constants/tokenLists/pancake_pair.json'
 import BiswapPair from '../../config/constants/tokenLists/biswap_pair.json'
 
-const StyledPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 0;
-  min-height: calc(100vh - 64px);
-  background: ${({ theme }) => (theme.isDark) ? '#12344c' : 'rgb(247, 248, 250)' }; 
-
-  ${({ theme }) => theme.mediaQueries.xs} {
-    background-size: auto;
-  }
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    padding-bottom: 0;
-  }
-
-  ${({ theme }) => theme.mediaQueries.lg} {
-    min-height: calc(100vh - 64px);
-  }
-`
-const StyledWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  background: ${({ theme }) => (theme.isDark) ? '#12344c' : 'rgb(247, 248, 250)' }; 
-
-`
-const StyledFlex = styled(Flex)`
-  display: flex;
-  align-items: start;
-  width: 100%;
-  padding: 16px;
-  padding-bottom: 2rem;
-  justify-content: space-between;
-  max-width: 1440px;
-  background: ${({ theme }) => (theme.isDark) ? '#12344c' : 'rgb(247, 248, 250)' }; 
-  ${({ theme }) => theme.mediaQueries.xs} {
-    flex-direction: column;
-    align-items: start;
-  }
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    flex-direction: column;
-    align-items: start;
-  }
-
-  ${({ theme }) => theme.mediaQueries.lg} {
-    flex-direction: row;
-  }
-`
-const Label = styled(Text)`
-  font-size: 14px;
-  font-weight: 500;
-  font-family: 'Montserrat',sans-serif;
-  color: ${({ theme }) => (theme.isDark) ? '#2DC60E': '#000000'};
-`
-export const BodyWrapper = styled.div`
-  position: relative;
-  max-width: 420px;
-  width: 100%;
-  margin-bottom: 0.75rem;
-`
-export const PairCardBox = styled.div`
-  position: relative;
-  max-width: 420px;
-  width: 100%;
-  background: ${({ theme }) => (theme.isDark) ? '#152b39' : '#EDF4F9'};
-  border: 1px solid ${({ theme }) => (theme.isDark) ? '#152b39' : '#EDF4F9'};
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-  border-radius: 8px;
-  padding: 1rem;
-
-  span {
-    font-size: 20px;
-    font-weight: 500; 
-  }
-`
-const BodyFlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 10;
-  justify-content: space-between;
-  max-width: 1440px;
-  justify-content: center;
-  margin: auto;
-
-`
-export const PairSelectButton = styled.button`
-  position: relative;
-  width: 100%;
-  background: ${({ theme }) => (theme.isDark) ? '#12344c' : '#FFFFFF'};
-  border: 1px solid ${({ theme }) => (theme.isDark) ? '#12344c' : '#FFFFFF'};
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-
-  border-radius: 8px;
-  padding: 0.75rem;
-  cursor: pointer;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-
-  :focus,
-  :hover {
-    background: ${({ theme }) => (theme.isDark) ? '#27618b' : '#27618b'};
-    border: 1px solid ${({ theme }) => (theme.isDark) ? '#27618b' : '#27618b'};
-    color: rgb(74, 254, 253);
-  }
-  span {
-    font-size: 16px;
-    font-weight: 500;    
-  }
-`
-export const PairEmpty = styled.div`
-  position: relative;
-  width: 100%;
-  background: ${({ theme }) => (theme.isDark) ? '#12344c' : '#FFFFFF'};
-  border: 1px solid ${({ theme }) => (theme.isDark) ? '#12344c' : '#FFFFFF'};
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-
-  border-radius: 8px;
-  padding: 0.75rem;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-
-  font-size: 16px;
-  font-weight: 500;    
-`
-
-export const PairViewMoreButton = styled.a`
-  position: relative;
-  width: 100%;
-  background: transparent;
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-  cursor: pointer;
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 500;   
-
-  :focus,
-  :hover {
-    color: ${({ theme }) => (theme.isDark) ? '#27618b' : '#27618b'};
-  }
-`
-export const Price = styled.span`
-  color: ${({ theme }) => (theme.isDark) ? '#2DC60E': '#2DC60E' };
-  font-size: 16px;
-  font-weight: 500;    
-`
-export const ArrowDownButton = styled.div`
-  color: ${({ theme }) => (theme.isDark) ? '#27618b': '#000000'};
-  font-size: 24px;
-  font-weight: 500;
-
-  :hover {
-    color: ${({ theme }) => (theme.isDark) ? '#27618b': '#13667C' };
-  }
-`
-export const StyledSwapButton = styled(Button)`
-  font-weight: 500;
-  font-family: Ubuntu, sans-serif;
-  border-radius: 8px;
-  
-`
-export const StyledTradingInformationWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 420px;
-  width: 100%;
-  background: ${({ theme }) => (theme.isDark) ? '#152b39' : '#FFFFFF'};
-  border: 1px solid ${({ theme }) => (theme.isDark) ? '#152b39' : '#EDF4F9'};
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-  border-radius: 8px;
-  text-align: center;  
-  padding: 1rem;
-  margin-top: 5px;
-`
-export const TradingInfoTitle = styled.span`
-  font-size: 16px;
-  font-weight: 500; 
-  width: 100%;
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-  border-bottom: 1px solid ${({ theme }) => (theme.isDark) ? '#152b39' : '#EDF4F9'};
-  padding-bottom: 1rem;
-`
-export const TradingInfoColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  font-weight: 500; 
-  width: 100%;
-  color: ${({ theme }) => (theme.isDark) ? '#ffffff' : '#000000'};
-  margin-top: 15px;
-`
-export const TradingInfoRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 10px;
-`
-export const TradingMoreInfoButton = styled.a`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 15px;
-  cursor: pointer;
-
-  :hover {
-    color: ${({ theme }) => (theme.isDark) ? '#27618b': '#13667C' };
-  }
-`
+export interface PairData {
+  pairInputSymbol: string,
+  pairInputAddress: string,
+  pairOutputSymbol: string,
+  pairOutputAddress: string,
+  exchange: string,
+  address: string,
+  inputPools: number,
+  outputPools: number,
+  totalLiquidity: number
+}
 
 export default function Swap({ history }: RouteComponentProps) {
 
@@ -548,104 +359,88 @@ export default function Swap({ history }: RouteComponentProps) {
     'confirmSwapModal',
   )
 
-
   const [indexActive, setIndexActive] = useState(undefined)
-  // Get the token list
-  // const [searchQuery] = useState<string>('')
-
-  // const debouncedQuery = useDebounce(searchQuery, 200)
-
-  // const [invertSearchOrder] = useState<boolean>(false)
-
-  // const allTokens = useAllTokens()
-
-  // const tokenComparator = useTokenComparator(invertSearchOrder)
-
-  // const filteredTokens: Token[] = useMemo(() => {
-  //   return filterTokens(Object.values(allTokens), debouncedQuery)
-  // }, [allTokens, debouncedQuery])
-
-  // const sortedTokens: Token[] = useMemo(() => {
-  //   return filteredTokens.sort(tokenComparator)
-  // }, [filteredTokens, tokenComparator])
-
-  // const filteredSortedTokens = useSortedTokensByQuery(sortedTokens, debouncedQuery)
+  
   const [networkId, setNetworkId] = useState(0)
 
-  // Load more 
-  const INIT_LIMIT = 3
-  const [limit, setLimit] = useState(INIT_LIMIT)
-  
-  const showMorePairs = () => {
-    setLimit(limit + 3);
-  };
-
-  const [ inputTokenPools, setInputTokenPools ] = useState(undefined)
-  const [ outputTokenPools, setOutputTokenPools ] = useState(undefined)
-  const [ totalLiquidity, setTotalLiquidity ] = useState(undefined)
-  const [ currentPrice, setCurrentPrice ] = useState(undefined)
-  
   const selectPairTokens = (token, index: number) => {
 
     setIndexActive(index)
-    const inputPairToken = new Token(token.input.chainId, token.input.address, token.input.decimals, token.input.symbol, token.input.name)
-    const outputPairToken = new Token(token.output.chainId, token.output.address, token.output.decimals, token.output.symbol, token.output.name)
+    const inputPairToken = new Token(token.pairInputChainId, token.pairInputAddress, token.pairInputDecimals, token.pairInputSymbol, token.pairInputName)
+    const outputPairToken = new Token(token.pairOutputChainId, token.pairOutputAddress, token.pairOutputDecimals, token.pairOutputSymbol, token.pairOutputName)
 
     currencies[Field.INPUT] = inputPairToken;
     setInputToken(currencies[Field.INPUT])
     currencies[Field.OUTPUT] = outputPairToken;
     setOutputToken(currencies[Field.OUTPUT])
 
-    setInputTokenLogo(token.input.logoURI)
-    setOutputTokenLogo(token.output.logoURI)
+    setInputTokenLogo(token.pairInputLogoUrl)
+    setOutputTokenLogo(token.pairOutputLogoUrl)
 
     handleInputSelect(currencies[Field.INPUT])
     handleOutputSelect(currencies[Field.OUTPUT])
-
-    fetchLiquidityPools(token)
   }
 
-  const fetchLiquidityPools = async (token) => {
-    if (token.input.symbol === 'LPK' && token.output.symbol === "LPKX"){
-      // LPK/LPKX
-      // Fetch graphql.bitquery.io
-      const paireData = sendRequest(makeQueryTokenPairs(token.input.address))
-      const address = (await paireData).ethereum.dexTrades[5].poolToken.address.address
-      const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
-      const inputPools = (await poolsData).ethereum.address[0].balances[0].value
-      const outputPools = (await poolsData).ethereum.address[0].balances[1].value
-      
-      setInputTokenPools(inputPools)
-      setOutputTokenPools(outputPools)
-      setTotalLiquidity(inputPools * currentPrice * 2)
+  // Switch Network and set token ID
+  const [tokenListId, setTokenListId] = useState(1)
 
-    }else if (token.input.symbol === 'BNB' && token.output.symbol === "LPK"){
-      // BNB/LPK
-      // Fetch graphql.bitquery.io
-      const paireData = sendRequest(makeQueryTokenPairs(token.output.address))
-      const address = (await paireData).ethereum.dexTrades[1].poolToken.address.address
-      const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
-      const inputPools = (await poolsData).ethereum.address[0].balances[0].value
-      const outputPools = (await poolsData).ethereum.address[0].balances[1].value
-      console.log('paireData', paireData)
-      
-      setInputTokenPools(inputPools)
-      setOutputTokenPools(outputPools)
-      setTotalLiquidity(outputPools * currentPrice * 2)
+  useEffect(() => {
+    switch (networkId) {
+      case 0:
+        setTokenListId(1)
+        break;
+      case 1:
+        setTokenListId(null)
+        break;
+      case 2:
+        setTokenListId(null)
+        break;
+      case 3:
+        setTokenListId(null)
+        break;
+      case 4:
+        setTokenListId(5)
+        break;
+      case 5:
+        setTokenListId(null)
+        break;
+      case 6:
+        setTokenListId(null)
+        break;
+      case 7:
+        setTokenListId(null)
+        break;
+          
+      default:
+        setTokenListId(1)
+        break;
+    }      
+  }, [networkId]);
 
-      // setTotalLiquidity(inputPools * price * 2)
-    }else if (token.input.symbol === 'CAKE' && token.output.symbol === "LPK"){
-      // CAKE/LPK
-      const paireData = sendRequest(makeQueryTokenPairs(token.output.address))
-      const address = (await paireData).ethereum.dexTrades[0].poolToken.address.address
-      const poolsData = sendRequest(makeQueryTokenPools(address, token.input.address, token.output.address))
-      const inputPools = (await poolsData).ethereum.address[0].balances[0].value
-      const outputPools = (await poolsData).ethereum.address[0].balances[1].value
-      
-      setInputTokenPools(inputPools)
-      setOutputTokenPools(outputPools)
-      setTotalLiquidity(outputPools * currentPrice * 2)
-    }
+  const [tokenInfo, setTokenInfo] = useState(undefined)
+  const [progress, setProgress] = useState(0)
+  
+  const fetchLiquidityPools = async (tokenId, tokenPrice) => {
+    setProgress(80)
+    await axios.post(LIQUIDITY_ENDPOINT, {
+      method: "POST",
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      data:{
+        id: tokenId,
+        price: tokenPrice
+      }
+    }).then((response) => {
+      console.log('address', response.data.data)
+      if(response.status === 200){
+        setProgress(100)
+      }
+      setTokenInfo(response.data.data)
+    })
+
   }
 
   const setSwitchToken = () => {
@@ -658,110 +453,134 @@ export default function Swap({ history }: RouteComponentProps) {
   const [circulationSupply, setCirculationSupply] = useState(undefined)
   const [totalSupply, setTotalSupply] = useState(undefined)
 
-  useEffect(() => {
-
-    const getMarketsData = async () => {
-      const res = sendMarketsDataRequest()
-      const marketData = (await res)[0]
-      console.log('marketData', marketData)
-
-      setMarcketCap(marketData.market_cap)
-      setDailyVolumn(marketData.total_volume)
-      setCirculationSupply(marketData.circulating_supply)
-      setTotalSupply(marketData.total_supply)
-      setCurrentPrice(marketData.current_price)
-    }
-    getMarketsData()
-  }, []);
-
-  // Switch Network and set tokens
-  useEffect(() => {
-    switch (networkId) {
-      case 0:
-        handleTokenList(PancakePair)
-        break;
-      case 1:
-        handleTokenList(null)
-        break;
-      case 2:
-        handleTokenList(null)
-        break;
-      case 3:
-        handleTokenList(null)
-        break;
-      case 4:
-        handleTokenList(BiswapPair)
-        break;
-      case 5:
-        handleTokenList(null)
-        break;
-      case 6:
-        handleTokenList(null)
-        break;
-      case 7:
-        handleTokenList(null)
-        break;
-          
-      default:
-        handleTokenList(PancakePair)
-        break;
-    }      
-  }, [networkId]);
-
-  const [tokenList, setTokenList] = useState(PancakePair)
-  const handleTokenList = (tokens) => {
-    setTokenList(tokens)
-  }
   
+  // const getMarketsData = async () => {
+  //   setProgress(Math.floor(Math.random() * 40))
+
+  //   await axios.get(MARKETS_ENDPOINT).then((response) => {
+  //     const json = response.data.data
+  //     setMarcketCap(json.data.market_cap)
+  //     setDailyVolumn(json.data.total_volume)
+  //     setCirculationSupply(json.data.circulating_supply)
+  //     setTotalSupply(json.data.total_supply)
+  //     setProgress(50)
+
+  //     fetchLiquidityPools(json.data.current_price)
+  //   })
+  //   .catch(error => {
+  //     console.error(error)
+  //   });
+  // }
+  
+  // getMarketsData()
+  
+  useEffect(() => {
+    fetchLiquidityPools(tokenListId, 10)
+  }, [tokenListId]);
 
   return (
     <StyledWrapper>
       <NetworkContext.Provider value={{networkId, setNetworkId}}>
         <StyledFlex>
           <Hero 
-            inputTokenPools={inputTokenPools}
-            outputTokenPools={outputTokenPools}
-            totalLiquidity={totalLiquidity}
             marcketCap={marcketCap}
             dailyVolumn={dailyVolumn}
             circulationSupply={circulationSupply}
             totalSupply={totalSupply}
           />
           <StyledPage>
-            <BodyWrapper>
-              <PairCardBox>
-                <span>{t('Pair')}</span>
-
-                {tokenList ? (
-                  tokenList.pairs.slice(0, limit).map((token, i) => {     
-                    return (
-                      <PairSelectButton
-                        onClick={() => {
-                          selectPairTokens(token, i)
-                        }}
-                        className={indexActive === i ? 'active' : ''}
-                      >
-                        <span>{token.input.symbol}/{token.output.symbol}</span>
-                      </PairSelectButton>
-                    ) 
-                })) : (
-                  <PairEmpty>No Tokens. Coming Soon.</PairEmpty>
+            {/* <span>{t('Pair')}</span> */}
+            <Tabs id="tab_1">
+              <TabList>
+                { MarketList.map((item) => {
+                  return (<Tab>{item.symbol}</Tab>)
+                }) }
+              </TabList>
+              { MarketList.map((item) => {
+                return (
+                  <TabPanel>
+                    <PairCardBox>
+                      <PairSelectBody>
+                        {tokenInfo ? (
+                          // <PairTable pairDatas={tokenInfo} currentTab={item.symbol}/>
+                          <TableWrapper>
+                            <ResponsiveGrid>
+                              <ClickableColumnHeader>
+                                {t('Pair')}
+                              </ClickableColumnHeader>
+                              <ClickableColumnHeader>
+                                {t('Pools')}
+                              </ClickableColumnHeader>
+                              <ClickableColumnHeader>
+                                {t('Liquidity')}
+                              </ClickableColumnHeader>
+                            </ResponsiveGrid>
+                            <Break />
+                            {tokenInfo.length > 0 ? (
+                              <>
+                                {tokenInfo.map((pairData, i) => {
+                                  if (pairData.pairInputSymbol === item.symbol || 
+                                    (pairData.pairInputSymbol === "WBNB" && pairData.pairOutputSymbol === item.symbol) ||
+                                    (pairData.pairInputSymbol === "Cake" && pairData.pairOutputSymbol === item.symbol)
+                                  ) {
+                                    return (
+                                      <React.Fragment key={pairData.id}>
+                                        <LinkWrapper 
+                                          onClick={() => {
+                                            selectPairTokens(pairData, i)
+                                          }}
+                                        >
+                                          <ResponsiveGrid>
+                                            <DoubleLogoFlex>
+                                              <DoubleLogoWrapper>
+                                                <DoubleLogo>
+                                                  <DoubleLogoImg  src={pairData.pairInputLogoUrl}/>
+                                                </DoubleLogo>
+                                                <DoubleLogo>
+                                                  <DoubleLogoImg  src={pairData.pairOutputLogoUrl}/>
+                                                </DoubleLogo>
+                                              </DoubleLogoWrapper>
+                                              <StyledText className={indexActive === i ? 'active' : ''} ml="8px">{pairData.pairInputSymbol}/{pairData.pairOutputSymbol}</StyledText>
+                                            </DoubleLogoFlex>
+                                            <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.inputPools)}/${formatAmount(pairData.outputPools)}</StyledText>
+                                            <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.totalLiquidity)}</StyledText>
+                                          </ResponsiveGrid>
+                                        </LinkWrapper>
+                                        <Break />
+                                      </React.Fragment>
+                                    )
+                                  }
+                                  return null
+                                })}
+                              </>
+                            ) : null}
+                          </TableWrapper>
+                        ) : (
+                          <PairEmpty>
+                            <PairProgressLabel>Pair Data Fetching...</PairProgressLabel>
+                            <ProgressBar 
+                              height="4px" 
+                              bgColor={theme.isDark ? '#4afefd' : '#265B80'} 
+                              completed={progress} 
+                              transitionDuration="1s"
+                              animateOnRender
+                              isLabelVisible={false}
+                            />
+                          </PairEmpty>
+                        )}
+                      </PairSelectBody>
+                    </PairCardBox>
+                  </TabPanel>
                 )
-              }
-
-                <PairViewMoreButton
-                  onClick={() => {
-                    showMorePairs()
-                  }}
-                >
-                  View More
-                </PairViewMoreButton>
-              </PairCardBox>
-            </BodyWrapper>
-            <Tabs>
-              <Tab title="Swap">
+              }) }
+            </Tabs>
+            <Tabs id="tab_2">
+              <TabList>
+                <Tab>Swap</Tab>
+                <Tab>Liquidity</Tab>
+              </TabList>
+              <TabPanel>
                 <AppBody>
-                  {/* <AppHeader title={t('Swap')} subtitle='' /> */}
                   <Wrapper id="swap-page">
                     <AutoColumn gap="md">
                       <CurrencyInputPanel
@@ -957,17 +776,16 @@ export default function Swap({ history }: RouteComponentProps) {
                   <UnsupportedCurrencyFooter currencies={[currencies.INPUT, currencies.OUTPUT]} />
                 )}
                 <Flex flexGrow={1} />
-              </Tab>
-              <Tab title="Stake">
-              <AppBody>
-                <AppHeader title={t('Stake')} subtitle='' />
-                <Wrapper id="swap-page">
-                  <AutoColumn gap="md">
-                    Coming Soon
-                  </AutoColumn>
-                </Wrapper>
-              </AppBody>
-              </Tab>
+              </TabPanel>
+              <TabPanel>
+                <AppBody>
+                  <Wrapper id="swap-page">
+                    <AutoColumn gap="md">
+                      Coming Soon
+                    </AutoColumn>
+                  </Wrapper>
+                </AppBody>
+              </TabPanel>
             </Tabs>
           </StyledPage>
           <TradingView />

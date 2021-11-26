@@ -6,7 +6,7 @@ const StyledFlex = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  max-width: 420px;
+  max-width: 520px;
 `
 
 const Wrapper = styled.ul`

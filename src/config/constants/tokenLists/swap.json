@@ -1,9 +1,9 @@
 [
   {    
     "id": 2,
-    "name": "dodo",
-    "symbol": "DoDo Swap",
-    "icon": "./assets/images/swap/dodo.png"
+    "name": "spooky",
+    "symbol": "Spooky Swap",
+    "icon": "./assets/images/swap/spooky.png"
   },
   {    
     "id": 3,

@@ -5,25 +5,27 @@ export interface ApiCollection {
 
 export const ENDPOINT = 'https://graphql.bitquery.io';    
 
-export const sendRequest = async (q): Promise<ApiCollection> => {
-  const res = await fetch(ENDPOINT, {
-    method: "POST",
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-    body: JSON.stringify({
-      query: q
-    }),
+export const sendRequest = (url, token): Promise<ApiCollection> => {
+  return new Promise((resolve, reject) => {
+    fetch(url, {
+      method: "POST",
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        query: token,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        resolve(json.data)
+      })
+      .catch(() => {
+        reject()
+      })
   })
-
-  if (res.ok) {
-    const json = await res.json()
-    return json.data
-  }
-  console.error('Failed to fetch collections', res.statusText)
-  return null
 }
 
 export const makeQueryTokenPairs = (token, network='bsc') => {

@@ -493,12 +493,12 @@ export default function Swap({ history }: RouteComponentProps) {
             <Tabs id="tab_1">
               <TabList>
                 { MarketList.map((item) => {
-                  return (<Tab>{item.symbol}</Tab>)
+                  return (<Tab key={item.symbol}>{item.symbol}</Tab>)
                 }) }
               </TabList>
               { MarketList.map((item) => {
                 return (
-                  <TabPanel>
+                  <TabPanel key={item.id}>
                     <PairCardBox>
                       <PairSelectBody>
                         {tokenInfo ? (

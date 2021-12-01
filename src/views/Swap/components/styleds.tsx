@@ -192,15 +192,18 @@ export const StyledFlex = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.xs} {
     flex-direction: column;
     align-items: start;
+    padding: 16px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: column;
     align-items: start;
+    padding: 0 160px;
   }
 
   ${({ theme }) => theme.mediaQueries.lg} {
     flex-direction: row;
+    padding: 16px;
   }
 `
 export const Label = styled(Text)`
@@ -377,40 +380,43 @@ export const TradingMoreInfoButton = styled.a`
 `
 export const ResponsiveGrid = styled.div`
   display: grid;
-  grid-gap: 3em;
   align-items: center;
-  grid-template-columns: 150px repeat(auto-fill, 150px) 300px;
   font-size: 13px;
   font-weight: 600;
-
   padding: 0 24px;
-  @media screen and (max-width: 900px) {
-    grid-template-columns: 20px 1.5fr repeat(3, 1fr);
-    & :nth-child(4),
-    & :nth-child(5) {
-      display: none;
-    }
+
+  ${({ theme }) => theme.mediaQueries.xs} {
+    grid-gap: 1rem;
+    grid-template-columns: 130px repeat(auto-fill,100px) 230px;
+    padding: 0 10px;
   }
-  @media screen and (max-width: 500px) {
-    grid-template-columns: 20px 1.5fr repeat(1, 1fr);
-    & :nth-child(4),
-    & :nth-child(5),
-    & :nth-child(6),
-    & :nth-child(7) {
-      display: none;
-    }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    grid-gap: 3rem;
+    grid-template-columns: 150px repeat(auto-fill,150px) 300px;
+    padding: 0 10px;
   }
-  @media screen and (max-width: 480px) {
-    grid-template-columns: 2.5fr repeat(1, 1fr);
-    > *:nth-child(1) {
-      display: none;
-    }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    grid-gap: 3rem;
+    grid-template-columns: 150px repeat(auto-fill, 150px) 300px;
   }
 `
 export const StyledText = styled(Text)`
   color: ${({ theme }) => (theme.isDark) ? '#FFFFFF': '#000000' };
-  font-size: 14px;
   font-weight: 600;
+
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    font-size: 14px;
+  }
 `
 export const LinkWrapper = styled.div`
   text-decoration: none;

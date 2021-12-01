@@ -4,7 +4,7 @@ import { languageList } from 'config/localization/languages'
 import { useTranslation } from 'contexts/Localization'
 
 const LangSettingWrapper = styled.ul`
-  margin-right: 8px;
+  margin-left: 8px;
   padding:0;
   list-style: none;
   position: relative;
@@ -106,9 +106,10 @@ const LanguageSetting = () => {
       <LangSettingContent>
         <span><i className="bi bi-globe2" /></span>
         <LangSettingItemWapper>
-          {languageList.map((item, index) => {     
+          {languageList.map((item) => {     
             return (
-                <LangSettingItem 
+                <LangSettingItem
+                  key={item.code}
                   className={(currentLanguage.code === item.code) ? 'lang-active' : ''}
                   onClick={() => {
                     setLanguage(item)

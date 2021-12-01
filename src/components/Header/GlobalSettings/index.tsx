@@ -9,7 +9,7 @@ const StyledIconButton = styled(IconButton)`
   border: none;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
-  background-color: ${({ theme }) => (theme.isDark) ? 'rgb(39, 97, 139)' : '#1B435F' };
+  background-color: ${({ theme }) => (theme.isDark) ? '#1B435F' : '#1B435F' };
 
   padding: 0.15rem 0.725rem;
   border-radius: 0.5rem;

@@ -10,17 +10,25 @@ import TradingViewWidget, {Themes} from 'react-tradingview-widget';
 // import SwapList from 'config/constants/tokenLists/swap.json'
 import useTheme from '../../hooks/useTheme'
 import LogoNoText from '../../assets/images/logo_no_text.png'
+import {TVChartContainer} from './components/TVChartContainer/index';
+
+// const coinTypeArr = [
+// 	'btc', 'eos', 'usdt', 'cxp', 'eth', 'ht',	
+// ]
+ 
 
 const SideContentWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  ${({ theme }) => theme.mediaQueries.md} {
-    margin-left: 1rem;
-  };
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-left: 0;
   };
+  ${({ theme }) => theme.mediaQueries.md} {
+    margin-left: 1rem;
+  };
+  width: 100%;
+
 `
 const StyledTradingViewWrapper = styled.div`
   display: flex;
@@ -46,7 +54,7 @@ const StyledTradingViewTitle = styled.span`
   align-items: center;
   justify-content: start;
   width: 100%;
-  border-bottom: 1px solid ${({ theme }) => (theme.isDark) ? '#ABDDFF' : '#CBD8E1'};
+  border-bottom: 1px solid ${({ theme }) => (theme.isDark) ? '#50f7f7' : '#50f7f7'};
   color: ${({ theme }) => (theme.isDark) ? '#50F7F7' : '#50F7F7'};
   padding: 16px;
   font-size: 20px;
@@ -90,12 +98,15 @@ export default function TradingView() {
   // const { theme } = useTheme()
   // const { networkId } = useNetworkContext()
   
-  useEffect(() => {
-    const script = document.createElement("script");
-
-    script.src = "https://s3.tradingview.com/tv.js";
-    script.async = true;
-  }, []);
+  // const transferHanlderSymbol = () => {
+	// 	let url = document.URL;
+	// 	console.log('component.url..', url);
+	// 	let urlArr = url.split('/');
+	// 	let symbol = urlArr[urlArr.length - 1];
+	// 	return (
+	// 		<TVChartContainer symbol={symbol} />
+	// 	)
+	// }
 
   return (
     <>
@@ -106,12 +117,18 @@ export default function TradingView() {
           </StyledTradingViewTitle>
 
           <StyledTradingViewContent>
-            <TradingViewWidget
+            {/* <TradingViewWidget
               symbol="NASDAQ:AAPL"
               theme={Themes.DARK}
               locale="en"
               width={400}
-            />
+            /> */}
+
+          <TVChartContainer 
+            	symbol='0x9b71b5511998e0798625b8fa74e86d8192de78c1'
+              containerId='tv_chart_container'
+              libraryPath='/charting_library/'
+          />
           </StyledTradingViewContent>
 
         </StyledTradingViewWrapper>

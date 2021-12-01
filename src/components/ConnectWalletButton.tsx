@@ -7,7 +7,7 @@ import { useTranslation } from 'contexts/Localization'
 
 const StyledButton = styled.button`
   
-  background-color: ${({ theme }) => (theme.isDark) ? 'rgb(39, 97, 139)' : '#1B435F' } ;
+  background-color: ${({ theme }) => (theme.isDark) ? '#1B435F' : '#1B435F' } ;
   border: 1px solid #1B435F;
   text-align: center;
   outline: none;

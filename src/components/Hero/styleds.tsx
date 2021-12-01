@@ -7,15 +7,16 @@ export const SideContentWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  ${({ theme }) => theme.mediaQueries.md} {
-    margin-left: 1rem;
-  };
   ${({ theme }) => theme.mediaQueries.sm} {
-    margin-left: 0;
+    margin-right: 0;
+  };
+  ${({ theme }) => theme.mediaQueries.md} {
+    margin-right: 1rem;
   };
 `
 export const StyledHeroWrapper = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
@@ -54,15 +55,14 @@ export const HeroImageWrapper = styled.div`
     };
   }
 `
-export const LpkOtherLink = styled.div`
+export const LpkAdsLink = styled.div`
   display: flex;
   margin-left: 2rem;
   margin-right: 2rem;
-  padding: 10px;
+  margin-bottom: 20px;
   width: 100%;
   background: ${({ theme }) => (theme.isDark) ? '#27618b' : '#1B435F'};
   border-radius: 8px;
-  padding: 30px;
   margin-top: 20px;
   font-size: 32px;
   font-weight: 600;
@@ -78,6 +78,10 @@ export const LpkOtherLink = styled.div`
     padding-left: 0.5rem;
   }
 `
+export const LpkAdsButton = styled.img`
+  border-radius: 8px;
+`
+
 export const SelectPoolWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -137,7 +141,7 @@ export const LogoImage = styled.img`
   z-index: 10;
   ${({ theme }) => theme.mediaQueries.xs} {
     width: 80px;
-    bottom: 40px;
+    bottom: 120px;
   };
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 80px;
@@ -145,7 +149,7 @@ export const LogoImage = styled.img`
   };
   ${({ theme }) => theme.mediaQueries.lg} {
     width: 110px;
-    bottom: 164px;
+    bottom: 180px;
   };
 `
 export const CircleContainer = styled.ul`

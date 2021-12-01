@@ -8,7 +8,8 @@ import {
   SideContentWrapper,
   StyledHeroWrapper,
   SelectPoolWrapper,
-  LpkOtherLink,
+  LpkAdsLink,
+  LpkAdsButton,
   PoolBuuton,
   LogoImage,
   CircleContainer,
@@ -20,8 +21,6 @@ import {
 import {
   useDerivedSwapInfo,
 } from '../../state/swap/hooks'
-import LogoNoText from '../../assets/images/logo_no_text.png'
-import Ads from '../../assets/images/ads_1.png'
 import KriptonCrystal from '../../assets/images/KriptonCrystal.png'
 
 export default function Hero({
@@ -124,7 +123,7 @@ export default function Hero({
             >
               {SwapList.map((swap) => {     
                 return (
-                  <li>
+                  <li key={swap.symbol}>
                     <PoolBuuton
                       className={(networkId === swap.id) ? 'swap-active' : ''}
                       onClick={() => {
@@ -151,9 +150,9 @@ export default function Hero({
           </div>
         </LpkOtherLink> */}
 
-        <LpkOtherLink>
-          <img src="./assets/images/ads_1.png" alt="LogoNoText" />
-        </LpkOtherLink>
+        <LpkAdsLink>
+          <LpkAdsButton src="./assets/images/banner.png" alt="LogoNoText" />
+        </LpkAdsLink>
       </SideContentWrapper>
     </>
   )

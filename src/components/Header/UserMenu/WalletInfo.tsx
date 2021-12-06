@@ -1,13 +1,23 @@
-import React from 'react'
-import { Box, Button, Flex, InjectedModalProps, LinkExternal, Message, Skeleton, Text } from '@pancakeswap/uikit'
+import React, { useState } from 'react'
+import { Box, Button, Flex, InjectedModalProps} from '@pancakeswap/uikit'
 import { useWeb3React } from '@web3-react/core'
 import useTokenBalance, { FetchStatus, useGetBnbBalance } from 'hooks/useTokenBalance'
 import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
 import { getBscScanLink } from 'utils'
-import { getFullDisplayBalance, formatBigNumber } from 'utils/formatBalance'
 import tokens from 'config/constants/tokens'
-import CopyAddress from './CopyAddress'
+import { 
+  StyledText,
+  Wrapper,
+  Address,
+  Tooltip,
+  StyledIconButton,
+  StyledCopyIcon,
+  StyledCheckmarkCircleFillIcon,
+  StyledLinkExternal,
+  StyledMessage,
+  StyledLogOutButton
+} from '../styleds'
 
 interface WalletInfoProps {
   hasLowBnbBalance: boolean
@@ -21,6 +31,29 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowBnbBalance, onDismiss }) 
   const { balance: cakeBalance, fetchStatus: cakeFetchStatus } = useTokenBalance(tokens.cake.address)
   const { logout } = useAuth()
 
+  const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false)
+
+  const copyAddress = () => {
+    if (navigator.clipboard && navigator.permissions) {
+      navigator.clipboard.writeText(account).then(() => displayTooltip())
+    } else if (document.queryCommandSupported('copy')) {
+      const ele = document.createElement('textarea')
+      ele.value = account
+      document.body.appendChild(ele)
+      ele.select()
+      document.execCommand('copy')
+      document.body.removeChild(ele)
+      displayTooltip()
+    }
+  }
+
+  function displayTooltip() {
+    setIsTooltipDisplayed(true)
+    setTimeout(() => {
+      setIsTooltipDisplayed(false)
+    }, 1000)
+  }
+
   const handleLogout = () => {
     onDismiss()
     logout()
@@ -28,40 +61,48 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowBnbBalance, onDismiss }) 
 
   return (
     <>
-      <Text color="secondary" fontSize="12px" textTransform="uppercase" fontWeight="bold" mb="8px">
+      <StyledText fontSize="12px" textTransform="uppercase" fontWeight="bold" mb="8px">
         {t('Your Address')}
-      </Text>
-      <CopyAddress account={account} mb="24px" />
+      </StyledText>
+      {/* <CopyAddress account={account} mb="24px" /> */}
+
+      <Box position="relative" mb="10px">
+        <Wrapper>
+          <Address title={account}>
+            <input type="text" readOnly value={account} />
+          </Address>
+        </Wrapper>
+      </Box>
+      
+      <Flex alignItems="start" justifyContent="space-between"  mb="24px">
+        <Flex alignItems="center" justifyContent="center" flexDirection="column">
+          <StyledIconButton variant="text" onClick={copyAddress}>
+            {t('Copy Address')}
+            <StyledCopyIcon width="24px" />
+          </StyledIconButton>
+          <Flex alignItems="center" justifyContent="start" mt="2px">
+            <Tooltip isTooltipDisplayed={isTooltipDisplayed}>
+              <StyledCheckmarkCircleFillIcon />
+              {t('Copied')}
+            </Tooltip>
+          </Flex>
+        </Flex>
+        <StyledLinkExternal href={getBscScanLink(account, 'address')}>{t('View on BscScan')}</StyledLinkExternal>
+      </Flex>
+      
+
       {hasLowBnbBalance && (
-        <Message variant="warning" mb="24px">
+        <StyledMessage variant="warning" mb="24px">
           <Box>
-            <Text fontWeight="bold">{t('BNB Balance Low')}</Text>
-            <Text as="p">{t('You need BNB for transaction fees.')}</Text>
+            <StyledText fontSize="14px" fontWeight="600">{t('BNB Balance Low')}</StyledText>
+            <StyledText fontSize="12px" as="p">{t('You need BNB for transaction fees.')}</StyledText>
           </Box>
-        </Message>
+        </StyledMessage>
       )}
-      <Flex alignItems="center" justifyContent="space-between">
-        <Text color="textSubtle">{t('BNB Balance')}</Text>
-        {fetchStatus !== FetchStatus.SUCCESS ? (
-          <Skeleton height="22px" width="60px" />
-        ) : (
-          <Text>{formatBigNumber(balance, 6)}</Text>
-        )}
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between" mb="24px">
-        <Text color="textSubtle">{t('CAKE Balance')}</Text>
-        {cakeFetchStatus !== FetchStatus.SUCCESS ? (
-          <Skeleton height="22px" width="60px" />
-        ) : (
-          <Text>{getFullDisplayBalance(cakeBalance, 18, 3)}</Text>
-        )}
-      </Flex>
-      <Flex alignItems="center" justifyContent="end" mb="24px">
-        <LinkExternal href={getBscScanLink(account, 'address')}>{t('View on BscScan')}</LinkExternal>
-      </Flex>
-      <Button variant="secondary" width="100%" onClick={handleLogout}>
-        {t('Disconnect Wallet')}
-      </Button>
+      
+      <StyledLogOutButton onClick={handleLogout}>
+        {t('Log Out')}
+      </StyledLogOutButton>
     </>
   )
 }

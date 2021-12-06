@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Text, Toggle, Flex, Modal, InjectedModalProps } from '@pancakeswap/uikit'
+
+import {
+  Flex,
+  CloseIcon,
+  Heading,
+  IconButton,
+  InjectedModalProps,
+  ModalBody,
+  ModalTitle,
+} from '@pancakeswap/uikit'
+
 import {
   useExpertModeManager,
   useUserExpertModeAcknowledgementShow,
@@ -8,26 +17,15 @@ import {
 import { useTranslation } from 'contexts/Localization'
 import { useSwapActionHandlers } from 'state/swap/hooks'
 import useTheme from 'hooks/useTheme'
-import QuestionHelper from '../../QuestionHelper'
+// import QuestionHelper from '../../QuestionHelper'
 import TransactionSettings from './TransactionSettings'
 import ExpertModal from './ExpertModal'
 import GasSettings from './GasSettings'
 
-const ScrollableContainer = styled(Flex)`
-  flex-direction: column;
-  max-height: 400px;
-  ${({ theme }) => theme.mediaQueries.sm} {
-    max-height: none;
-  }
-`
-const StyledModal = styled(Modal)`
-  // background: ${({ theme }) => theme.isDark ? '#152b39' : '#FFFFFF'};
-  // border: 1px solid ${({ theme }) => theme.isDark ? '#152b39' : '#EDF4F9'};
-  border-radius: 8px;
-  h2 {
-    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
-  }
-`
+import { 
+  StyledModal,
+  ModalHeader
+} from '../styleds'
 
 const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
@@ -61,31 +59,27 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   }
 
   return (
-    <StyledModal
-      title={t('Settings')}
-      // headerBackground={isDark ? '#152b39' : '#EDF4F9'}
-      onDismiss={onDismiss}
-      style={{ maxWidth: '420px' }}
+
+    <StyledModal 
+    minWidth="420px"
+    // headerBackground={isDark ? '#152b39' : '#EDF4F9'}
     >
-      <ScrollableContainer>
-        <Flex pb="10px" flexDirection="column">
-          <GasSettings />
-        </Flex>
-        <Flex pt="10px" flexDirection="column">
-          <TransactionSettings />
-        </Flex>
-        {/* <Flex justifyContent="space-between" alignItems="center" mb="16px">
-          <Flex alignItems="center">
-            <StyledText>{t('Expert Mode')}</StyledText>
-            <QuestionHelper
-              text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
-              placement="top-start"
-              ml="4px"
-            />
-          </Flex>
-          <Toggle id="toggle-expert-mode-button" scale="md" checked={expertMode} onChange={handleExpertModeToggle} />
-        </Flex> */}
-      </ScrollableContainer>
+    <ModalHeader>
+      <ModalTitle>
+        <Heading>{t('Your Wallet')}</Heading>
+      </ModalTitle>
+      <IconButton variant="text" onClick={onDismiss}>
+        <CloseIcon width="24px" color="text" />
+      </IconButton>
+    </ModalHeader>
+    <ModalBody p="24px" maxWidth="420px" width="100%">
+      <Flex pb="10px" flexDirection="column">
+        <GasSettings />
+      </Flex>
+      <Flex pt="10px" flexDirection="column">
+        <TransactionSettings />
+      </Flex>
+    </ModalBody>
     </StyledModal>
   )
 }

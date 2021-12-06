@@ -7,14 +7,14 @@ interface CopyAddressProps extends FlexProps {
   account: string
 }
 
-const Wrapper = styled(Flex)`
+export const Wrapper = styled(Flex)`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.dropdown};
-  border-radius: 16px;
+  border-radius: 8px;
   position: relative;
 `
 
-const Address = styled.div`
+export const Address = styled.div`
   flex: 1;
   position: relative;
   padding-left: 16px;
@@ -22,10 +22,10 @@ const Address = styled.div`
   & > input {
     background: transparent;
     border: 0;
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
     display: block;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0;
     width: 100%;
 
@@ -50,16 +50,18 @@ const Address = styled.div`
   }
 `
 
-const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
-  display: ${({ isTooltipDisplayed }) => (isTooltipDisplayed ? 'inline-block' : 'none')};
-  position: absolute;
+export const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
+  display: ${({ isTooltipDisplayed }) => (isTooltipDisplayed ? 'flex' : 'none')};
+  // position: absolute;
   padding: 8px;
-  top: -38px;
-  right: 0;
-  text-align: center;
-  background-color: ${({ theme }) => theme.colors.contrast};
-  color: ${({ theme }) => theme.colors.invertedContrast};
-  border-radius: 16px;
+  // top: -38px;
+  // right: 0;
+  // text-align: center;
+  background-color: ${({ theme }) => theme.isDark ? '#ffffff' : '#e0e0e0'};
+  color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 4px;
   opacity: 0.7;
   width: 100px;
 `
@@ -96,7 +98,7 @@ const CopyAddress: React.FC<CopyAddressProps> = ({ account, ...props }) => {
           <input type="text" readOnly value={account} />
         </Address>
         <IconButton variant="text" onClick={copyAddress}>
-          <CopyIcon color="primary" width="24px" />
+          <CopyIcon width="24px" />
         </IconButton>
       </Wrapper>
       <Tooltip isTooltipDisplayed={isTooltipDisplayed}>{t('Copied')}</Tooltip>

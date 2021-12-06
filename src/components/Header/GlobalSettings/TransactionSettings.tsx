@@ -4,11 +4,14 @@ import { escapeRegExp } from 'utils'
 import { Text, Button, Input, Flex, Box } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
-import QuestionHelper from '../../QuestionHelper'
+// import QuestionHelper from '../../QuestionHelper'
+import useTheme from 'hooks/useTheme'
 
 const StyledText = styled(Text)`
   font-weight: 500;
   font-size: 14px;
+  color: ${({ theme }) => theme.isDark ? '#FFFFFF' : '#000000'};
+
 `
 const StyledButton = styled(Button)`
   font-weight: 500;
@@ -22,8 +25,8 @@ const StyledInput = styled(Input)`
   font-weight: 500;
   border-radius: 8px;
   box-shadow: none;
-  border: 1px solid ${({ theme }) => theme.isDark ? '#353547' : '#e2e2e2'};
-  background-color: ${({ theme }) => theme.isDark ? '#353547' : '#FFFFFF'};
+  border: 1px solid ${({ theme }) => theme.isDark ? 'rgb(23, 51, 70)' : '#f5f5f5'};
+  background-color: ${({ theme }) => theme.isDark ? 'rgb(23, 51, 70)' : '#FFFFFF'};
   color: ${({ theme }) => theme.isDark ? '#FFFFFF' : '#000000'};
   padding: 0 10px;
   :hover {
@@ -51,6 +54,7 @@ const SlippageTabs = () => {
   const [ttl, setTtl] = useUserTransactionTTL()
   const [slippageInput, setSlippageInput] = useState('')
   const [deadlineInput, setDeadlineInput] = useState('')
+  const { isDark } = useTheme()
 
   const { t } = useTranslation()
 
@@ -126,7 +130,10 @@ const SlippageTabs = () => {
               setSlippageInput('')
               setUserSlippageTolerance(10)
             }}
-            variant={userSlippageTolerance === 10 ? 'primary' : 'tertiary'}
+            style={{
+              background: userSlippageTolerance === 10 ? '#27618b' : (isDark ? '#173346' : '#f5f5f5'),
+              color: userSlippageTolerance === 10 ? '#50F7F7' : (isDark ? '#50F7F7' : '#27618b')
+            }}
           >
             0.1%
           </StyledButton>
@@ -138,7 +145,10 @@ const SlippageTabs = () => {
               setSlippageInput('')
               setUserSlippageTolerance(50)
             }}
-            variant={userSlippageTolerance === 50 ? 'primary' : 'tertiary'}
+            style={{
+              background: userSlippageTolerance === 50 ? '#27618b' : (isDark ? '#173346' : '#f5f5f5'),
+              color: userSlippageTolerance === 50 ? '#50F7F7' : (isDark ? '#50F7F7' : '#27618b')
+            }}
           >
             0.5%
           </StyledButton>
@@ -150,7 +160,10 @@ const SlippageTabs = () => {
               setSlippageInput('')
               setUserSlippageTolerance(100)
             }}
-            variant={userSlippageTolerance === 100 ? 'primary' : 'tertiary'}
+            style={{
+              background: userSlippageTolerance === 100 ? '#27618b' : (isDark ? '#173346' : '#f5f5f5'),
+              color: userSlippageTolerance === 100 ? '#50F7F7' : (isDark ? '#50F7F7' : '#27618b')
+            }}
           >
             1.0%
           </StyledButton>

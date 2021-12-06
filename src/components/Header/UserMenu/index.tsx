@@ -140,44 +140,21 @@ const UserMenu = () => {
         }
       </StyledAccountLogoWrapper>
 
-      <StyledAccountContainer onClick={activeMenu}>
+      <StyledAccountContainer onClick={onPresentWalletModal}>
         <StyledAccountWrapper>
           {account.charAt(0).toUpperCase() + account.slice(1, 4).concat('...') + account.slice(-4)}
 
-          <StyledAccountMenu className={activeDropdown ? 'menu-active' : ''}>
+          {/* <StyledAccountMenu className={activeDropdown ? 'menu-active' : ''}>
             <StyledAccountMenuItem as="button" onClick={logout}>
               <Flex alignItems="center" justifyContent="space-between" width="100%">
                 {t('Log Out')}
               </Flex>
             </StyledAccountMenuItem>
-          </StyledAccountMenu>
+          </StyledAccountMenu> */}
+
         </StyledAccountWrapper>
       </StyledAccountContainer>
-
-      {/* <StyledDropdown target={
-        <StyledAccountWrapper>{account.charAt(0).toUpperCase() + account.slice(1, 4).concat('...') + account.slice(-4)}</StyledAccountWrapper>
-      }>
-        <StyledAccountMenu as="button" onClick={logout}>
-          <Flex alignItems="center" justifyContent="space-between" width="100%">
-            {t('Log Out')}
-          </Flex>
-        </StyledAccountMenu>
-      </StyledDropdown> */}
     </>
-
-    // <UIKitUserMenu account={account} avatarSrc={avatarSrc}>
-    //   <WalletUserMenuItem hasLowBnbBalance={hasLowBnbBalance} onPresentWalletModal={onPresentWalletModal} />
-    //   <UserMenuItem as="button" onClick={onPresentTransactionModal}>
-    //     {t('Transactions')}
-    //   </UserMenuItem>
-    //   <UserMenuDivider />
-    //   <UserMenuItem as="button" onClick={logout}>
-    //     <Flex alignItems="center" justifyContent="space-between" width="100%">
-    //       {t('Disconnect')}
-    //       <LogoutIcon />
-    //     </Flex>
-    //   </UserMenuItem>
-    // </UIKitUserMenu>
   )
 }
 

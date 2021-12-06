@@ -5,10 +5,12 @@ import { Flex, Button, Text } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import { GAS_PRICE_GWEI, GAS_PRICE } from 'state/user/hooks/helpers'
 import { useGasPriceManager } from 'state/user/hooks'
+import useTheme from 'hooks/useTheme'
 
 const StyledText = styled(Text)`
   font-weight: 500;
   font-size: 14px;
+  color: ${({ theme }) => theme.isDark ? '#FFFFFF' : '#000000'};
 `
 const StyledButton = styled(Button)`
   font-weight: 500;
@@ -21,6 +23,8 @@ const StyledButton = styled(Button)`
 
 const GasSettings = () => {
   const { t } = useTranslation()
+  const { isDark } = useTheme()
+
   const [gasPrice, setGasPrice] = useGasPriceManager()
 
   return (
@@ -43,7 +47,10 @@ const GasSettings = () => {
           onClick={() => {
             setGasPrice(GAS_PRICE_GWEI.default)
           }}
-          variant={gasPrice === GAS_PRICE_GWEI.default ? 'primary' : 'tertiary'}
+          style={{
+            background: gasPrice === GAS_PRICE_GWEI.default ? '#27618b' : (isDark ? '#173346' : '#f5f5f5'),
+            color: gasPrice === GAS_PRICE_GWEI.default ? '#50F7F7' : (isDark ? '#50F7F7' : '#27618b')
+          }}
         >
           {t('Standard (%gasPrice%)', { gasPrice: GAS_PRICE.default })}
         </StyledButton>
@@ -54,7 +61,10 @@ const GasSettings = () => {
           onClick={() => {
             setGasPrice(GAS_PRICE_GWEI.fast)
           }}
-          variant={gasPrice === GAS_PRICE_GWEI.fast ? 'primary' : 'tertiary'}
+          style={{
+            background: gasPrice === GAS_PRICE_GWEI.fast ? '#27618b' : (isDark ? '#173346' : '#f5f5f5'),
+            color: gasPrice === GAS_PRICE_GWEI.fast ? '#50F7F7' : (isDark ? '#50F7F7' : '#27618b')
+          }}
         >
           {t('Fast (%gasPrice%)', { gasPrice: GAS_PRICE.fast })}
         </StyledButton>
@@ -65,7 +75,10 @@ const GasSettings = () => {
           onClick={() => {
             setGasPrice(GAS_PRICE_GWEI.instant)
           }}
-          variant={gasPrice === GAS_PRICE_GWEI.instant ? 'primary' : 'tertiary'}
+          style={{
+            background: gasPrice === GAS_PRICE_GWEI.instant ? '#27618b' : (isDark ? '#173346' : '#f5f5f5'),
+            color: gasPrice === GAS_PRICE_GWEI.instant ? '#50F7F7' : (isDark ? '#50F7F7' : '#27618b')
+          }}
         >
           {t('Instant (%gasPrice%)', { gasPrice: GAS_PRICE.instant })}
         </StyledButton>

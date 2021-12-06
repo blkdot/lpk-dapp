@@ -39,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
     background: #000000;
     transition: opacity 0.4s;
     opacity: 0.5;
+    backdrop-filter: blur(2px);
   }
 
   [role="progressbar"] {

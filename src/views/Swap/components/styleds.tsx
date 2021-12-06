@@ -449,5 +449,30 @@ export const DoubleLogo = styled.div`
 `
 export const DoubleLogoImg = styled.img`
 `
+export const OutSideLink = styled.a`
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1;
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff': '#000000' };
+   
+  :hover {
+    color: ${({ theme }) => (theme.isDark) ? '#27618b': '#13667C' };
+    cursor: pointer;
+    opacity: 0.7;
+  }
+`
+export const OutSideLinkIcon = styled.span`
+  text-decoration: none;
+  padding-left: 5px;
+  line-height: 1;
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff': '#000000' };
+   
+  :hover {
+    color: ${({ theme }) => (theme.isDark) ? '#27618b': '#13667C' };
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+`
 
 

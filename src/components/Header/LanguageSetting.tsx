@@ -47,29 +47,6 @@ const LangSettingContent = styled.li`
       height: 300px;
       overflow: auto;
     }
-    
-    .triangle {
-      position: absolute;
-      top: 36px;
-      right: 5x;
-      z-index:10;
-      height: 14px;
-      overflow:hidden;
-      width: 30px;
-      background: transparent;
-
-      :after {
-        content: '';
-        display: block;
-        z-index: 20;
-        width: 15px;
-        transform: rotate(45deg) translateY(0px) translatex(10px);
-        height: 15px;
-        background: #fff;
-        border-radius:2px 0px 0px 0px;
-        box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
-      }
-    }
   }
 `
 const LangSettingItemWapper = styled.ul`

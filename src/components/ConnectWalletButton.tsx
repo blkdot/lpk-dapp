@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useWalletModal } from '@pancakeswap/uikit'
+import { useWalletModal, useModal } from '@pancakeswap/uikit'
 import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
+import ConnectWalletModal from './ConnectWalletModal'
 
 
 const StyledButton = styled.button`
@@ -41,7 +42,8 @@ const StyledButton = styled.button`
 const ConnectWalletButton = (props) => {
   const { t } = useTranslation()
   const { login, logout } = useAuth()
-  const { onPresentConnectModal } = useWalletModal(login, logout, t)
+  // const { onPresentConnectModal } = useWalletModal(login, logout, t)
+  const  [onPresentConnectModal] = useModal(<ConnectWalletModal />)
 
   return (
     <StyledButton onClick={onPresentConnectModal} {...props}>

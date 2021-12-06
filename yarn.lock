@@ -2580,6 +2580,14 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/logs/-/logs-5.50.0.tgz#29c6419e8379d496ab6d0426eadf3c4d100cd186"
   integrity sha512-swKHYCOZUGyVt4ge0u8a7AwNcA//h4nx5wIi0sruGye1IJ5Cva0GyK9L2/WdX+kWVTKp92ZiEo1df31lrWGPgA==
 
+"@metamask/jazzicon@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@metamask/jazzicon/-/jazzicon-2.0.0.tgz#5615528e91c0fc5c9d79202d1f0954a7922525a0"
+  integrity sha512-7M+WSZWKcQAo0LEhErKf1z+D3YX0tEDAcGvcKbDyvDg34uvgeKR00mFNIYwAhdAS9t8YXxhxZgsrRBBg6X8UQg==
+  dependencies:
+    color "^0.11.3"
+    mersenne-twister "^1.1.0"
+
 "@metamask/safe-event-emitter@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz#af577b477c683fad17c619a78208cede06f9605c"
@@ -4310,6 +4318,14 @@
     "@typescript-eslint/types" "4.28.2"
     eslint-visitor-keys "^2.0.0"
 
+"@ukstv/jazzicon-react@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ukstv/jazzicon-react/-/jazzicon-react-1.0.0.tgz#f319ebf3b6a165bfc5feaea7ee4c1eb81c5d9b85"
+  integrity sha512-V0klHdrO8Mk+faTGhQRd4t2vR+1IUHJa9sLaP/vhed0klPrOblhEU/Mc+Utgxep6oUuyhcGigjvkEJUOVE1/sg==
+  dependencies:
+    color "^3.1.2"
+    mersenne-twister "^1.1.0"
+
 "@uniswap/lib@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@uniswap/lib/-/lib-1.1.1.tgz#0afd29601846c16e5d082866cbb24a9e0758e6bc"
@@ -4525,6 +4541,16 @@
     "@web3-react/types" "^6.0.7"
     tiny-invariant "^1.0.6"
     tiny-warning "^1.0.3"
+
+"@web3-react/frame-connector@^6.0.9":
+  version "6.0.9"
+  resolved "https://registry.yarnpkg.com/@web3-react/frame-connector/-/frame-connector-6.0.9.tgz#9e7659480a554944e0ecf08f00fe0c946a565d35"
+  integrity sha512-SyEveo8XckEw+aIhT7A58OFtUgAVWM85PmJegoIaTAWBVTVlvXClTAnOUrDzH2Nu6nCoj2swNKHS2dePnux9Pw==
+  dependencies:
+    "@web3-react/abstract-connector" "^6.0.7"
+    "@web3-react/types" "^6.0.7"
+    eth-provider "^0.2.5"
+    tiny-invariant "^1.0.6"
 
 "@web3-react/injected-connector@^6.0.7":
   version "6.0.7"
@@ -5478,7 +5504,7 @@ async-eventemitter@^0.2.2:
   dependencies:
     async "^2.4.0"
 
-async-limiter@~1.0.0:
+async-limiter@^1.0.0, async-limiter@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
@@ -7131,7 +7157,7 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
-color-convert@^1.9.0, color-convert@^1.9.1:
+color-convert@^1.3.0, color-convert@^1.9.0, color-convert@^1.9.1, color-convert@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
   integrity sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==
@@ -7165,6 +7191,13 @@ color-name@^1.0.0, color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
+color-string@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/color-string/-/color-string-0.3.0.tgz#27d46fb67025c5c2fa25993bfbf579e47841b991"
+  integrity sha1-J9RvtnAlxcL6JZk7+/V55HhBuZE=
+  dependencies:
+    color-name "^1.0.0"
+
 color-string@^1.5.4:
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.5.5.tgz#65474a8f0e7439625f3d27a6a19d89fc45223014"
@@ -7173,6 +7206,23 @@ color-string@^1.5.4:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
+color-string@^1.6.0:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.8.2.tgz#08bd49fa5f3889c27b0c670052ed746dd7a671de"
+  integrity sha512-w5ZkKRdLsc5NOYsmnpS2DpyRW71npwZGwbRpLrJTuqjfTs2Bhrba7UiV59IX9siBlCPl2pne5NtiwnVWUzvYFA==
+  dependencies:
+    color-name "^1.0.0"
+    simple-swizzle "^0.2.2"
+
+color@^0.11.3:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/color/-/color-0.11.4.tgz#6d7b5c74fb65e841cd48792ad1ed5e07b904d764"
+  integrity sha1-bXtcdPtl6EHNSHkq0e1eB7kE12Q=
+  dependencies:
+    clone "^1.0.2"
+    color-convert "^1.3.0"
+    color-string "^0.3.0"
+
 color@^3.0.0:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/color/-/color-3.1.3.tgz#ca67fb4e7b97d611dcde39eceed422067d91596e"
@@ -7180,6 +7230,14 @@ color@^3.0.0:
   dependencies:
     color-convert "^1.9.1"
     color-string "^1.5.4"
+
+color@^3.1.2:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/color/-/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
+  integrity sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==
+  dependencies:
+    color-convert "^1.9.3"
+    color-string "^1.6.0"
 
 colorette@^1.2.1, colorette@^1.2.2:
   version "1.2.2"
@@ -9464,6 +9522,17 @@ eth-lib@^0.1.26:
     ws "^3.0.0"
     xhr-request-promise "^0.1.2"
 
+eth-provider@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/eth-provider/-/eth-provider-0.2.5.tgz#2c06b8c190bb76c83f0f5002773a7d516a9aac68"
+  integrity sha512-brZFNAYY5Js8yBeyk/ukOJQpClvOXrWFI2A+4HJrBu7rPuUIGHiQ7zmbyhYaRg5Xvkkyi9vw5Fvlt/8I6xvHDQ==
+  dependencies:
+    ethereum-provider "0.0.6"
+    oboe "2.1.4"
+    uuid "3.3.2"
+    ws "7.1.2"
+    xhr2-cookies "1.1.0"
+
 eth-query@^2.1.0, eth-query@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/eth-query/-/eth-query-2.1.2.tgz#d6741d9000106b51510c72db92d6365456a6da5e"
@@ -9531,6 +9600,11 @@ ethereum-cryptography@^0.1.3:
     scrypt-js "^3.0.0"
     secp256k1 "^4.0.1"
     setimmediate "^1.0.5"
+
+ethereum-provider@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/ethereum-provider/-/ethereum-provider-0.0.6.tgz#6f5a0427c34872339667d9904a8692e8992e6bf5"
+  integrity sha512-DqtdXNHGi/QtOjEovNOegVVQTd8/NnH9rP27R5SU3j2LKECZbcLGIZ3Z9Ln1SDaeUC5YJGJFYQCUUjfIi7NNyQ==
 
 "ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
   version "0.6.8"
@@ -14513,6 +14587,11 @@ meros@1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/meros/-/meros-1.1.4.tgz#c17994d3133db8b23807f62bec7f0cb276cfd948"
   integrity sha512-E9ZXfK9iQfG9s73ars9qvvvbSIkJZF5yOo9j4tcwM5tN8mUKfj/EKN5PzOr3ZH0y5wL7dLAHw3RVEfpQV9Q7VQ==
+
+mersenne-twister@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
+  integrity sha1-+RZhjuQ9cXnvz2Qb7EUx65Zwl4o=
 
 methods@~1.1.2:
   version "1.1.2"
@@ -22684,6 +22763,13 @@ write-stream@~0.4.3:
   integrity sha1-g8yMA0fQr2BXqThitOOuAd5cgcE=
   dependencies:
     readable-stream "~0.0.2"
+
+ws@7.1.2:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.1.2.tgz#c672d1629de8bb27a9699eb599be47aeeedd8f73"
+  integrity sha512-gftXq3XI81cJCgkUiAVixA0raD9IVmXqsylCrjRygw4+UOOGzPoxnQ6r/CnVL9i+mDncJo94tSkyrtuuQVBmrg==
+  dependencies:
+    async-limiter "^1.0.0"
 
 ws@7.3.0:
   version "7.3.0"

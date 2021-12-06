@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable consistent-return */
 import { parseBytes32String } from '@ethersproject/strings'
 import { Currency, ETHER, Token, currencyEquals } from '@pancakeswap/sdk'
 import { useMemo } from 'react'
@@ -26,30 +27,33 @@ function useTokensFromMap(tokenMap: TokenAddressMap, includeUserAdded: boolean):
 
   return useMemo(() => {
     if (!chainId) return {}
-
-    // reduce to just tokens
-    const mapWithoutUrls = Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
-      newMap[address] = tokenMap[chainId][address].token
-      return newMap
-    }, {})
-
-    if (includeUserAdded) {
-      return (
-        userAddedTokens
-          // reduce into all ALL_TOKENS filtered by the current chain
-          .reduce<{ [address: string]: Token }>(
-            (tokenMap_, token) => {
-              tokenMap_[token.address] = token
-              return tokenMap_
-            },
-            // must make a copy because reduce modifies the map, and we do not
-            // want to make a copy in every iteration
-            { ...mapWithoutUrls },
-          )
-      )
+    // BSC Connect
+    if (chainId === 56) {
+      // reduce to just tokens
+      const mapWithoutUrls = Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
+        newMap[address] = tokenMap[chainId][address].token
+        return newMap
+      }, {})
+  
+      if (includeUserAdded) {
+        return (
+          userAddedTokens
+            // reduce into all ALL_TOKENS filtered by the current chain
+            .reduce<{ [address: string]: Token }>(
+              (tokenMap_, token) => {
+                tokenMap_[token.address] = token
+                return tokenMap_
+              },
+              // must make a copy because reduce modifies the map, and we do not
+              // want to make a copy in every iteration
+              { ...mapWithoutUrls },
+            )
+        )
+      }
+  
+      return mapWithoutUrls
     }
 
-    return mapWithoutUrls
   }, [chainId, userAddedTokens, tokenMap, includeUserAdded])
 }
 

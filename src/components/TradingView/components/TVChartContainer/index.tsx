@@ -10,6 +10,7 @@ import {
   ResolutionString,
   IBasicDataFeed,
   IDatafeedQuotesApi,
+  TimeScaleOptions,
 } from '../../charting_library';
 
 import datafeeds from './datafeed'

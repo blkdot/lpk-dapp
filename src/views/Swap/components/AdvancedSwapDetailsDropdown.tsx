@@ -6,7 +6,7 @@ import { AdvancedSwapDetails, AdvancedSwapDetailsProps } from './AdvancedSwapDet
 const AdvancedDetailsFooter = styled.div<{ show: boolean }>`
   margin-top: ${({ show }) => (show ? "5px" : 0)};
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   border-radius: 8px;
   background-color: ${({ theme }) => (theme.isDark) ? '#152b39' : '#ffffff'};
 

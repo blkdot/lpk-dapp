@@ -58,20 +58,21 @@ export default class datafeeds {
     ); 
     // const coin = response.data.data.ethereum.dexTrades[0].baseCurrency; 
     // console.log(response.data.data.ethereum.dexTrades[0].quotePrice); 
-    console.log('response (resolve symbol): ', response); 
+    // console.log('response (resolve symbol): ', response); 
     // console.log('response (resolve symbol): ', response.data.data.ethereum.dexTrades[0].baseCurrency); 
   
     const coin = response.data.data.ethereum.dexTrades[0].baseCurrency; 
-    // const coin2 = response.data.data.ethereum.dexTrades[0].quoteCurrency; 
+    const coin2 = response.data.data.ethereum.dexTrades[0].quoteCurrency; 
+    const exchagneName = response.data.data.ethereum.dexTrades[0].exchange.fullName
     if(coin){
       const symbol: LibrarySymbolInfo = {
         ticker: symbolName,
-        name: `${coin.symbol}/USD`,
+        name: `${coin.symbol}/${coin2.symbol}`,
         full_name: coin.name,
         description: coin.name,
-        type: 'tttt',
-        exchange: 'Pancake',
-        listed_exchange: 'Pancake',
+        type: 'token',
+        exchange: exchagneName,
+        listed_exchange: exchagneName,
         format: 'price',
 
         session: '24x7',
@@ -92,7 +93,7 @@ export default class datafeeds {
   // This method is used by the charting library to get historical data for the symbol. 
   public async getBars(symbolInfo: LibrarySymbolInfo, resolution: ResolutionString, periodParams: PeriodParams, onResult: HistoryCallback, onError: ErrorCallback){
     try{
-        console.log('period params: ', new Date(periodParams.from*1000).toISOString(), '~', new Date(periodParams.to*1000).toISOString())
+        // console.log('period params: ', new Date(periodParams.from*1000).toISOString(), '~', new Date(periodParams.to*1000).toISOString())
         if (resolution==='1D') {
             resolution = '1440' as ResolutionString;
         }
@@ -109,7 +110,6 @@ export default class datafeeds {
               interval: Number(resolution),
             }
         })
-        console.log('response2', response2.data.data);
         
         const bars: Bar[] = response2.data.data.ethereum.dexTrades.map(el => ({
             time: new Date(el.timeInterval.minute).getTime(), // date string in api response
@@ -119,8 +119,6 @@ export default class datafeeds {
             close: Number(el.close),
             volume: el.volume
         }))
-
-        console.log('bars', bars)
 
         if (bars.length){
             console.log('get bars: ', bars.length)

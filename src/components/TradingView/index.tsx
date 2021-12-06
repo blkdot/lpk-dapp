@@ -1,21 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-// import { useNetworkContext } from 'contexts/NetworkContext'
-// import { CryptoCurrencyMarket, TechnicalAnalysis } from "react-ts-tradingview-widgets";
-import TradingViewWidget, {Themes} from 'react-tradingview-widget';
-// import {
-//   TechnicalAnalysis
-// } from "react-ts-tradingview-widgets";
-
-// import SwapList from 'config/constants/tokenLists/swap.json'
 import useTheme from '../../hooks/useTheme'
 import LogoNoText from '../../assets/images/logo_no_text.png'
 import {TVChartContainer} from './components/TVChartContainer/index';
-
-// const coinTypeArr = [
-// 	'btc', 'eos', 'usdt', 'cxp', 'eth', 'ht',	
-// ]
- 
 
 const SideContentWrapper = styled.div`
   display: flex;

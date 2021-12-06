@@ -9,7 +9,7 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector'
-import { ConnectorNames, connectorLocalStorageKey } from '@pancakeswap/uikit'
+import { connectorLocalStorageKey } from '@pancakeswap/uikit'
 import { connectorsByName } from 'utils/web3React'
 import { setupNetwork } from 'utils/wallet'
 import useToast from 'hooks/useToast'
@@ -26,9 +26,17 @@ const useAuth = () => {
   const { toastError } = useToast()
 
   const login = useCallback(
-    (connectorID: ConnectorNames) => {
+    (connectorID: string) => {
       const connector = connectorsByName[connectorID]
+      console.log(connectorsByName[connectorID])
       if (connector) {
+        // walletLocalStorageKey
+
+        if( connectorID === "injected") {
+          window.localStorage.setItem('wallet', 'Metamask')
+        } 
+        window.localStorage.setItem(connectorLocalStorageKey, connectorID)
+
         activate(connector, async (error: Error) => {
           if (error instanceof UnsupportedChainIdError) {
             const hasSetup = await setupNetwork()

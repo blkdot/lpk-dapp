@@ -160,9 +160,6 @@ export function useDerivedSwapInfo(): {
     inputError = inputError ?? t('Enter an amount')
   }
 
-  // console.log('currencies[Field.INPUT]', currencies[Field.INPUT]);
-  // console.log('currencies[Field.OUTPUT]', currencies[Field.OUTPUT]);
-
   if (!currencies[Field.INPUT] || !currencies[Field.OUTPUT]) {
     inputError = inputError ?? t('Select a token')
   }

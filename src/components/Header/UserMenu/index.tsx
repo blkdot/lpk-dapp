@@ -1,27 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
 import {
-  Flex,
-  LogoutIcon,
   useModal,
-  UserMenu as UIKitUserMenu,
-  UserMenuDivider,
-  UserMenuItem,
-  Dropdown,
-  Button
 } from '@pancakeswap/uikit'
-import useAuth from 'hooks/useAuth'
-import { useProfile } from 'state/profile/hooks'
 import ConnectWalletButton from 'components/ConnectWalletButton'
-import { FetchStatus, useGetBnbBalance } from 'hooks/useTokenBalance'
-import { useTranslation } from 'contexts/Localization'
 
 import { Jazzicon } from '@ukstv/jazzicon-react';
-import WalletModal, { WalletView, LOW_BNB_BALANCE } from './WalletModal'
-import WalletUserMenuItem from './WalletUserMenuItem'
-
-
+import WalletModal from './WalletModal'
+// import WalletUserMenuItem from './WalletUserMenuItem'
 
 const StyledAccountContainer = styled.ul`
   padding:0;
@@ -67,22 +54,6 @@ const StyledAccountWrapper = styled.li`
   //   max-height: none;
   // }
 `
-const StyledAccountMenu = styled.ul`
-  display: none;
-  opacity:0;
-  transition: opacity 3s linear;
-`
-const StyledAccountMenuItem = styled(UserMenuItem)`
-  height: 100%;
-  border-radius: 5px;
-  font-weight: 500;
-  color: #000;
-
-  :hover:not(:disabled){
-    background-color: #bce3ff;
-  }
-
-`
 const StyledJazzicon = styled(Jazzicon)`
   width: 20px;
   height: 20px;
@@ -113,20 +84,9 @@ const StyledAccountLogoWrapper = styled.div`
 `
 
 const UserMenu = () => {
-  const { t } = useTranslation()
   const { account } = useWeb3React()
-  const { logout } = useAuth()
-  const { balance, fetchStatus } = useGetBnbBalance()
-  const { profile } = useProfile()
-  const [onPresentWalletModal] = useModal(<WalletModal initialView={WalletView.WALLET_INFO} />)
-  const [onPresentTransactionModal] = useModal(<WalletModal initialView={WalletView.TRANSACTIONS} />)
-  const avatarSrc = profile?.nft?.image?.thumbnail
-  const hasLowBnbBalance = fetchStatus === FetchStatus.SUCCESS && balance.lte(LOW_BNB_BALANCE)
-
-  const [ activeDropdown, setActiveDropdown ] = useState(false) 
-  const activeMenu = () => {
-    setActiveDropdown(!activeDropdown)
-  }
+  const [onPresentWalletModal] = useModal(<WalletModal />)
+  // const [onPresentTransactionModal] = useModal(<WalletModal initialView={WalletView.TRANSACTIONS} />)
 
   if (!account) {
     return <ConnectWalletButton scale="sm" />
@@ -143,15 +103,6 @@ const UserMenu = () => {
       <StyledAccountContainer onClick={onPresentWalletModal}>
         <StyledAccountWrapper>
           {account.charAt(0).toUpperCase() + account.slice(1, 4).concat('...') + account.slice(-4)}
-
-          {/* <StyledAccountMenu className={activeDropdown ? 'menu-active' : ''}>
-            <StyledAccountMenuItem as="button" onClick={logout}>
-              <Flex alignItems="center" justifyContent="space-between" width="100%">
-                {t('Log Out')}
-              </Flex>
-            </StyledAccountMenuItem>
-          </StyledAccountMenu> */}
-
         </StyledAccountWrapper>
       </StyledAccountContainer>
     </>

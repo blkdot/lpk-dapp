@@ -379,13 +379,16 @@ export default function Swap({ history }: RouteComponentProps) {
     setInputToken(currencies[Field.INPUT])
     currencies[Field.OUTPUT] = outputPairToken;
     setOutputToken(currencies[Field.OUTPUT])
-
+    
     setInputTokenLogo(token.pairInputLogoUrl)
     setOutputTokenLogo(token.pairOutputLogoUrl)
 
     handleInputSelect(inputPairToken)
     handleOutputSelect(outputPairToken)
   }
+
+  useCurrency(inputToken?.symbol)
+  useCurrency(outputToken?.symbol)
 
   // Switch Network and set token ID
   const [tokenListId, setTokenListId] = useState(1)
@@ -450,8 +453,17 @@ export default function Swap({ history }: RouteComponentProps) {
   }
 
   const setSwitchToken = () => {
-    setInputToken(currencies[Field.OUTPUT])
-    setOutputToken(currencies[Field.INPUT])
+    currencies[Field.INPUT] = outputToken;
+    setInputToken(currencies[Field.INPUT])
+    currencies[Field.OUTPUT] = inputToken;
+    setOutputToken(currencies[Field.OUTPUT])
+
+    setInputTokenLogo(outputTokenLogo)
+    setOutputTokenLogo(inputTokenLogo)
+
+    handleInputSelect(outputToken)
+    handleOutputSelect(inputToken)
+
   }
 
   const [marcketCap, setMarcketCap] = useState(undefined)

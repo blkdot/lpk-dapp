@@ -3025,6 +3025,11 @@
     ejs "^2.6.1"
     magic-string "^0.25.0"
 
+"@sushiswap/core@^2.0.0-canary.0":
+  version "2.0.0-canary.1"
+  resolved "https://registry.yarnpkg.com/@sushiswap/core/-/core-2.0.0-canary.1.tgz#91c938668282d463e4fce6e0cf4d320ce5f3768f"
+  integrity sha512-6YFT4EKgm0XgfwCBsKx5HrDtRI6EvhZHipjBKegdTV0b2zKuXnmdyZ+RwPCr0mCKq2pKB0qIiqCxfbgXYDlLCQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-5.4.0.tgz#81ef61947bb268eb9d50523446f9c638fb355906"
@@ -6056,6 +6061,20 @@ bip39@^3.0.2:
     pbkdf2 "^3.0.9"
     randombytes "^2.0.1"
 
+biswap-sdk@^2.1.5-multichain:
+  version "2.1.5-multichain"
+  resolved "https://registry.yarnpkg.com/biswap-sdk/-/biswap-sdk-2.1.5-multichain.tgz#77d1cc84202cb151824518437c592ad2628e5f8f"
+  integrity sha512-Sa5olL8vc1I5xkGrtXDYvERvZlndPNktqZ8sJTLwL54moBrZjUE1D+J9NxYiXEo9jmzTcPDSDqR9kSggtyXM1A==
+  dependencies:
+    "@sushiswap/core" "^2.0.0-canary.0"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    enums "^1.0.3"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+
 bitcore-lib@^8.22.2, bitcore-lib@^8.25.10:
   version "8.25.10"
   resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-8.25.10.tgz#4bbb30932dec65cb76e4d1d793f55d7e4a75f071"
@@ -8960,6 +8979,11 @@ entities@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.2.0.tgz#098dc90ebb83d8dffa089d55256b351d34c4da55"
   integrity sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==
+
+enums@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/enums/-/enums-1.0.3.tgz#8f159231cbc256bfbdd677cf532a99c2b00e5a37"
+  integrity sha512-frX+CcfiZv/XjNPa2txP0xvWgidgALkiJh5SmyLMIX9M5S9D1uapzoa4fX5tD/kd8IZSOAK+QxkhdBGRZH63cQ==
 
 err-code@^2.0.0, err-code@^2.0.3:
   version "2.0.3"

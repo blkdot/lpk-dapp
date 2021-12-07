@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import useTheme from 'hooks/useTheme'
+import React from 'react'
 import { useTranslation } from 'contexts/Localization'
 
 import { 
@@ -11,7 +9,6 @@ import {
 
 const MetamaskIcon: React.FC = () => {
   const { t } = useTranslation()
-  const { theme, isDark, toggleTheme } = useTheme()
 
   return (
     <IconContainer>
@@ -48,8 +45,8 @@ const MetamaskIcon: React.FC = () => {
           <path d="M22.1205 21.3276L22.6009 13.2843L24.701 7.56067H15.2988L17.3988 13.2843L17.8792 21.3276L18.0577 23.8531L18.0714 30.0984H21.9283L21.9421 23.8531L22.1205 21.3276Z" fill="#F5841F"/>
         </svg>
       </IconWrapper>
-      <IconName>
-        MetaMask
+      <IconName >
+        {t('MetaMask')}
       </IconName>
     </IconContainer >
   )

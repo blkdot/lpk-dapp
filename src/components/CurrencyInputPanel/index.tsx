@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import { Currency, Pair } from '@pancakeswap/sdk'
 import { Button, Text, Flex } from '@pancakeswap/uikit'

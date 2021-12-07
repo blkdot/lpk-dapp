@@ -1,42 +1,14 @@
 import React from 'react'
-import { InjectedModalProps, ConnectorNames, connectorLocalStorageKey  } from '@pancakeswap/uikit'
+import { InjectedModalProps } from '@pancakeswap/uikit'
 import { connectorsByName } from 'utils/web3React'
 
 import { useTranslation } from 'contexts/Localization'
 import Loader from "react-loader-spinner";
 import useTheme from 'hooks/useTheme'
 import useAuth from 'hooks/useAuth'
-
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
-import {
-  NoEthereumProviderError,
-  UserRejectedRequestError as UserRejectedRequestErrorInjected
-} from '@web3-react/injected-connector'
-import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector'
-import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { Web3Provider } from '@ethersproject/providers'
-import { formatEther } from '@ethersproject/units'
 import MetamaskIcon from './components/MetamaskIcon'
 import WalletConnectIcon from './components/WalletConnectIcon'
-
-import { useEagerConnect, useInactiveListener } from './hooks'
-import {
-  injected,
-  //   network,
-  walletconnect,
-  //   walletlink,
-  //   ledger,
-  //   trezor,
-  //   lattice,
-  //   frame,
-  //   authereum,
-  //   fortmatic,
-  //   magic,
-  //   portis,
-  //   torus
-} from './connectors'
-
 import { 
   ScrollableContainer, 
   ConnectButtonWrapper, 
@@ -48,8 +20,8 @@ import {
 const ConnectWalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
 
   const { t } = useTranslation()
-  const { theme, isDark, toggleTheme } = useTheme()
-  const { login, logout } = useAuth()
+  const { isDark } = useTheme()
+  const { login } = useAuth()
 
   const { account } = useActiveWeb3React()
  
@@ -59,16 +31,10 @@ const ConnectWalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
     if (account) {
       onDismiss()
     }
-    // if (activatingConnector && activatingConnector === connector) {
-    //   setActivatingConnector(undefined)
-    // }
-  }, [account, onDismiss])
-
-  // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-  // const triedEager = useEagerConnect()
-
-  // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
-  // useInactiveListener(!triedEager || !!activatingConnector)
+    if (activatingConnector) {
+      setActivatingConnector(undefined)
+    }
+  }, [activatingConnector, account, onDismiss])
 
   return (
     <StyledModal
@@ -80,9 +46,8 @@ const ConnectWalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
       <ScrollableContainer>
         <ConnectButtonWrapper>
           {Object.keys(connectorsByName).map((name) => {
-            // const currentConnector = connectorsByName[name]
-            // const activating = currentConnector === activatingConnector
-            // const connected = currentConnector === connector
+            const currentConnector = connectorsByName[name]
+            const activating = currentConnector === activatingConnector
             
             return (
               <>
@@ -90,7 +55,6 @@ const ConnectWalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
                 <StyledButton
                   key={name}
                   onClick={() => {
-                    // setActivatingConnector(currentConnector)
                     login(name)
                   }}
                 >
@@ -100,7 +64,7 @@ const ConnectWalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
                   {name === "walletconnect" && 
                     <WalletConnectIcon />
                   }
-                  {/* {activating &&
+                  {activating &&
                     <LoaderWrapper>
                       <Loader
                         type="ThreeDots"
@@ -109,12 +73,7 @@ const ConnectWalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
                         width={40}
                       />
                     </LoaderWrapper>
-                  } */}
-                  {/* {connected && (
-                    <span role="img" aria-label="check">
-                      ✅
-                    </span>
-                  )} */}
+                  }
                 </StyledButton>
               }
               </>

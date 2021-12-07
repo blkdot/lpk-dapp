@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import {
   Flex,
@@ -10,16 +10,16 @@ import {
   ModalTitle,
 } from '@pancakeswap/uikit'
 
-import {
-  useExpertModeManager,
-  useUserExpertModeAcknowledgementShow,
-} from 'state/user/hooks'
+// import {
+//   useExpertModeManager,
+//   useUserExpertModeAcknowledgementShow,
+// } from 'state/user/hooks'
 import { useTranslation } from 'contexts/Localization'
-import { useSwapActionHandlers } from 'state/swap/hooks'
-import useTheme from 'hooks/useTheme'
+// import { useSwapActionHandlers } from 'state/swap/hooks'
+// import useTheme from 'hooks/useTheme'
 // import QuestionHelper from '../../QuestionHelper'
 import TransactionSettings from './TransactionSettings'
-import ExpertModal from './ExpertModal'
+// import ExpertModal from './ExpertModal'
 import GasSettings from './GasSettings'
 
 import { 
@@ -28,41 +28,39 @@ import {
 } from '../styleds'
 
 const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
-  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
-  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgementShow()
-  const [expertMode, toggleExpertMode] = useExpertModeManager()
-  const { onChangeRecipient } = useSwapActionHandlers()
+  // const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
+  // const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgementShow()
+  // const [expertMode, toggleExpertMode] = useExpertModeManager()
+  // const { onChangeRecipient } = useSwapActionHandlers()
 
   const { t } = useTranslation()
-  const { theme, isDark, toggleTheme } = useTheme()
 
-  if (showConfirmExpertModal) {
-    return (
-      <ExpertModal
-        setShowConfirmExpertModal={setShowConfirmExpertModal}
-        onDismiss={onDismiss}
-        setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
-      />
-    )
-  }
+  // if (showConfirmExpertModal) {
+  //   return (
+  //     <ExpertModal
+  //       setShowConfirmExpertModal={setShowConfirmExpertModal}
+  //       onDismiss={onDismiss}
+  //       setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
+  //     />
+  //   )
+  // }
 
-  const handleExpertModeToggle = () => {
-    if (expertMode) {
-      onChangeRecipient(null)
-      toggleExpertMode()
-    } else if (!showExpertModeAcknowledgement) {
-      onChangeRecipient(null)
-      toggleExpertMode()
-    } else {
-      setShowConfirmExpertModal(true)
-    }
-  }
+  // const handleExpertModeToggle = () => {
+  //   if (expertMode) {
+  //     onChangeRecipient(null)
+  //     toggleExpertMode()
+  //   } else if (!showExpertModeAcknowledgement) {
+  //     onChangeRecipient(null)
+  //     toggleExpertMode()
+  //   } else {
+  //     setShowConfirmExpertModal(true)
+  //   }
+  // }
 
   return (
 
     <StyledModal 
-    minWidth="420px"
-    // headerBackground={isDark ? '#152b39' : '#EDF4F9'}
+      minWidth="420px"
     >
     <ModalHeader>
       <ModalTitle>

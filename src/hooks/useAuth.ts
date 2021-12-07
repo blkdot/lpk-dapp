@@ -28,10 +28,7 @@ const useAuth = () => {
   const login = useCallback(
     (connectorID: string) => {
       const connector = connectorsByName[connectorID]
-      console.log(connectorsByName[connectorID])
       if (connector) {
-        // walletLocalStorageKey
-
         if( connectorID === "injected") {
           window.localStorage.setItem('wallet', 'Metamask')
         } 

@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { Box, Button, Flex, InjectedModalProps} from '@pancakeswap/uikit'
+import { Box, Flex, InjectedModalProps} from '@pancakeswap/uikit'
 import { useWeb3React } from '@web3-react/core'
-import useTokenBalance, { FetchStatus, useGetBnbBalance } from 'hooks/useTokenBalance'
 import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
 import { getBscScanLink } from 'utils'
-import tokens from 'config/constants/tokens'
 import { 
   StyledText,
   Wrapper,
@@ -27,8 +25,6 @@ interface WalletInfoProps {
 const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowBnbBalance, onDismiss }) => {
   const { t } = useTranslation()
   const { account } = useWeb3React()
-  const { balance, fetchStatus } = useGetBnbBalance()
-  const { balance: cakeBalance, fetchStatus: cakeFetchStatus } = useTokenBalance(tokens.cake.address)
   const { logout } = useAuth()
 
   const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false)
@@ -64,7 +60,6 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowBnbBalance, onDismiss }) 
       <StyledText fontSize="12px" textTransform="uppercase" fontWeight="bold" mb="8px">
         {t('Your Address')}
       </StyledText>
-      {/* <CopyAddress account={account} mb="24px" /> */}
 
       <Box position="relative" mb="10px">
         <Wrapper>

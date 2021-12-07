@@ -2,12 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { Flex, Heading, IconButton, ArrowBackIcon } from '@pancakeswap/uikit'
 import { Link } from 'react-router-dom'
-// import { useExpertModeManager } from 'state/user/hooks'
 import QuestionHelper from '../QuestionHelper'
 
 interface Props {
   title: string
-  subtitle: string
   helper?: string
   backTo?: string
   noConfig?: boolean
@@ -22,10 +20,9 @@ const AppHeaderContainer = styled(Flex)`
   h2 {
     color: ${({ theme }) => (theme.isDark) ? '#FFFFFF' : '#000'} !important;
   }
-
 `
 
-const AppHeader: React.FC<Props> = ({ title, subtitle, helper, backTo, noConfig = false }) => {
+const AppHeader: React.FC<Props> = ({ title, helper, backTo, noConfig = false }) => {
 
   return (
     <AppHeaderContainer>

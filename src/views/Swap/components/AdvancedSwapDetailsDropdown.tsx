@@ -5,10 +5,14 @@ import { AdvancedSwapDetails, AdvancedSwapDetailsProps } from './AdvancedSwapDet
 
 const AdvancedDetailsFooter = styled.div<{ show: boolean }>`
   margin-top: ${({ show }) => (show ? "5px" : 0)};
+  margin-bottom: ${({ show }) => (show ? "10px" : 0)};
+  padding: ${({ show }) => (show ? "10px" : 0)};
   width: 100%;
   max-width: 520px;
+  display: flex;
+  justify-content: center;
   border-radius: 8px;
-  background-color: ${({ theme }) => (theme.isDark) ? '#152b39' : '#ffffff'};
+  background-color: ${({ theme }) => (theme.isDark) ? 'transparent' : '#f5f5f5'};
 
   transform: ${({ show }) => (show ? 'translateY(0%)' : 'translateY(-100%)')};
   transition: transform 300ms ease-in-out;

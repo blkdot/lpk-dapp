@@ -15,7 +15,7 @@ const useActiveWeb3React = (): Web3ReactContextInterface<Web3Provider> => {
   const refEth = useRef(library)
   const [provider, setProvider] = useState(library || simpleRpcProvider)
 
-  const refAccount = useRef(account)
+  // const refAccount = useRef(account)
   const [providerAccount, setProviderAccount] = useState(account)
 
 

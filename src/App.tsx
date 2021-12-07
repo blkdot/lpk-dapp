@@ -44,9 +44,9 @@ const Team = lazy(() => import('./views/Teams/Team'))
 const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
 const Predictions = lazy(() => import('./views/Predictions'))
 const PredictionsLeaderboard = lazy(() => import('./views/Predictions/Leaderboard'))
-const Voting = lazy(() => import('./views/Voting'))
-const Proposal = lazy(() => import('./views/Voting/Proposal'))
-const CreateProposal = lazy(() => import('./views/Voting/CreateProposal'))
+// const Voting = lazy(() => import('./views/Voting'))
+// const Proposal = lazy(() => import('./views/Voting/Proposal'))
+// const CreateProposal = lazy(() => import('./views/Voting/CreateProposal'))
 const AddLiquidity = lazy(() => import('./views/AddLiquidity'))
 const Liquidity = lazy(() => import('./views/Pool'))
 const PoolFinder = lazy(() => import('./views/PoolFinder'))
@@ -117,7 +117,7 @@ const App: React.FC = () => {
             <Route path="/prediction/leaderboard">
               <PredictionsLeaderboard />
             </Route>
-            <Route exact path="/voting">
+            {/* <Route exact path="/voting">
               <Voting />
             </Route>
             <Route exact path="/voting/proposal/create">
@@ -125,7 +125,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/voting/proposal/:id">
               <Proposal />
-            </Route>
+            </Route> */}
 
             {/* NFT */}
             <Route path="/nfts">

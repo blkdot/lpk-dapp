@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useWalletModal, useModal } from '@pancakeswap/uikit'
-import useAuth from 'hooks/useAuth'
+import { useModal } from '@pancakeswap/uikit'
+// import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
 import ConnectWalletModal from './ConnectWalletModal'
 
-
 const StyledButton = styled.button`
-  
   background-color: ${({ theme }) => (theme.isDark) ? '#1B435F' : '#1B435F' } ;
   border: 1px solid #1B435F;
   text-align: center;
@@ -41,7 +39,7 @@ const StyledButton = styled.button`
 
 const ConnectWalletButton = (props) => {
   const { t } = useTranslation()
-  const { login, logout } = useAuth()
+  // const { login, logout } = useAuth()
   // const { onPresentConnectModal } = useWalletModal(login, logout, t)
   const  [onPresentConnectModal] = useModal(<ConnectWalletModal />)
 

@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { NetworkContext } from 'contexts/NetworkContext'
 import { Flex } from '@pancakeswap/uikit'
 import { PageMeta } from 'components/Layout/Page'
-import Hero from 'components/Hero'
-import TradingView from 'components/TradingView'
 
 const StyledPage = styled.div`
   display: flex;

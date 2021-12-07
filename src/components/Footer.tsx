@@ -24,7 +24,6 @@ const FooterFrame = styled.div`
     padding: 3rem 8rem;
   };
 `
-
 const PreFooterWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -136,7 +135,6 @@ const SocialFooter = styled.div`
     flex-direction: row;
   }
 `
-
 const SocialLinkButton = styled.a`
   display: flex;
   align-items: center;
@@ -167,36 +165,6 @@ const CopyRight = styled.div`
     color: #6C95AF;
   }
 `
-// const Wrapper = styled.div`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   margin-top: 16px;
-
-//   ${({ theme }) => theme.mediaQueries.md} {
-//     justify-content: space-between;
-//     flex-direction: row;
-//   }
-// `
-
-// const BubbleWrapper = styled(Flex)`
-//   svg {
-//     fill: ${({ theme }) => theme.colors.textSubtle};
-//     transition: background-color 0.2s, opacity 0.2s;
-//   }
-//   &:hover {
-//     svg {
-//       opacity: 0.65;
-//     }
-//   }
-//   &:active {
-//     svg {
-//       opacity: 0.85;
-//     }
-//   }
-// `
 
 const Footer = () => {
   const { t } = useTranslation()
@@ -204,13 +172,13 @@ const Footer = () => {
     <FooterFrame>
       <PreFooterWrapper>
         <AboutUs>
-          <h4>ABOUT US</h4>
-          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris laoreet nunc ut risus consectetur, vel rutrum enim convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam consequat feugiat urna, ac mollis quam luctus eu. Duis ac enim elementum, feugiat ex sed, accumsan tellus. Quisque fermentum commodo neque.</span>
+          <h4>{t('ABOUT US')}</h4>
+          <span>{t('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris laoreet nunc ut risus consectetur, vel rutrum enim convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam consequat feugiat urna, ac mollis quam luctus eu. Duis ac enim elementum, feugiat ex sed, accumsan tellus. Quisque fermentum commodo neque.')}</span>
         </AboutUs>
         <Platforms>
           <div>
             <div>
-              <h4>PLATFORMS</h4>
+              <h4>{t('PLATFORMS')}</h4>
             </div>
             <SiteLink>
               <a href="https://ico.lpesa.io">ico.lpesa.io</a>
@@ -231,7 +199,7 @@ const Footer = () => {
       <SocialFooterWrapper>
         <SocialFooter>
           <div>
-            <h4>SOCIAL MEDIA LINK</h4>
+            <h4>{t('SOCIAL MEDIA LINK')}</h4>
           </div>
           <div>
             <SocialLinkButton href="https://facebook.com">

@@ -19,6 +19,10 @@ export const StyledText = styled(Text)`
   font-family: 'Montserrat',sans-serif;
   color: ${({ theme }) => (theme.isDark) ? '#EDF4F9' : '#000000'};
 `
+export const StyledAutoColumn = styled(AutoColumn)`
+  width: 100%;
+  max-width: 420px;
+`
 
 function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippage: number }) {
   const { t } = useTranslation()
@@ -98,7 +102,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   // const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
-    <AutoColumn gap="0px">
+    <StyledAutoColumn gap="0px">
       {trade && (
         <>
           <TradeSummary trade={trade} allowedSlippage={allowedSlippage} />
@@ -118,6 +122,6 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
             </>
         </>
       )}
-    </AutoColumn>
+    </StyledAutoColumn>
   )
 }

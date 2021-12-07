@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import HeroBg from '../../assets/images/hero-bg.jpg'
 import CircleBg from '../../assets/images/circle_bg.png'

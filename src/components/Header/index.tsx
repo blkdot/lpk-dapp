@@ -1,7 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router'
 import { MoonIcon, SunIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import UserMenu from './UserMenu'
 import GlobalSettings from './GlobalSettings'
@@ -17,26 +15,16 @@ import {
   SubHeaderFrame,
   HeaderElement,
   HeaderElementBlock,
-  SubHeaderElement,
   SubHeaderLastElement,
   StyledLinkButton,
-  StyledTextSpan,
-  StyledTextTitleSpan,
   StyledIcon,
-  StyledFlexDiv,
   Title,
-  StyledFlex,
   StyledAnySwapLogoButton,
-  StyledCoinGeckoLogoButton,
   ThemeSwitchButton
-
 } from './styleds'
 
 const Header = () => {
   const { isDark, toggleTheme } = useTheme()
-  const { t } = useTranslation()
-  const { pathname } = useLocation()
-
   return (
     <>
     <HeaderFrame>
@@ -50,14 +38,6 @@ const Header = () => {
           <HeaderElementBlock>
             <UserMenu />
             <GlobalSettings />
-            {/* <StyledFlex justifyContent="space-between">
-              <ThemeSwitcher isDark={isDark} toggleTheme={toggleTheme} />
-              <StyledAnySwapLogoButton 
-                onClick={toggleTheme}
-              src={AnySwapLogo} alt="" width="30" height="30" />
-
-            </StyledFlex> */}
-
             <ThemeSwitchButton onClick={toggleTheme}>
               {isDark ? (
                 <MoonIcon height={24} width={24} color="textSubtle" />
@@ -159,23 +139,6 @@ const Header = () => {
         </SubHeaderLastElement>
       </RowBetween>
     </SubHeaderFrame>
-    {/* <UikitMenu
-      userMenu={<UserMenu />}
-      globalMenu={<GlobalSettings />}
-      isDark={isDark}
-      toggleTheme={toggleTheme}
-      currentLang={currentLanguage.code}
-      langs={languageList}
-      setLang={setLanguage}
-      links={config(t)}
-      footerLinks={footerLinks(t)}
-      // cakePriceUsd={cakePriceUsd}
-      // subLinks={activeMenuItem?.hideSubNav ? [] : activeMenuItem?.items}
-      // activeItem={activeMenuItem?.href}
-      // activeSubItem={activeSubMenuItem?.href}
-      // buyCakeLabel={t('Buy CAKE')}
-      {...props}
-    /> */}
     </>
   )
 }

@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import useTheme from 'hooks/useTheme'
+import React from 'react'
 import { useTranslation } from 'contexts/Localization'
 import { 
   IconContainer, 
@@ -10,7 +8,6 @@ import {
 
 const WalletConnectIcon: React.FC = () => {
   const { t } = useTranslation()
-  const { theme, isDark, toggleTheme } = useTheme()
 
   return (
     <IconContainer>
@@ -20,7 +17,7 @@ const WalletConnectIcon: React.FC = () => {
         </svg>
       </IconWrapper>
       <IconName>
-        WalletConnect
+        {t('WalletConnect')}
       </IconName>
     </IconContainer >
   )

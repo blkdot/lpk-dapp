@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { Flex, Modal} from '@pancakeswap/uikit'
 
@@ -67,6 +66,6 @@ export const IconWrapper = styled.div`
     width: 100%; 
 `
 export const IconName = styled.span`
-    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#1B435F'};
+    color: ${({ theme }) => theme.isDark ? '#1FC7D4' : '#1B435F'};
     font-weight: 600;
 `

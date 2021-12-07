@@ -327,8 +327,21 @@ export const ArrowDownButton = styled.div`
 `
 export const StyledSwapButton = styled(Button)`
   font-weight: 500;
-  font-family: Ubuntu, sans-serif;
   border-radius: 8px;
+  background: ${({ theme }) => (theme.isDark) ? '#1B435F' : '#1B435F' };
+  color: rgb(74, 254, 253);
+  border-radius: 8px;
+  :hover:not(:disabled) {
+    opacity: 1 !important;
+  }
+  :hover,
+  :focus {
+    background-color: #27618b;
+
+    :focus {
+      border: 1px solid #27618b;
+    }
+  }
   
 `
 export const StyledTradingInformationWrapper = styled.div`

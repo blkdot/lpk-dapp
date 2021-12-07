@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import useTheme from '../../hooks/useTheme'
 import LogoNoText from '../../assets/images/logo_no_text.png'
 import {TVChartContainer} from './components/TVChartContainer/index';
 

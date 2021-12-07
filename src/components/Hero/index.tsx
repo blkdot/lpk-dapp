@@ -18,9 +18,6 @@ import {
   TradingInfoColumn,
   TradingInfoRow,
 } from './styleds'
-import {
-  useDerivedSwapInfo,
-} from '../../state/swap/hooks'
 import KriptonCrystal from '../../assets/images/KriptonCrystal.png'
 
 export default function Hero({
@@ -37,13 +34,11 @@ export default function Hero({
 
   const { t } = useTranslation()
   const { theme } = useTheme()
-  const { currencies } = useDerivedSwapInfo()
 
   const { networkId, setNetworkId } = useNetworkContext()
   
   const handleSwitchNetwork = (index: number) => {
     setNetworkId(index)
-    console.log("index", index)
   }
   return (
     <>
@@ -55,7 +50,7 @@ export default function Hero({
                 <span>{t('Pair Information')}</span> 
               </TradingInfoTitle>
               <TradingInfoRow>
-                <span>Daily volume:</span> 
+                <span>{t('Daily volume:')}</span> 
                 {(dailyVolumn !== undefined) ? (
                   <span>${dailyVolumn}</span> ) 
                   : ( 
@@ -70,7 +65,7 @@ export default function Hero({
                 )}
               </TradingInfoRow>
               <TradingInfoRow>
-                <span>Market Cap:</span> 
+                <span>{t('Market Cap:')}</span> 
                 {(marcketCap !== undefined) ? (
                   <span>${marcketCap}</span> ) 
                   : ( 
@@ -85,7 +80,7 @@ export default function Hero({
                 )}
               </TradingInfoRow>
               <TradingInfoRow>
-                <span>Circulation Supply:</span> 
+                <span>{t('Circulation Supply:')}</span> 
                 {(circulationSupply !== undefined) ? (
                   <span>${circulationSupply}</span> ) 
                   : ( 
@@ -100,7 +95,7 @@ export default function Hero({
                 )}
               </TradingInfoRow>
               <TradingInfoRow>
-                <span>Total Supply:</span> 
+                <span>{t('Total Supply:')}</span> 
                 {(totalSupply !== undefined) ? (
                   <span>${totalSupply}</span> ) 
                   : ( 
@@ -137,19 +132,6 @@ export default function Hero({
             </CircleContainer>
           </SelectPoolWrapper>
         </StyledHeroWrapper>
-
-        {/* <LpkOtherLink>
-          <div>
-            <img src={LogoNoText} alt="LogoNoText" />
-            <span>LPK Stacking</span>
-          </div>
-          <div>
-            <svg width="20" height="36" viewBox="0 0 20 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.69824 1.30176L18.095 17.6985L1.69824 34.0952" stroke="#4AFEFD" strokeOpacity="0.3" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </div>
-        </LpkOtherLink> */}
-
         <LpkAdsLink>
           <LpkAdsButton src="./assets/images/banner.png" alt="LogoNoText" />
         </LpkAdsLink>

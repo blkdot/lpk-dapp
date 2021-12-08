@@ -219,7 +219,7 @@ export const StyledModal = styled(ModalContainer)`
   border: 1px solid ${({ theme }) => theme.isDark ? '#152b39' : '#EDF4F9'};
   border-radius: 8px;
   h2 {
-    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
+    color: ${({ theme }) => theme.isDark ? '#50f7f7' : '#000000'};
   }
 `
 export const LogOut = styled.button`
@@ -330,7 +330,6 @@ export const StyledMessage = styled(Message)`
 `
 
 export const StyledLogOutButton = styled.button`
-  
   background-color: ${({ theme }) => (theme.isDark) ? '#1B435F' : '#1B435F' } ;
   border: 1px solid #1B435F;
   text-align: center;
@@ -359,4 +358,12 @@ export const StyledLogOutButton = styled.button`
       border: 1px solid #27618b;
     }
   }
-`    
+`   
+export const StyledTransactionWrapper = styled(Flex)`
+  padding: 10px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.isDark ? '#173346' : '#f5f5f5'};
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+` 

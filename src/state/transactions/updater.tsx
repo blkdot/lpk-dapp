@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Text, Flex, Link } from '@pancakeswap/uikit'
+// import { Text, Flex, Link } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { getBscScanLink } from 'utils'
+// import { getBscScanLink } from 'utils'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useBlock } from 'state/block/hooks'
 import useToast from 'hooks/useToast'
 import { AppDispatch, AppState } from '../index'
@@ -70,18 +72,28 @@ export default function Updater(): null {
                 }),
               )
 
-              const toast = receipt.status === 1 ? toastSuccess : toastError
-              toast(
-                t('Transaction receipt'),
-                <Flex flexDirection="column">
-                  <Text>{transactions[hash]?.summary ?? `Hash: ${hash.slice(0, 8)}...${hash.slice(58, 65)}`}</Text>
-                  {chainId && (
-                    <Link external href={getBscScanLink(hash, 'transaction', chainId)}>
-                      {t('View on BscScan')}
-                    </Link>
-                  )}
-                </Flex>,
-              )
+              if (receipt.status === 1) {
+                toast.success(t('Transaction receipt'), {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }else {
+                const errors = transactions[hash]?.summary ?? `Hash: ${hash.slice(0, 8)}...${hash.slice(58, 65)}`;
+                toast.error(errors, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }
             } else {
               dispatch(checkedTransaction({ chainId, hash, blockNumber: currentBlock }))
             }

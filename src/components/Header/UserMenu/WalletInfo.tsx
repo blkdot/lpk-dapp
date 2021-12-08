@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Box, Flex, InjectedModalProps} from '@pancakeswap/uikit'
 import { useWeb3React } from '@web3-react/core'
 import useAuth from 'hooks/useAuth'
+
 import { useTranslation } from 'contexts/Localization'
 import { getBscScanLink } from 'utils'
+import WalletTransactions from './WalletTransactions'
 import { 
   StyledText,
   Wrapper,
@@ -14,7 +16,8 @@ import {
   StyledCheckmarkCircleFillIcon,
   StyledLinkExternal,
   StyledMessage,
-  StyledLogOutButton
+  StyledLogOutButton,
+  StyledTransactionWrapper
 } from '../styleds'
 
 interface WalletInfoProps {
@@ -94,6 +97,10 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowBnbBalance, onDismiss }) 
           </Box>
         </StyledMessage>
       )}
+
+      <StyledTransactionWrapper>
+        <WalletTransactions />
+      </StyledTransactionWrapper>
       
       <StyledLogOutButton onClick={handleLogout}>
         {t('Log Out')}

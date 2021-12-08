@@ -18,7 +18,7 @@ const StyledModal = styled(Modal)`
   color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
   border-radius: 8px;
   h2 {
-    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
+    color: ${({ theme }) => theme.isDark ? '#50f7f7' : '#000000'};
   }
   font-size: 16px;
   font-weight: 600;

@@ -487,5 +487,7 @@ export const OutSideLinkIcon = styled.span`
   }
 
 `
-
+export const StyledCardText = styled(Text)`
+  color: ${({ theme }) => (theme.isDark) ? '#ffffff': '#000000' };
+`
 

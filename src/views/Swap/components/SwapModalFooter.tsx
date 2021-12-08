@@ -17,11 +17,46 @@ import FormattedPriceImpact from './FormattedPriceImpact'
 import { StyledBalanceMaxMini, SwapCallbackError } from './styleds'
 
 const SwapModalFooterContainer = styled(AutoColumn)`
-  margin-top: 24px;
   padding: 16px;
-  border-radius: ${({ theme }) => theme.radii.default};
-  border: 1px solid ${({ theme }) => theme.colors.cardBorder};
-  background-color: ${({ theme }) => theme.colors.background};
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => (theme.isDark) ? '#173346' : '#f5f5f5'};
+  background-color: ${({ theme }) => (theme.isDark) ? '#173346' : '#f5f5f5'};
+  margin-top: 10px;
+`
+
+export const StyledText = styled(Text)`
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat',sans-serif;
+  color: ${({ theme }) => (theme.isDark) ? '#EDF4F9' : '#000000'};
+`
+export const StyledButton = styled.button`
+  margin-top: 12px;
+  text-align: center;
+  outline: none;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 8px;
+  min-width: min-content;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  padding: 0.8rem;
+
+  :hover,
+  :focus {
+    background: #27618b !important;
+
+    :focus {
+      border: 1px solid #27618b !important;
+    }
+  }
 `
 
 export default function SwapModalFooter({
@@ -50,8 +85,8 @@ export default function SwapModalFooter({
     <>
       <SwapModalFooterContainer>
         <RowBetween align="center">
-          <Text fontSize="14px">{t('Price')}</Text>
-          <Text
+          <StyledText fontSize="14px">{t('Price')}</StyledText>
+          <StyledText
             fontSize="14px"
             style={{
               justifyContent: 'center',
@@ -65,14 +100,14 @@ export default function SwapModalFooter({
             <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
               <AutoRenewIcon width="14px" />
             </StyledBalanceMaxMini>
-          </Text>
+          </StyledText>
         </RowBetween>
 
         <RowBetween>
           <RowFixed>
-            <Text fontSize="14px">
+            <StyledText fontSize="14px">
               {trade.tradeType === TradeType.EXACT_INPUT ? t('Minimum received') : t('Maximum sold')}
-            </Text>
+            </StyledText>
             <QuestionHelper
               text={t(
                 'Your transaction will revert if there is a large, unfavorable price movement before it is confirmed.',
@@ -81,21 +116,21 @@ export default function SwapModalFooter({
             />
           </RowFixed>
           <RowFixed>
-            <Text fontSize="14px">
+            <StyledText fontSize="14px">
               {trade.tradeType === TradeType.EXACT_INPUT
                 ? slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4) ?? '-'
                 : slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4) ?? '-'}
-            </Text>
-            <Text fontSize="14px" marginLeft="4px">
+            </StyledText>
+            <StyledText fontSize="14px" marginLeft="4px">
               {trade.tradeType === TradeType.EXACT_INPUT
                 ? trade.outputAmount.currency.symbol
                 : trade.inputAmount.currency.symbol}
-            </Text>
+            </StyledText>
           </RowFixed>
         </RowBetween>
         <RowBetween>
           <RowFixed>
-            <Text fontSize="14px">{t('Price Impact')}</Text>
+            <StyledText fontSize="14px">{t('Price Impact')}</StyledText>
             <QuestionHelper
               text={t('The difference between the market price and your price due to trade size.')}
               ml="4px"
@@ -105,36 +140,38 @@ export default function SwapModalFooter({
         </RowBetween>
         <RowBetween>
           <RowFixed>
-            <Text fontSize="14px">{t('Liquidity Provider Fee')}</Text>
+            <StyledText fontSize="14px">{t('Liquidity Provider Fee')}</StyledText>
             <QuestionHelper
               text={
                 <>
-                  <Text mb="12px">{t('For each trade a %amount% fee is paid', { amount: '0.25%' })}</Text>
-                  <Text>- {t('%amount% to LP token holders', { amount: '0.17%' })}</Text>
-                  <Text>- {t('%amount% to the Treasury', { amount: '0.03%' })}</Text>
-                  <Text>- {t('%amount% towards CAKE buyback and burn', { amount: '0.05%' })}</Text>
+                  <StyledText mb="12px">{t('For each trade a %amount% fee is paid', { amount: '0.25%' })}</StyledText>
+                  <StyledText>- {t('%amount% to LP token holders', { amount: '0.17%' })}</StyledText>
+                  <StyledText>- {t('%amount% to the Treasury', { amount: '0.03%' })}</StyledText>
+                  <StyledText>- {t('%amount% towards CAKE buyback and burn', { amount: '0.05%' })}</StyledText>
                 </>
               }
               ml="4px"
             />
           </RowFixed>
-          <Text fontSize="14px">
+          <StyledText fontSize="14px">
             {realizedLPFee ? `${realizedLPFee?.toSignificant(6)} ${trade.inputAmount.currency.symbol}` : '-'}
-          </Text>
+          </StyledText>
         </RowBetween>
       </SwapModalFooterContainer>
 
       <AutoRow>
-        <Button
-          variant={severity > 2 ? 'danger' : 'primary'}
+        <StyledButton
+          style={{
+            background: severity > 2 ? '#EF4444' : '#1B435F',
+            border: severity > 2 ? '1px solid #EF4444' : '1px solid #1B435F',
+            color: severity > 2 ? '#FFFFFF' : 'rgb(74, 254, 253)'
+          }}
           onClick={onConfirm}
           disabled={disabledConfirm}
-          mt="12px"
           id="confirm-swap-or-send"
-          width="100%"
         >
           {severity > 2 ? t('Swap Anyway') : t('Confirm Swap')}
-        </Button>
+        </StyledButton>
 
         {swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
       </AutoRow>

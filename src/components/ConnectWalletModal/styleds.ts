@@ -32,7 +32,7 @@ export const StyledModal = styled(Modal)`
   border: 1px solid ${({ theme }) => theme.isDark ? '#152b39' : '#EDF4F9'};
   border-radius: 8px;
   h2 {
-    color: ${({ theme }) => theme.isDark ? '#ffffff' : '#000000'};
+    color: ${({ theme }) => theme.isDark ? '#50f7f7' : '#000000'};
   }
 `
 export const StyledButton = styled.button`

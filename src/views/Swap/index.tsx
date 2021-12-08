@@ -30,19 +30,18 @@ import Hero from 'components/Hero'
 import TradingView from 'components/TradingView'
 import SwapWarningTokens from 'config/constants/swapWarningTokens'
 import AddressInputPanel from './components/AddressInputPanel'
-import { GreyCard } from '../../components/Card'
 import Column, { AutoColumn } from '../../components/Layout/Column'
 import ConfirmSwapModal from './components/ConfirmSwapModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import { AutoRow, RowBetween } from '../../components/Layout/Row'
 import AdvancedSwapDetailsDropdown from './components/AdvancedSwapDetailsDropdown'
 import confirmPriceImpactWithoutFee from './components/confirmPriceImpactWithoutFee'
+import { GreyCard } from '../../components/Card'
 import {
   StyledPage,
   StyledWrapper,
   StyledFlex,
   Label,
-  BodyWrapper,
   PairCardBox,
   PairSelectBody,
   PairEmpty,
@@ -63,7 +62,8 @@ import {
   DoubleLogoImg,
   DoubleLogoFlex,
   OutSideLink,
-  OutSideLinkIcon
+  OutSideLinkIcon,
+  StyledCardText
 } from './components/styleds'
 import TradePrice from './components/TradePrice'
 import ImportTokenWarningModal from './components/ImportTokenWarningModal'
@@ -715,15 +715,16 @@ export default function Swap({ history }: RouteComponentProps) {
                         </StyledSwapButton>
                       ) : noRoute && userHasSpecifiedInputOutput ? (
                         <GreyCard style={{ textAlign: 'center' }}>
-                          <Text color="textSubtle" mb="4px">
+                          <StyledCardText mb="4px">
                             {t('Insufficient liquidity for this trade.')}
-                          </Text>
+                          </StyledCardText>
                           {singleHopOnly && (
-                            <Text color="textSubtle" mb="4px">
+                            <StyledCardText mb="4px">
                               {t('Try enabling multi-hop trades.')}
-                            </Text>
+                            </StyledCardText>
                           )}
                         </GreyCard>
+                        
                       ) : showApproveFlow ? (
                         <RowBetween>
                           <StyledSwapButton

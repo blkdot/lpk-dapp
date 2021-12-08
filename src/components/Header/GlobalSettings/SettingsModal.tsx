@@ -64,7 +64,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
     >
     <ModalHeader>
       <ModalTitle>
-        <Heading>{t('Your Wallet')}</Heading>
+        <Heading>{t('Setting')}</Heading>
       </ModalTitle>
       <IconButton variant="text" onClick={onDismiss}>
         <CloseIcon width="24px" color="text" />

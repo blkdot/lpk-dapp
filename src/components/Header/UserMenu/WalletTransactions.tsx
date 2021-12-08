@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Box, Button, Flex, Text } from '@pancakeswap/uikit'
+import { Box, Flex } from '@pancakeswap/uikit'
 import { AppDispatch } from 'state'
 import { isTransactionRecent, useAllTransactions } from 'state/transactions/hooks'
 import { useTranslation } from 'contexts/Localization'
@@ -8,6 +8,10 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { clearAllTransactions } from 'state/transactions/actions'
 import { orderBy } from 'lodash'
 import TransactionRow from './TransactionRow'
+import { 
+  StyledIconButton,
+  StyledText
+} from '../styleds'
 
 const WalletTransactions: React.FC = () => {
   const { chainId } = useActiveWeb3React()
@@ -23,23 +27,23 @@ const WalletTransactions: React.FC = () => {
   }
 
   return (
-    <Box minHeight="120px">
+    <>
       <Flex alignItems="center" justifyContent="space-between" mb="24px">
-        <Text color="secondary" fontSize="12px" textTransform="uppercase" fontWeight="bold">
+        <StyledText fontSize="12px" textTransform="uppercase" fontWeight="bold">
           {t('Recent Transactions')}
-        </Text>
+        </StyledText>
         {sortedTransactions.length > 0 && (
-          <Button scale="sm" onClick={handleClearAll} variant="text" px="0">
+          <StyledIconButton variant="text" onClick={handleClearAll}>
             {t('Clear all')}
-          </Button>
+          </StyledIconButton>
         )}
       </Flex>
       {sortedTransactions.length > 0 ? (
         sortedTransactions.map((txn) => <TransactionRow key={txn.hash} txn={txn} />)
       ) : (
-        <Text textAlign="center">{t('No recent transactions')}</Text>
+        <StyledText textAlign="center">{t('No recent transactions')}</StyledText>
       )}
-    </Box>
+    </>
   )
 }
 

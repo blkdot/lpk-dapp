@@ -45,7 +45,7 @@ const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm'
   padding: 24px 10px;
   cursor: default;
   border-radius: 8px;
-
+  overflow: hidden;
   :hover {
     opacity: 1 !important;
   }

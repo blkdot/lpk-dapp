@@ -9,6 +9,11 @@ import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
 import { useTranslation } from 'contexts/Localization'
+
+// import { 
+//   CID
+// } from 'hooks/switchSwap'
+
 import { 
   MARKETS_ENDPOINT,
   LIQUIDITY_ENDPOINT,
@@ -83,6 +88,10 @@ import {
   useSwapActionHandlers,
   useSwapState,
 } from '../../state/swap/hooks'
+
+import {
+  useNetworkInfo,
+} from '../../state/network/hooks'
 import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from '../../state/user/hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
@@ -492,8 +501,15 @@ export default function Swap({ history }: RouteComponentProps) {
   
   // getMarketsData()
   const [isVisible, setIsVisible] = useState(false);
-  
+  // const network = Network()
+
+  const { networkID, ChainId } = useNetworkInfo()
+
   useEffect(() => {
+    
+    console.log('networkID', networkID)
+    console.log('ChainId', ChainId)
+
     let isMounted = false;
     fetchLiquidityPools(tokenListId, 10).then(() => {
       if (isMounted) return
@@ -502,7 +518,7 @@ export default function Swap({ history }: RouteComponentProps) {
     return () => {
       isMounted = true
     }
-  }, [tokenListId]);
+  }, [tokenListId, networkID, ChainId]);
 
   return (
     <StyledWrapper>

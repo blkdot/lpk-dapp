@@ -3,7 +3,12 @@ import { useNetworkContext } from 'contexts/NetworkContext'
 import SwapList from 'config/constants/tokenLists/swap.json'
 import { useTranslation } from 'contexts/Localization'
 import Loader from "react-loader-spinner";
+
 import useTheme from 'hooks/useTheme'
+import {
+  useNetworkActionHandlers,
+} from 'state/network/hooks'
+// import CopyAddress from './CopyAddress'
 import {
   SideContentWrapper,
   StyledHeroWrapper,
@@ -17,6 +22,8 @@ import {
   TradingInfoTitle,
   TradingInfoColumn,
   TradingInfoRow,
+  // CopyAddressColumn,
+  // CopyAddressTitle
 } from './styleds'
 import KriptonCrystal from '../../assets/images/KriptonCrystal.png'
 
@@ -36,9 +43,11 @@ export default function Hero({
   const { theme } = useTheme()
 
   const { networkId, setNetworkId } = useNetworkContext()
+  const { onChangeNetwork } = useNetworkActionHandlers()
   
   const handleSwitchNetwork = (index: number) => {
     setNetworkId(index)
+    onChangeNetwork(index)
   }
   return (
     <>
@@ -110,6 +119,13 @@ export default function Hero({
                 )}
               </TradingInfoRow>
             </TradingInfoColumn>
+            {/* <CopyAddressTitle>
+              <span>{t('LPK Token Address')}</span> 
+            </CopyAddressTitle>
+            <CopyAddressColumn>
+              <CopyAddress account="0x9b71b5511998e0798625b8fa74e86d8192de78c1" />
+            </CopyAddressColumn> */}
+
           </StyledTradingInformationWrapper>
 
           <SelectPoolWrapper>
@@ -121,6 +137,7 @@ export default function Hero({
                   <li key={swap.symbol}>
                     <PoolBuuton
                       className={(networkId === swap.id) ? 'swap-active' : ''}
+                      disabled={(swap.id !== 4 && swap.id !== 0)}
                       onClick={() => {
                         handleSwitchNetwork(swap.id)
                       }}>

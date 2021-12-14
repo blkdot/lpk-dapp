@@ -304,7 +304,7 @@ export const TradingInfoColumn = styled.div`
   border-radius: 4px;
   padding: 1rem;
   backdrop-filter: blur(5px);
-}
+
 `
 export const TradingInfoRow = styled.div`
   display: flex;
@@ -322,4 +322,24 @@ export const TradingMoreInfoButton = styled.a`
   :hover {
     color: ${({ theme }) => (theme.isDark) ? '#27618b': '#2aa1a0' };
   }
+`
+export const CopyAddressColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500; 
+  color: #4afefd;
+  margin: 0px 15px 15px 15px;
+  background: transparent;
+  border: 1px solid #4afefd;
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+`
+export const CopyAddressTitle = styled.div`
+  display: flex;
+  font-size: 16px;
+  font-weight: 500; 
+  color: #4afefd;
+  margin: 0px 15px 0px 15px;
+  padding-bottom: 5px;
 `

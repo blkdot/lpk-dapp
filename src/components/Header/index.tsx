@@ -48,7 +48,9 @@ const Header = () => {
             <LanguageSetting />
           </HeaderElementBlock>
           <HeaderElementBlock>
-            <StyledAnySwapLogoButton src={AnySwapLogo} alt="" width="30" height="30" />
+            <a href="https://anyswap.exchange/" target="_blank" rel="noopener noreferrer">
+              <StyledAnySwapLogoButton src={AnySwapLogo} alt="" width="30" height="30" />
+            </a>
           </HeaderElementBlock>
         </HeaderElement>
       </RowBetween>

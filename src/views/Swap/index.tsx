@@ -3,13 +3,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { NetworkContext } from 'contexts/NetworkContext'
 import axios from "axios";
 
-import { Currency, CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
+import { Currency, CurrencyAmount, JSBI, Token, ETHER, Trade } from '@pancakeswap/sdk'
 import { Text, ArrowDownIcon, Box, useModal, Flex } from '@pancakeswap/uikit'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
 import { useTranslation } from 'contexts/Localization'
-
 // import { 
 //   CID
 // } from 'hooks/switchSwap'
@@ -379,7 +378,12 @@ export default function Swap({ history }: RouteComponentProps) {
 
     // console.log('token', token)
     setIndexActive(index)
-    const inputPairToken = new Token(token.pairInputChainId, token.pairInputAddress, token.pairInputDecimals, token.pairInputSymbol, token.pairInputName)
+    let inputPairToken;
+    if (token.pairInputSymbol === 'WBNB') {
+      inputPairToken = ETHER;
+    } else {
+      inputPairToken = new Token(token.pairInputChainId, token.pairInputAddress, token.pairInputDecimals, token.pairInputSymbol, token.pairInputName)
+    }
     const outputPairToken = new Token(token.pairOutputChainId, token.pairOutputAddress, token.pairOutputDecimals, token.pairOutputSymbol, token.pairOutputName)
     console.log('inputPairToken', inputPairToken)
     console.log('outputPairToken', outputPairToken)
@@ -437,8 +441,9 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const [tokenInfo, setTokenInfo] = useState(undefined)
   const [progress, setProgress] = useState(0)
+  const [tokenPrice, setTokenPrice] = useState(0)
   
-  const fetchLiquidityPools = async (tokenId, tokenPrice, exchangeName) => {
+  const fetchLiquidityPools = async (tokenId, exchangeName) => {
     setProgress(80)
     await axios.post(LIQUIDITY_ENDPOINT, {
       method: "POST",
@@ -449,7 +454,6 @@ export default function Swap({ history }: RouteComponentProps) {
       },
       data:{
         id: tokenId,
-        price: tokenPrice,
         exchangeName
       }
     }).then((response) => {
@@ -461,7 +465,6 @@ export default function Swap({ history }: RouteComponentProps) {
     })
 
   }
-
   const setSwitchToken = () => {
     currencies[Field.INPUT] = outputToken;
     setInputToken(currencies[Field.INPUT])
@@ -493,7 +496,7 @@ export default function Swap({ history }: RouteComponentProps) {
   //     setTotalSupply(json.data.total_supply)
   //     setProgress(50)
 
-  //     fetchLiquidityPools(json.data.current_price)
+  //   //  fetchLiquidityPools(json.data.current_price)
   //   })
   //   .catch(error => {
   //     console.error(error)
@@ -507,12 +510,12 @@ export default function Swap({ history }: RouteComponentProps) {
   const { networkID, ChainId } = useNetworkInfo()
 
   useEffect(() => {
-    
+    // getMarketsData()
     console.log('networkID', networkID)
     console.log('ChainId', ChainId)
 
     let isMounted = false;
-    fetchLiquidityPools(tokenListId, 10, 'Pancake v2').then(() => {
+    fetchLiquidityPools(tokenListId, 'Pancake v2').then(() => {
       if (isMounted) return
       setIsVisible(false)
     })
@@ -583,7 +586,7 @@ export default function Swap({ history }: RouteComponentProps) {
                                                   <DoubleLogoImg  src={pairData.pairOutputLogoUrl}/>
                                                 </DoubleLogo>
                                               </DoubleLogoWrapper>
-                                              <StyledText className={indexActive === i ? 'active' : ''} ml="8px">{pairData.pairInputSymbol}/{pairData.pairOutputSymbol}</StyledText>
+                                              <StyledText className={indexActive === i ? 'active' : ''} ml="8px">{pairData.pairInputSymbol === 'WBNB' ? 'BNB' : pairData.pairInputSymbol}/{pairData.pairOutputSymbol}</StyledText>
                                             </DoubleLogoFlex>
                                             <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.inputPools)}/${formatAmount(pairData.outputPools)}</StyledText>
                                             <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.totalLiquidity)}</StyledText>

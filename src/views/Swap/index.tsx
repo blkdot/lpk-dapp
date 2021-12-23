@@ -438,7 +438,7 @@ export default function Swap({ history }: RouteComponentProps) {
   const [tokenInfo, setTokenInfo] = useState(undefined)
   const [progress, setProgress] = useState(0)
   
-  const fetchLiquidityPools = async (tokenId, tokenPrice) => {
+  const fetchLiquidityPools = async (tokenId, tokenPrice, exchangeName) => {
     setProgress(80)
     await axios.post(LIQUIDITY_ENDPOINT, {
       method: "POST",
@@ -449,7 +449,8 @@ export default function Swap({ history }: RouteComponentProps) {
       },
       data:{
         id: tokenId,
-        price: tokenPrice
+        price: tokenPrice,
+        exchangeName
       }
     }).then((response) => {
       console.log('address', response.data.data)
@@ -511,7 +512,7 @@ export default function Swap({ history }: RouteComponentProps) {
     console.log('ChainId', ChainId)
 
     let isMounted = false;
-    fetchLiquidityPools(tokenListId, 10).then(() => {
+    fetchLiquidityPools(tokenListId, 10, 'Pancake v2').then(() => {
       if (isMounted) return
       setIsVisible(false)
     })

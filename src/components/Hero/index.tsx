@@ -153,7 +153,7 @@ export default function Hero({
             </CircleContainer>
           </SelectPoolWrapper>
         </StyledHeroWrapper>
-        <LpkAdsLink>
+        <LpkAdsLink href="https://www.l-pesa.com/" target="_blank">
           <LpkAdsButton src="./assets/images/banner.png" alt="LogoNoText" />
         </LpkAdsLink>
       </SideContentWrapper>

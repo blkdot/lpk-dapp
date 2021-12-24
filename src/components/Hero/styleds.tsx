@@ -54,7 +54,7 @@ export const HeroImageWrapper = styled.div`
     };
   }
 `
-export const LpkAdsLink = styled.div`
+export const LpkAdsLink = styled.a`
   display: flex;
   margin-left: 2rem;
   margin-right: 2rem;
@@ -138,6 +138,7 @@ export const PoolBuuton = styled.button`
   }
 
 `
+
 export const LogoImage = styled.img`
   position: absolute;
   z-index: 10;

@@ -85,6 +85,7 @@ export const SelectPoolWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  align-items: center;
   height: 100%;
   ${({ theme }) => theme.mediaQueries.lg} {
     padding: 4rem;
@@ -106,6 +107,8 @@ export const PoolBuuton = styled.button`
   :hover {
     background: #1B435F;
   }
+  width: 40px;
+  height: 40px;
   ${({ theme }) => theme.mediaQueries.xs} {
     width: 60px;
     height: 60px;
@@ -138,17 +141,15 @@ export const PoolBuuton = styled.button`
 export const LogoImage = styled.img`
   position: absolute;
   z-index: 10;
+  width: 70px;
   ${({ theme }) => theme.mediaQueries.xs} {
     width: 80px;
-    bottom: 120px;
   };
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 80px;
-    bottom: 128px;
   };
   ${({ theme }) => theme.mediaQueries.lg} {
     width: 110px;
-    bottom: 180px;
   };
 `
 export const CircleContainer = styled.ul`
@@ -172,7 +173,9 @@ export const CircleContainer = styled.ul`
     top: 50%;
     left: 50%;
     
-
+    margin: -1.4em;
+    width: 4em;
+    height: 4em;
     ${({ theme }) => theme.mediaQueries.xs} {
       margin: -2em;
       width: 4em;
@@ -191,62 +194,118 @@ export const CircleContainer = styled.ul`
       height: 5em;
     };
   }
-  
+
+  width: 16em;
+  height: 16em;
+  > *:nth-of-type(1) {
+    transform: rotate(0deg) translate(7.3em) rotate(0deg);
+  }
+  > *:nth-of-type(2) {
+    transform: rotate(45deg) translate(7.3em) rotate(-45deg);
+  }
+  > *:nth-of-type(3) {
+    transform: rotate(90deg) translate(7.3em) rotate(-90deg);
+  }
+  > *:nth-of-type(4) {
+    transform: rotate(135deg) translate(7.3em) rotate(-135deg);
+  }
+  > *:nth-of-type(5) {
+    transform: rotate(180deg) translate(7.3em) rotate(-180deg);
+  }
+  > *:nth-of-type(6) {
+    transform: rotate(225deg) translate(7.3em) rotate(-225deg);
+  }
+  > *:nth-of-type(7) {
+    transform: rotate(270deg) translate(7.3em) rotate(-270deg);
+  }
+  > *:nth-of-type(8) {
+    transform: rotate(315deg) translate(7.3em) rotate(-315deg);
+  }
+
   ${({ theme }) => theme.mediaQueries.xs} {
-    width: 16em;
-    height: 16em;
+    width: 20em;
+    height: 20em;
     > *:nth-of-type(1) {
-      transform: rotate(0deg) translate(8em) rotate(0deg);
+      transform: rotate(0deg) translate(9em) rotate(0deg);
     }
     > *:nth-of-type(2) {
-      transform: rotate(45deg) translate(8em) rotate(-45deg);
+      transform: rotate(45deg) translate(9em) rotate(-45deg);
     }
     > *:nth-of-type(3) {
-      transform: rotate(90deg) translate(8em) rotate(-90deg);
+      transform: rotate(90deg) translate(9em) rotate(-90deg);
     }
     > *:nth-of-type(4) {
-      transform: rotate(135deg) translate(8em) rotate(-135deg);
+      transform: rotate(135deg) translate(9em) rotate(-135deg);
     }
     > *:nth-of-type(5) {
-      transform: rotate(180deg) translate(8em) rotate(-180deg);
+      transform: rotate(180deg) translate(9em) rotate(-180deg);
     }
     > *:nth-of-type(6) {
-      transform: rotate(225deg) translate(8em) rotate(-225deg);
+      transform: rotate(225deg) translate(9em) rotate(-225deg);
     }
     > *:nth-of-type(7) {
-      transform: rotate(270deg) translate(8em) rotate(-270deg);
+      transform: rotate(270deg) translate(9em) rotate(-270deg);
     }
     > *:nth-of-type(8) {
-      transform: rotate(315deg) translate(8em) rotate(-315deg);
+      transform: rotate(315deg) translate(9em) rotate(-315deg);
     }
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 16em;
-    height: 16em;
+    width: 20em;
+    height: 20em;
     > *:nth-of-type(1) {
-      transform: rotate(0deg) translate(8em) rotate(0deg);
+      transform: rotate(0deg) translate(9em) rotate(0deg);
     }
     > *:nth-of-type(2) {
-      transform: rotate(45deg) translate(8em) rotate(-45deg);
+      transform: rotate(45deg) translate(9em) rotate(-45deg);
     }
     > *:nth-of-type(3) {
-      transform: rotate(90deg) translate(8em) rotate(-90deg);
+      transform: rotate(90deg) translate(9em) rotate(-90deg);
     }
     > *:nth-of-type(4) {
-      transform: rotate(135deg) translate(8em) rotate(-135deg);
+      transform: rotate(135deg) translate(9em) rotate(-135deg);
     }
     > *:nth-of-type(5) {
-      transform: rotate(180deg) translate(8em) rotate(-180deg);
+      transform: rotate(180deg) translate(9em) rotate(-180deg);
     }
     > *:nth-of-type(6) {
-      transform: rotate(225deg) translate(8em) rotate(-225deg);
+      transform: rotate(225deg) translate(9em) rotate(-225deg);
     }
     > *:nth-of-type(7) {
-      transform: rotate(270deg) translate(8em) rotate(-270deg);
+      transform: rotate(270deg) translate(9em) rotate(-270deg);
     }
     > *:nth-of-type(8) {
-      transform: rotate(315deg) translate(8em) rotate(-315deg);
+      transform: rotate(315deg) translate(9em) rotate(-315deg);
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 20em;
+    height: 20em;
+    > *:nth-of-type(1) {
+      transform: rotate(0deg) translate(10em) rotate(0deg);
+    }
+    > *:nth-of-type(2) {
+      transform: rotate(45deg) translate(10em) rotate(-45deg);
+    }
+    > *:nth-of-type(3) {
+      transform: rotate(90deg) translate(10em) rotate(-90deg);
+    }
+    > *:nth-of-type(4) {
+      transform: rotate(135deg) translate(10em) rotate(-135deg);
+    }
+    > *:nth-of-type(5) {
+      transform: rotate(180deg) translate(10em) rotate(-180deg);
+    }
+    > *:nth-of-type(6) {
+      transform: rotate(225deg) translate(10em) rotate(-225deg);
+    }
+    > *:nth-of-type(7) {
+      transform: rotate(270deg) translate(10em) rotate(-270deg);
+    }
+    > *:nth-of-type(8) {
+      transform: rotate(315deg) translate(10em) rotate(-315deg);
     }
   }
 
@@ -322,6 +381,17 @@ export const TradingMoreInfoButton = styled.a`
   :hover {
     color: ${({ theme }) => (theme.isDark) ? '#27618b': '#2aa1a0' };
   }
+`
+
+export const ExchangeNotification = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: 500; 
+  color: #4afefd;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
 `
 export const CopyAddressColumn = styled.div`
   display: flex;

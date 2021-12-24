@@ -22,6 +22,7 @@ import {
   TradingInfoTitle,
   TradingInfoColumn,
   TradingInfoRow,
+  ExchangeNotification,
   // CopyAddressColumn,
   // CopyAddressTitle
 } from './styleds'
@@ -127,9 +128,12 @@ export default function Hero({
             </CopyAddressColumn> */}
 
           </StyledTradingInformationWrapper>
-
+          <ExchangeNotification>
+              {t('Choose your preferred exchange')}
+          </ExchangeNotification>
           <SelectPoolWrapper>
             <LogoImage src={KriptonCrystal} />
+           
             <CircleContainer
             >
               {SwapList.map((swap) => {     

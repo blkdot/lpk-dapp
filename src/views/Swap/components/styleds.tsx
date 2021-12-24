@@ -189,18 +189,14 @@ export const StyledFlex = styled(Flex)`
   justify-content: space-between;
   max-width: 1440px;
   background: ${({ theme }) => (theme.isDark) ? '#12344c' : '#ffffff' }; 
+  flex-direction: column;
+  align-items: start;
   ${({ theme }) => theme.mediaQueries.xs} {
-    flex-direction: column;
-    align-items: start;
     padding: 16px;
   }
-
   ${({ theme }) => theme.mediaQueries.sm} {
-    flex-direction: column;
-    align-items: start;
     padding: 0 160px;
   }
-
   ${({ theme }) => theme.mediaQueries.lg} {
     flex-direction: row;
     padding: 16px;

@@ -421,7 +421,7 @@ const Footer = () => {
       </SocialFooterWrapper>
 
       <CopyRight>
-        <span>&copy; Copyright 2021 www.lpkdefi.com. All Rights Reserved.</span>
+        <span>&copy; {t('Copyright')} 2021 www.lpkdefi.com. {t('All Rights Reserved.')}</span>
       </CopyRight>
     </FooterFrame>
   )

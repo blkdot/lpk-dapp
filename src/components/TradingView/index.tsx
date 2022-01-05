@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import LogoNoText from '../../assets/images/logo_no_text.png'
-import {TVChartContainer} from './components/TVChartContainer/index';
+import {TVChartContainer} from './components/TVChartContainer/index'
+import { useTranslation } from '../../contexts/Localization'
 
 const SideContentWrapper = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ const LpkOtherLink = styled.div`
 `
 
 export default function TradingView() {
-  
+  const { t } = useTranslation()
   // const { theme } = useTheme()
   // const { networkId } = useNetworkContext()
   
@@ -99,7 +100,7 @@ export default function TradingView() {
       <SideContentWrapper>
         <StyledTradingViewWrapper className="trading-view">
           <StyledTradingViewTitle>
-            MARKET INFORMATION 
+            {t('MARKET INFORMATION')}
           </StyledTradingViewTitle>
 
           <StyledTradingViewContent>

@@ -64,7 +64,7 @@ const TradingInfoModal: React.FC<InjectedModalProps> = ({
         <Flex pb="10px" flexDirection="column">
           <Flex flexDirection="row" justifyContent="space-between">
             <Flex flexDirection="row">
-              <StyledText>Total Supply:</StyledText>
+              <StyledText>{t('Total Supply:')}</StyledText>
             </Flex>
             <Flex flexDirection="row">
               <StyledText>${totalSupply.toFixed(4)}</StyledText>
@@ -74,7 +74,7 @@ const TradingInfoModal: React.FC<InjectedModalProps> = ({
         <Flex pb="10px" flexDirection="column">
           <Flex flexDirection="row" justifyContent="space-between">
             <Flex flexDirection="row">
-              <StyledText>Circulation Supply:</StyledText>
+              <StyledText>{t('Circulation Supply:')}</StyledText>
             </Flex>
             <Flex flexDirection="row">
               <StyledText>${circulationSupply.toFixed(4)}</StyledText>
@@ -85,7 +85,7 @@ const TradingInfoModal: React.FC<InjectedModalProps> = ({
         <Flex pb="10px" flexDirection="column">
           <Flex flexDirection="row" justifyContent="space-between">
             <Flex flexDirection="row">
-              <StyledText>Daily volume:</StyledText>
+              <StyledText>{t('Daily volume:')}</StyledText>
             </Flex>
             <Flex flexDirection="row">
               <StyledText>${dailyVolumn.toFixed(4)}</StyledText>
@@ -95,7 +95,7 @@ const TradingInfoModal: React.FC<InjectedModalProps> = ({
         <Flex pb="10px" flexDirection="column">
           <Flex flexDirection="row" justifyContent="space-between">
             <Flex flexDirection="row">
-              <StyledText>Market Cap:</StyledText>
+              <StyledText>{t('Market Cap:')}</StyledText>
             </Flex>
             <Flex flexDirection="row">
               <StyledText>${marcketCap.toFixed(4)}</StyledText>

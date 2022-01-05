@@ -88,7 +88,7 @@ export const StyledTextTitleSpan = styled.span`
   color: #50F7F7;
   font-weight: 600;
 `
-export const StyledIcon = styled.div`
+export const StyledIcon = styled.a`
   padding: 0.15rem;
   background: #ffffff;
   border-radius: 50%;

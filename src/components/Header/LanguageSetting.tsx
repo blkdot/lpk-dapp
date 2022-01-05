@@ -77,7 +77,7 @@ const LangSettingItem = styled.li`
 const LanguageSetting = () => {
 
   const { currentLanguage, setLanguage } = useTranslation()
-
+  
   return (
     <LangSettingWrapper>
       <LangSettingContent>

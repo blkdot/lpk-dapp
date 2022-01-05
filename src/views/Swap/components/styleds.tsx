@@ -401,12 +401,12 @@ export const ResponsiveGrid = styled.div`
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     grid-gap: 3rem;
-    grid-template-columns: 150px repeat(auto-fill,150px) 300px;
+    grid-template-columns: 130px repeat(auto-fill,190px) 300px;
     padding: 0 10px;
   }
   ${({ theme }) => theme.mediaQueries.lg} {
     grid-gap: 3rem;
-    grid-template-columns: 150px repeat(auto-fill, 150px) 300px;
+    grid-template-columns: 130px repeat(auto-fill, 190px) 300px;
   }
 `
 export const StyledText = styled(Text)`

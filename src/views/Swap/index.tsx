@@ -588,7 +588,7 @@ export default function Swap({ history }: RouteComponentProps) {
                                               </DoubleLogoWrapper>
                                               <StyledText className={indexActive === i ? 'active' : ''} ml="8px">{pairData.pairInputSymbol === 'WBNB' ? 'BNB' : pairData.pairInputSymbol}/{pairData.pairOutputSymbol}</StyledText>
                                             </DoubleLogoFlex>
-                                            <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.inputPools)}/${formatAmount(pairData.outputPools)}</StyledText>
+                                            <StyledText className={indexActive === i ? 'active' : ''}>{formatAmount(pairData.inputPools)} {pairData.pairInputSymbol === 'WBNB' ? 'BNB' : pairData.pairInputSymbol}/{formatAmount(pairData.outputPools)} {pairData.pairOutputSymbol}</StyledText>
                                             <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.totalLiquidity)}</StyledText>
                                           </ResponsiveGrid>
                                         </LinkWrapper>
@@ -603,7 +603,7 @@ export default function Swap({ history }: RouteComponentProps) {
                           </TableWrapper>
                         ) : (
                           <PairEmpty>
-                            <PairProgressLabel>Pair Data Fetching...</PairProgressLabel>
+                            <PairProgressLabel>{t('Pair Data Fetching...')}</PairProgressLabel>
                             <ProgressBar 
                               height="4px" 
                               bgColor={theme.isDark ? '#4afefd' : '#265B80'} 
@@ -622,8 +622,8 @@ export default function Swap({ history }: RouteComponentProps) {
             </Tabs>
             <Tabs id="tab_2">
               <TabList>
-                <Tab>Swap</Tab>
-                <Tab>Liquidity</Tab>
+                <Tab>{t('Swap')}</Tab>
+                <Tab>{t('Liquidity')}</Tab>
               </TabList>
               <TabPanel>
                 <AppBody>
@@ -631,7 +631,7 @@ export default function Swap({ history }: RouteComponentProps) {
                     <AutoColumn gap="md">
                       <AutoColumn gap="8px">
                         <OutSideLink href={PANCAKESWAP_ENDPOINT} target="_blank">
-                          Try the Pancakeswap, click on here
+                          {t('Try the Pancakeswap, click on here')}
                           <OutSideLinkIcon>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                               <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>

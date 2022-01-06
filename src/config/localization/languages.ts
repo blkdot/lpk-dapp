@@ -31,8 +31,8 @@ export const ZHTW: Language = { locale: 'zh-TW', language: '繁體中文', code:
 export const KE: Language = { locale: 'sw-KE', language: 'lugha', code: 'sw-ke' }
 
 export const languages = {
-  'sw-KE': KE,
   'en-US': EN,
+  'sw-KE': KE,
   'hi-IN': HI,
   'ar-SA': AR,
   'bn-BD': BN,

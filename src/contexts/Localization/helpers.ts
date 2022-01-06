@@ -14,7 +14,7 @@ export const getLanguageCodeFromLS = () => {
   try {
     const codeFromStorage = localStorage.getItem(LS_KEY)
 
-    return codeFromStorage || KE.locale
+    return codeFromStorage || EN.locale
   } catch {
     return EN.locale
   }

@@ -64,7 +64,7 @@ const StyledAccountLogoWrapper = styled.div`
   height: 40px;
   border: none;
   background-color: rgb(27 67 95 / 50%);
-  padding: 0.15rem 1.05rem 0.15rem 0.5rem;
+  padding: 0.15rem 0.9rem 0.15rem 0.3rem;
   border-radius: 0.5rem;
   color: rgb(74,254,253);
   align-items: center;

@@ -16,7 +16,10 @@ const InputWrapper = styled.div`
 `
 const StyledText = styled(Text)`
   color: ${({ theme }) => (theme.isDark) ? '#FFFFFF' : '#000'} !important;
-  font-size: 14px;
+  font-size: 12px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 14px;
+  }
   font-family: Ubuntu, sans-serif;
 `
 
@@ -28,7 +31,11 @@ const StyledTokenSymbolText = styled(Text)`
   padding-bottom: 4px;
   
   span {
-    font-size: 16px;
+    font-size: 12px;
+    line-height: 1;
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 16px;
+    }
   }
 `
 
@@ -39,7 +46,10 @@ const InputRow = styled.div<{ selected: boolean }>`
   padding: ${({ selected }) => (selected ? '0.375rem 0.525rem' : '0.375rem 0.525rem')};
 `
 const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm' })`
-  width: 50%;
+  width: 60%;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 50%;
+  }
   display: flex;
   justify-content: flex-start;
   padding: 24px 10px;
@@ -72,7 +82,10 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
 
 const NumericalInputWrapper = styled.div`
   display: flex;
-  width: 50%;
+  width: 40%;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 50%;
+  }
   align-items: center;
   border-radius: 8px;
   border: 1px solid  ${({ theme }) => (theme.isDark) ? '#152b39' : '#13667C'}; 

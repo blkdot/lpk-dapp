@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   CloseIcon,
   Heading,
@@ -25,16 +25,40 @@ export enum WalletView {
 
 export const LOW_BNB_BALANCE = parseUnits('2', 'gwei')
 
+// function getWindowDimensions() {
+//   const { innerWidth: width, innerHeight: height } = window;
+//   return {
+//     width,
+//     height
+//   };
+// }
+
+// export function useWindowDimensions() {
+//   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+//   useEffect(() => {
+//     function handleResize() {
+//       setWindowDimensions(getWindowDimensions());
+//     }
+
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   return windowDimensions;
+// }
+
 const WalletModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   // const [view, setView] = useState(initialView)
   const { t } = useTranslation()
   const { balance, fetchStatus } = useGetBnbBalance()
   const hasLowBnbBalance = fetchStatus === FetchStatus.SUCCESS && balance.lte(LOW_BNB_BALANCE)
-
+  // const { height, width } = useWindowDimensions();
+  // console.log('okkk', width);
   return (
     <>
     <StyledModal 
-      minWidth="420px"
+      minWidth="unset"
     >
       <ModalHeader>
         <ModalTitle>

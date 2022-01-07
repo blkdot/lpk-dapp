@@ -32,7 +32,7 @@ const Header = () => {
       <RowBetween>
         <HeaderElement>
           <Title>
-              <img style={{ height: '80px' }} src={isDark ? Logo : Logo} alt="logo" />
+              <img src={isDark ? Logo : Logo} alt="logo" />
           </Title>
         </HeaderElement>
         <HeaderElement>

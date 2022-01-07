@@ -7,8 +7,12 @@ const StyledIconButton = styled(IconButton)`
   width: 40px;
   height: 40px;
   border: none;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
+  margin-right: 0.1rem;
+  margin-left: 0.1rem;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+  }
   background-color: ${({ theme }) => (theme.isDark) ? '#1B435F' : '#1B435F' };
 
   padding: 0.15rem 0.725rem;

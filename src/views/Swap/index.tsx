@@ -152,8 +152,8 @@ export default function Swap({ history }: RouteComponentProps) {
   const [outputToken, setOutputToken] = useState<Currency>(currencies[Field.OUTPUT])
   const [inputTokenLogo, setInputTokenLogo] = useState(undefined)
   const [outputTokenLogo, setOutputTokenLogo] = useState(undefined)
-  const [inputTokenAddr, setInputTokenAddr] = useState("")
-  const [outputTokenAddr, setOutputTokenAddr] = useState("")
+  const [inputTokenAddr, setInputTokenAddr] = useState("0x9b71b5511998e0798625b8fa74e86d8192de78c1")
+  const [outputTokenAddr, setOutputTokenAddr] = useState("0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c")
   
   const {
     wrapType,
@@ -582,15 +582,14 @@ export default function Swap({ history }: RouteComponentProps) {
                                         >
                                           <ResponsiveGrid>
                                             <DoubleLogoFlex>
-                                              <DoubleLogoWrapper>
-                                                <DoubleLogo>
-                                                  <DoubleLogoImg  src={pairData.pairInputLogoUrl}/>
-                                                </DoubleLogo>
-                                                <DoubleLogo>
-                                                  <DoubleLogoImg  src={pairData.pairOutputLogoUrl}/>
-                                                </DoubleLogo>
-                                              </DoubleLogoWrapper>
-                                              <StyledText className={indexActive === i ? 'active' : ''} ml="8px">{pairData.pairInputSymbol === 'WBNB' ? 'BNB' : pairData.pairInputSymbol}/{pairData.pairOutputSymbol}</StyledText>
+                                              <DoubleLogo>
+                                                <DoubleLogoImg  src={pairData.pairInputLogoUrl}/>
+                                              </DoubleLogo>
+                                              <StyledText  style={{marginLeft: '4px'}} className={indexActive === i ? 'active' : ''} ml="8px">{pairData.pairInputSymbol === 'WBNB' ? 'BNB' : pairData.pairInputSymbol}&nbsp;/&nbsp;&nbsp;</StyledText>
+                                              <DoubleLogo>
+                                                <DoubleLogoImg  src={pairData.pairOutputLogoUrl}/>
+                                              </DoubleLogo>
+                                              <StyledText style={{marginLeft: '4px'}}>{pairData.pairOutputSymbol}</StyledText>
                                             </DoubleLogoFlex>
                                             <StyledText className={indexActive === i ? 'active' : ''}>{formatAmount(pairData.inputPools)} {pairData.pairInputSymbol === 'WBNB' ? 'BNB' : pairData.pairInputSymbol}/{formatAmount(pairData.outputPools)} {pairData.pairOutputSymbol}</StyledText>
                                             <StyledText className={indexActive === i ? 'active' : ''}>${formatAmount(pairData.totalLiquidity)}</StyledText>
@@ -850,7 +849,7 @@ export default function Swap({ history }: RouteComponentProps) {
               </TabPanel>
             </Tabs>
           </StyledPage>
-          <TradingView />
+          <TradingView inputTokenAddr={inputTokenAddr} outputTokenAddr={outputTokenAddr} />
         </StyledFlex>
       </NetworkContext.Provider>
     </StyledWrapper>

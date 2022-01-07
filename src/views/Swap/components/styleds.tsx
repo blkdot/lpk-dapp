@@ -393,11 +393,12 @@ export const ResponsiveGrid = styled.div`
   font-size: 13px;
   font-weight: 600;
   padding: 0 24px;
-
+  text-align: center;
   ${({ theme }) => theme.mediaQueries.xs} {
     grid-gap: 1rem;
     grid-template-columns: 130px repeat(auto-fill,180px) 70px;
     padding: 0 10px;
+    text-align: left;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     grid-gap: 1rem;
@@ -406,13 +407,13 @@ export const ResponsiveGrid = styled.div`
   }
   ${({ theme }) => theme.mediaQueries.lg} {
     grid-gap: 3rem;
-    grid-template-columns: 110px repeat(auto-fill, 210px) 70px;
+    grid-template-columns: 130px repeat(auto-fill, 210px) 70px;
   }
 `
 export const StyledText = styled(Text)`
   color: ${({ theme }) => (theme.isDark) ? '#FFFFFF': '#000000' };
   font-weight: 600;
-
+  
   ${({ theme }) => theme.mediaQueries.xs} {
     font-size: 12px;
     line-height: 1;
@@ -442,13 +443,16 @@ export const DoubleLogoWrapper = styled.div`
 `
 export const DoubleLogoFlex = styled(Flex)`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    justify-content: flex-start;
+  }
 `
 export const DoubleLogo = styled.div`
   background: #edf4f9;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 1px solid #ffffff;
   margin-left: -5px;

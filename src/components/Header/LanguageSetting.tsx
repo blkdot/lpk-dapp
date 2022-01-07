@@ -4,7 +4,10 @@ import { languageList } from 'config/localization/languages'
 import { useTranslation } from 'contexts/Localization'
 
 const LangSettingWrapper = styled.ul`
-  margin-left: 8px;
+  margin-left: 0.1rem;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    margin-left: 0.3rem;
+  }
   padding:0;
   list-style: none;
   position: relative;

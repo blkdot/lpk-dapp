@@ -27,9 +27,13 @@ const configurationData = {
 export default class datafeeds {
 
   private ctx: any;
+  private inputTokenAddr: string;
+  public outputTokenAddr: string;
 
   constructor(ctx: any) {
-      this.ctx = ctx;
+    this.ctx = ctx;
+    // this.inputTokenAddr = inputTokenAddr;
+    // this.outputTokenAddr = outputTokenAddr;
   }
 
   // This method is used by the Charting Library to get a configuration of your datafeed 
@@ -52,7 +56,7 @@ export default class datafeeds {
           "Content-Type": "application/json",
         },
         data: {
-          address: "0x9b71b5511998e0798625b8fa74e86d8192de78c1"
+          address: '0x9b71b5511998e0798625b8fa74e86d8192de78c1',
         }
       }
     ); 
@@ -104,7 +108,7 @@ export default class datafeeds {
                 "Content-Type": "application/json",
             },
             data: {
-              address: "0x9b71b5511998e0798625b8fa74e86d8192de78c1",
+              address: '0x9b71b5511998e0798625b8fa74e86d8192de78c1',
               from: new Date(periodParams.from*1000).toISOString(), 
               to: new Date(periodParams.to*1000).toISOString(),
               interval: Number(resolution),

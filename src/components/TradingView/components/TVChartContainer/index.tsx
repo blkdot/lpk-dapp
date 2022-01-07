@@ -35,13 +35,18 @@ export interface ChartContainerProps {
   containerId: ChartingLibraryWidgetOptions['container_id'];
 }
 
+type ChartProps = {
+  inputTokenAddr: string,
+  outputTokenAddr: string,
+}
 // function getLanguageFromURL(): LanguageCode | null {
 // 	const regex = new RegExp('[\\?&]lang=([^&#]*)');
 // 	const results = regex.exec(location.search);
 // 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' ')) as LanguageCode;
 // }
 
-export class TVChartContainer extends React.PureComponent<Partial<ChartContainerProps>> {
+export class TVChartContainer extends React.PureComponent<Partial<ChartContainerProps>, ChartProps> {
+  
   public static defaultProps: ChartContainerProps = {
     inputTokenAddr: '0x9b71b5511998e0798625b8fa74e86d8192de78c1',
     outputTokenAddr: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
@@ -61,17 +66,17 @@ export class TVChartContainer extends React.PureComponent<Partial<ChartContainer
     studiesOverrides: {},
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputTokenAddr: props.inputTokenAddr,
-      outputTokenAddr: props.outputTokenAddr,
-    };
-  }
+  // constructor(props: Partial<ChartContainerProps>) {
+  //   super(props);
+  //   this.state = {
+  //     inputTokenAddr: props.inputTokenAddr,
+  //     outputTokenAddr: props.outputTokenAddr,
+  //   };
+  // }
 
   private tvWidget: IChartingLibraryWidget | null = null;
   datafeeds: IBasicDataFeed;
-
+  
   public componentDidMount(): void {
 
 		this.datafeeds = new datafeeds(this);
@@ -129,13 +134,10 @@ export class TVChartContainer extends React.PureComponent<Partial<ChartContainer
 
   public render(): JSX.Element {
     return (
-      <>
-       <div
-        id={this.props.containerId}
-        className={'TVChartContainer'}
-        />
-        <div>{inputTokenAdddr}</div>
-      </>
+      <div
+      id={this.props.containerId}
+      className={'TVChartContainer'}
+      />
     );
   }
 }

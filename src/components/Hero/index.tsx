@@ -15,7 +15,7 @@ import {
   SelectPoolWrapper,
   LpkAdsLink,
   LpkAdsButton,
-  PoolBuuton,
+  PoolButton,
   LogoImage,
   CircleContainer,
   StyledTradingInformationWrapper,
@@ -26,7 +26,7 @@ import {
   // CopyAddressColumn,
   // CopyAddressTitle
 } from './styleds'
-import KriptonCrystal from '../../assets/images/KriptonCrystal.png'
+import PancakeLogo from '../../assets/images/Pancake.png'
 
 export default function Hero({
   marcketCap,
@@ -132,21 +132,21 @@ export default function Hero({
               {t('Choose your preferred exchange')}
           </ExchangeNotification>
           <SelectPoolWrapper>
-            <LogoImage src={KriptonCrystal} />
+            <LogoImage src={PancakeLogo} />
            
             <CircleContainer
             >
               {SwapList.map((swap) => {     
                 return (
                   <li key={swap.symbol}>
-                    <PoolBuuton
+                    <PoolButton
                       className={(networkId === swap.id) ? 'swap-active' : ''}
                       disabled={(swap.id !== 4 && swap.id !== 0)}
                       onClick={() => {
                         handleSwitchNetwork(swap.id)
                       }}>
                       <img src={swap.icon} alt="11"/>
-                    </PoolBuuton>
+                    </PoolButton>
                   </li>
                 ) 
               })}

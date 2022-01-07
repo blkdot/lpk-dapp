@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import LogoNoText from '../../assets/images/logo_no_text.png'
 import {TVChartContainer} from './components/TVChartContainer/index'
@@ -63,7 +63,10 @@ const LpkOtherLink = styled.div`
   width: 100%;
   background: ${({ theme }) => (theme.isDark) ? '#27618b' : '#1B435F'};
   border-radius: 8px;
-  padding: 30px;
+  padding: 15px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 30px;
+  }
   margin-top: 20px;
   font-size: 32px;
   font-weight: 600;
@@ -80,11 +83,10 @@ const LpkOtherLink = styled.div`
   }
 `
 
-export default function TradingView() {
+export default function TradingView(props) {
   const { t } = useTranslation()
   // const { theme } = useTheme()
   // const { networkId } = useNetworkContext()
-  
   // const transferHanlderSymbol = () => {
 	// 	let url = document.URL;
 	// 	console.log('component.url..', url);
@@ -94,7 +96,13 @@ export default function TradingView() {
 	// 		<TVChartContainer symbol={symbol} />
 	// 	)
 	// }
+  const [inputTokenAddr, setInputTokenAddr] = useState(props.inputTokenAddr)
+  const [outputTokenAddr, setOutputTokenAddr] = useState(props.outputTokenAddr)
 
+  useEffect(() => {
+    setInputTokenAddr(props.inputTokenAddr)
+    setOutputTokenAddr(props.outputTokenAddr)
+  }, [props])
   return (
     <>
       <SideContentWrapper>
@@ -111,7 +119,9 @@ export default function TradingView() {
               width={400}
             /> */}
 
-          <TVChartContainer 
+          <TVChartContainer
+              inputTokenAddr={inputTokenAddr}
+              outputTokenAddr={outputTokenAddr}
             	symbol='0x9b71b5511998e0798625b8fa74e86d8192de78c1'
               containerId='tv_chart_container'
               libraryPath='/charting_library/'

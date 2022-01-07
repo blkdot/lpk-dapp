@@ -44,8 +44,11 @@ export const HeaderElement = styled.div`
 export const HeaderElementBlock = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+  padding-left: 0.1rem;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
 `
 export const SubHeaderElement = styled.div`
   display: flex;
@@ -92,12 +95,16 @@ export const StyledIcon = styled.a`
   padding: 0.15rem;
   background: #ffffff;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 3px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    width: 30px;
+    height: 30px;
+  }
 `
 export const StyledFlexDiv = styled.div`
   display: flex;
@@ -106,7 +113,18 @@ export const Title = styled.div`
   display: flex;
   align-items: center;
   pointer-events: auto;
-
+  img {
+    margin-right: 0.1rem;
+    display: none;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      height: 50px;
+      display: block;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      height: 80px;
+      display: block;
+    }
+  }
   :hover {
     cursor: pointer;
   }
@@ -220,6 +238,12 @@ export const StyledModal = styled(ModalContainer)`
   border-radius: 8px;
   h2 {
     color: ${({ theme }) => theme.isDark ? '#50f7f7' : '#000000'};
+  }
+  margin-right: 16px;
+  margin-left: 16px;
+  width: unset;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    min-width: 420px;
   }
 `
 export const LogOut = styled.button`

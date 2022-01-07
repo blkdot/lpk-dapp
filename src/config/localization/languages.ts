@@ -28,7 +28,7 @@ export const UK: Language = { locale: 'uk-UA', language: 'Українська',
 export const VI: Language = { locale: 'vi-VN', language: 'Tiếng Việt', code: 'vi' }
 export const ZHCN: Language = { locale: 'zh-CN', language: '简体中文', code: 'zh-cn' }
 export const ZHTW: Language = { locale: 'zh-TW', language: '繁體中文', code: 'zh-tw' }
-export const KE: Language = { locale: 'sw-KE', language: 'lugha', code: 'sw-ke' }
+export const KE: Language = { locale: 'sw-KE', language: 'Swahili', code: 'sw-ke' }
 
 export const languages = {
   'en-US': EN,

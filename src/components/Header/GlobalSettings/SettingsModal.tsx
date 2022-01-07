@@ -60,7 +60,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   return (
 
     <StyledModal 
-      minWidth="420px"
+      minWidth="unset"
     >
     <ModalHeader>
       <ModalTitle>

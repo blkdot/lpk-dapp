@@ -17,7 +17,7 @@ export const StyledHeroWrapper = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;Choose your preferred exchange
   flex-direction: column;
   z-index: 1;
   border-radius: 8px;
@@ -87,18 +87,18 @@ export const SelectPoolWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  ${({ theme }) => theme.mediaQueries.lg} {
-    padding: 4rem;
-    height: 450px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 1rem;
   };
   ${({ theme }) => theme.mediaQueries.sm} {
     padding: 3rem;
   };
-  ${({ theme }) => theme.mediaQueries.xs} {
-    padding: 3rem;
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding: 4rem;
+    height: 450px;
   };
   `
-export const PoolBuuton = styled.button`
+export const PoolButton = styled.button`
   border-radius: 50%;
   background: #0C1F2C;
   padding: 0;
@@ -110,8 +110,8 @@ export const PoolBuuton = styled.button`
   width: 40px;
   height: 40px;
   ${({ theme }) => theme.mediaQueries.xs} {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
   };
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 60px;
@@ -364,7 +364,7 @@ export const TradingInfoColumn = styled.div`
   border-radius: 4px;
   padding: 1rem;
   backdrop-filter: blur(5px);
-
+  display: none;
 `
 export const TradingInfoRow = styled.div`
   display: flex;
@@ -392,7 +392,8 @@ export const ExchangeNotification = styled.div`
   color: #4afefd;
   text-align: center;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
+  margin-top: 60px;
 `
 export const CopyAddressColumn = styled.div`
   display: flex;

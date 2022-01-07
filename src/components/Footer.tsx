@@ -32,7 +32,9 @@ const PreFooterWrapper = styled.div`
   justify-content: space-between;
   color: #6C95AF;
   font-size: 15px;
-
+  flex-direction: column;
+  padding-right: 8px;
+  padding-left: 8px;
   ${({ theme }) => theme.mediaQueries.xs} {
     flex-direction: column;
   }
@@ -44,6 +46,7 @@ const PreFooterWrapper = styled.div`
   }
 `
 const AboutUs = styled.div`
+  padding-top: 8px;
   display: flex;
   width: 100%;
   align-items: flex-start;
@@ -58,6 +61,7 @@ const AboutUs = styled.div`
   }
 `
 const Platforms = styled.div`
+  padding-top: 8px;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -125,6 +129,8 @@ const SocialFooter = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+  padding-left: 8px;
+  padding-right: 8px;
   h4 {
     color: #ffffff;
     font-size: 14px;
@@ -199,8 +205,8 @@ const FbSocialIconHolder = styled.div`
     }
   }
   p {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     background-color: #fff;
     color: #000;
     border: 1px solid transparent;
@@ -210,6 +216,10 @@ const FbSocialIconHolder = styled.div`
     align-items: center;
     margin: 0 5px;
     transition: all 0.5s ease;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      width: 48px;
+      height: 48px;
+    }
     &:hover {
       background-color: transparent;
       border: 1px solid #fff;
@@ -238,8 +248,8 @@ const TwSocialIconHolder = styled.div`
     }
   }
   p {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     background-color: #fff;
     color: #000;
     border: 1px solid transparent;
@@ -249,6 +259,10 @@ const TwSocialIconHolder = styled.div`
     align-items: center;
     margin: 0 5px;
     transition: all 0.5s ease;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      width: 48px;
+      height: 48px;
+    }
     &:hover {
       background-color: transparent;
       border: 1px solid #fff;

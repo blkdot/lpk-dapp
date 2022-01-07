@@ -16,6 +16,8 @@ import {
 import datafeeds from './datafeed'
 
 export interface ChartContainerProps {
+  inputTokenAddr: string;
+  outputTokenAddr: string;
   symbol: ChartingLibraryWidgetOptions['symbol'];
   interval: ChartingLibraryWidgetOptions['interval'];
   width,
@@ -41,6 +43,8 @@ export interface ChartContainerProps {
 
 export class TVChartContainer extends React.PureComponent<Partial<ChartContainerProps>> {
   public static defaultProps: ChartContainerProps = {
+    inputTokenAddr: '0x9b71b5511998e0798625b8fa74e86d8192de78c1',
+    outputTokenAddr: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
     symbol: 'AAPL',
     interval: 'D' as ResolutionString,
     containerId: 'tv_chart_container',
@@ -56,6 +60,14 @@ export class TVChartContainer extends React.PureComponent<Partial<ChartContainer
     autosize: true,
     studiesOverrides: {},
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputTokenAddr: props.inputTokenAddr,
+      outputTokenAddr: props.outputTokenAddr,
+    };
+  }
 
   private tvWidget: IChartingLibraryWidget | null = null;
   datafeeds: IBasicDataFeed;
@@ -117,10 +129,13 @@ export class TVChartContainer extends React.PureComponent<Partial<ChartContainer
 
   public render(): JSX.Element {
     return (
-      <div
+      <>
+       <div
         id={this.props.containerId}
         className={'TVChartContainer'}
-      />
+        />
+        <div>{inputTokenAdddr}</div>
+      </>
     );
   }
 }

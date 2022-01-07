@@ -152,6 +152,8 @@ export default function Swap({ history }: RouteComponentProps) {
   const [outputToken, setOutputToken] = useState<Currency>(currencies[Field.OUTPUT])
   const [inputTokenLogo, setInputTokenLogo] = useState(undefined)
   const [outputTokenLogo, setOutputTokenLogo] = useState(undefined)
+  const [inputTokenAddr, setInputTokenAddr] = useState("")
+  const [outputTokenAddr, setOutputTokenAddr] = useState("")
   
   const {
     wrapType,
@@ -390,8 +392,10 @@ export default function Swap({ history }: RouteComponentProps) {
 
     currencies[Field.INPUT] = inputPairToken;
     setInputToken(currencies[Field.INPUT])
+    setInputTokenAddr(token.pairInputAddress);
     currencies[Field.OUTPUT] = outputPairToken;
     setOutputToken(currencies[Field.OUTPUT])
+    setOutputTokenAddr(token.pairOutputAddress);
     
     setInputTokenLogo(token.pairInputLogoUrl)
     setOutputTokenLogo(token.pairOutputLogoUrl)

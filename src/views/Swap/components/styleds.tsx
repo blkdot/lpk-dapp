@@ -396,18 +396,18 @@ export const ResponsiveGrid = styled.div`
   text-align: center;
   ${({ theme }) => theme.mediaQueries.xs} {
     grid-gap: 1rem;
-    grid-template-columns: 130px repeat(auto-fill,180px) 70px;
+    grid-template-columns: 140px repeat(auto-fill,180px) 70px;
     padding: 0 10px;
     text-align: left;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     grid-gap: 1rem;
-    grid-template-columns: 130px repeat(auto-fill,180px) 70px;
+    grid-template-columns: 140px repeat(auto-fill,180px) 70px;
     padding: 0 10px;
   }
   ${({ theme }) => theme.mediaQueries.lg} {
-    grid-gap: 3rem;
-    grid-template-columns: 130px repeat(auto-fill, 210px) 70px;
+    grid-gap: 1rem;
+    grid-template-columns: 140px repeat(auto-fill, 180px) 70px;
   }
 `
 export const StyledText = styled(Text)`

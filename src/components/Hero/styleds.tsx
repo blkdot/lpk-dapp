@@ -150,7 +150,7 @@ export const LogoImage = styled.img`
     width: 80px;
   };
   ${({ theme }) => theme.mediaQueries.lg} {
-    width: 110px;
+    width: 80px;
   };
 `
 export const CircleContainer = styled.ul`

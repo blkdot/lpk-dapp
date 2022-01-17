@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useNetworkContext } from 'contexts/NetworkContext'
 import SwapList from 'config/constants/tokenLists/swap.json'
 import { useTranslation } from 'contexts/Localization'
@@ -45,10 +45,13 @@ export default function Hero({
 
   const { networkId, setNetworkId } = useNetworkContext()
   const { onChangeNetwork } = useNetworkActionHandlers()
+  const [logopath, setLogoPath] = useState('./assets/images/swap/pancake.png')
   
-  const handleSwitchNetwork = (index: number) => {
-    setNetworkId(index)
-    onChangeNetwork(index)
+  const handleSwitchNetwork = (path: string) => {
+    console.log(path);
+    setLogoPath(path);
+    // setNetworkId(swap.id)
+    // onChangeNetwork(swap.id)
   }
   return (
     <>
@@ -132,7 +135,7 @@ export default function Hero({
               {t('Choose your preferred exchange')}
           </ExchangeNotification>
           <SelectPoolWrapper>
-            <LogoImage src={PancakeLogo} />
+            <LogoImage src={logopath} />
            
             <CircleContainer
             >
@@ -141,9 +144,9 @@ export default function Hero({
                   <li key={swap.symbol}>
                     <PoolButton
                       className={(networkId === swap.id) ? 'swap-active' : ''}
-                      disabled={(swap.id !== 4 && swap.id !== 0)}
+                      // disabled={(swap.id !== 4 && swap.id !== 0)}
                       onClick={() => {
-                        handleSwitchNetwork(swap.id)
+                        handleSwitchNetwork(swap.icon)
                       }}>
                       <img src={swap.icon} alt="11"/>
                     </PoolButton>
